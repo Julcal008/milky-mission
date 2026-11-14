@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>MILKY MISSION</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ===== DECORATIVE BACKGROUND ===== -->
+  <div class="space" id="space" aria-hidden="true">
+    <div class="stars" id="stars"></div>
+    <div class="moon"></div>
+
+    <!-- Planets: position (--x, --y), size (--s), hue (--h), speed (--dur) -->
+    <i class="orb ring" style="--x:84%;--y:6%;--s:78px;--d:.5;--h:225;--dur:16s;--dx:-18px;--dy:14px"><span></span></i>
+    <i class="orb"      style="--x:5%;--y:24%;--s:64px;--d:.8;--h:155;--dur:13s;--dx:14px;--dy:-18px"><span></span></i>
+    <i class="orb ring" style="--x:88%;--y:44%;--s:70px;--d:.6;--h:300;--dur:18s;--dx:-12px;--dy:-16px"><span></span></i>
+    <i class="orb"      style="--x:26%;--y:58%;--s:52px;--d:1;--h:45;--dur:11s;--dx:18px;--dy:12px"><span></span></i>
+    <i class="orb"      style="--x:70%;--y:68%;--s:40px;--d:1.2;--h:340;--dur:12s;--dx:-14px;--dy:10px"><span></span></i>
+    <i class="orb ring" style="--x:44%;--y:36%;--s:44px;--d:.4;--h:10;--dur:20s;--dx:16px;--dy:-10px"><span></span></i>
+
+    <!-- Satellites -->
+    <svg class="sat" style="--x:2%;--y:76%;--s:130px;--d:1.1;--dur:15s" viewBox="0 0 120 80"><use href="#sat"/></svg>
+    <svg class="sat" style="--x:80%;--y:20%;--s:96px;--d:.7;--dur:19s" viewBox="0 0 120 80"><use href="#sat"/></svg>
+
+    <div class="earth"><span></span></div>
+
+    <svg width="0" height="0" style="position:absolute">
+      <symbol id="sat" viewBox="0 0 120 80">
+        <rect x="3" y="28" width="36" height="24" rx="3" fill="#3d5588" stroke="#f4d08b" stroke-width="2"/>
+        <rect x="81" y="28" width="36" height="24" rx="3" fill="#3d5588" stroke="#f4d08b" stroke-width="2"/>
+        <rect x="39" y="38" width="42" height="4" fill="#b4567c"/>
+        <rect x="40" y="24" width="40" height="32" rx="12" fill="#f4d08b" stroke="#ec816b" stroke-width="2"/>
+        <circle cx="60" cy="40" r="7" fill="#529d7b" stroke="#f4d08b" stroke-width="2"/>
+        <path d="M60 24C48 6 70 -2 84 4 84 18 74 24 60 24Z" fill="#529d7b" stroke="#3d5588" stroke-width="2"/>
+      </symbol>
+    </svg>
+  </div>
+
+  <!-- ===== MENU ===== -->
+  <main class="menu">
+    <div class="lang" role="group" aria-label="Language" data-i18n-aria="language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="es" aria-pressed="false">ES</button>
+    </div>
+
+    <h1 class="title" data-i18n="title">MILKY MISSION</h1>
+
+    <!-- START -->
+    <section class="panel start" aria-label="Start game" data-i18n-aria="startLabel">
+      <button class="btn btn-primary" id="btn-start" type="button" data-i18n="start">Start</button>
+      <p class="tagline" data-i18n="tagline">An immersive space adventure experience.</p>
+    </section>
+
+    <!-- MISSION SELECT (rendered by js/main.js → CONFIG + STRINGS) -->
+    <section class="panel missions" aria-labelledby="h-missions">
+      <h2 id="h-missions" data-i18n="missionsTitle">Choose a mission</h2>
+      <div class="mission-list" id="mission-list" role="radiogroup" aria-labelledby="h-missions"></div>
+      <div class="info-box" id="mission-info" aria-live="polite"></div>
+      <h2 class="sub" id="h-roles" data-i18n="rolesTitle">Required roles</h2>
+      <ul class="roles" id="role-list"></ul>
+    </section>
+
+    <!-- BUDGET + MATERIALS (rendered by js/main.js → CONFIG) -->
+    <section class="panel resources" aria-label="Budget and materials" data-i18n-aria="resourcesLabel">
+      <h2 data-i18n="budgetTitle">Budget</h2>
+      <div class="budget">
+        <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="budget-bar"><span id="budget-fill"></span></div>
+        <p class="budget-amount" id="budget-amount"></p>
+        <p class="budget-left" id="budget-left"></p>
+      </div>
+
+      <h2 data-i18n="materialsTitle">Materials</h2>
+      <div class="materials" id="material-list"></div>
+      <div class="info-box small" id="material-info" aria-live="polite"></div>
+      <p class="disclaimer" data-i18n="disclaimer"></p>
+    </section>
+
+    <button class="btn btn-options" id="btn-options" type="button" data-i18n="options">Options</button>
+  </main>
+
+  <p class="toast" id="toast" role="status" aria-live="polite"></p>
+
+  <!-- ===== MODAL: START ===== -->
+  <dialog class="modal" id="dlg-start" aria-labelledby="dlg-start-title">
+    <h2 id="dlg-start-title" data-i18n="summaryTitle">Mission summary</h2>
+    <div class="modal-body" id="start-summary"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" type="button" data-close data-i18n="back">Back</button>
+      <button class="btn btn-primary" type="button" id="btn-confirm" data-i18n="launch">Launch</button>
+    </div>
+  </dialog>
+
+  <!-- ===== MODAL: OPTIONS ===== -->
+  <dialog class="modal" id="dlg-options" aria-labelledby="dlg-options-title">
+    <h2 id="dlg-options-title" data-i18n="optionsTitle">Options</h2>
+    <div class="modal-body">
+      <label class="row"><span data-i18n="music">Music</span><input type="checkbox" id="opt-music" checked></label>
+      <label class="row"><span data-i18n="volume">Volume</span><input type="range" id="opt-volume" min="0" max="100" value="60"></label>
+      <label class="row"><span data-i18n="motion">Background animations</span><input type="checkbox" id="opt-motion" checked></label>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" type="button" data-close data-i18n="done">Done</button>
+    </div>
+  </dialog>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

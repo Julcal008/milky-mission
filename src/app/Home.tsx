@@ -1,89 +1,69 @@
 /**
- * Home / placeholder screen.
- * This is NOT the game: it documents the foundation and points to the next phase.
+ * Start menu — solarpunk landing screen.
  * Owner: Track B (Experience).
+ *
+ * One primary action: start. The wordmark sits on the right in landscape and
+ * stacks above the action in portrait. Decorations are limited to one sun and
+ * two orbital arcs so the screen never competes with the call to action.
  */
 import { useI18n } from '@/store/ui'
-import { Badge } from '@/ui/Badge'
-import { Button } from '@/ui/Button'
-import { Panel } from '@/ui/Panel'
 
 export function Home() {
   const { t } = useI18n()
 
-  const next = [t.home.nextItems.contract, t.home.nextItems.design, t.home.nextItems.simulation]
-
   return (
-    <div className="space-y-12">
-      <section className="max-w-3xl space-y-5">
-        <div className="flex flex-wrap items-center gap-2">
-          <Badge tone="info">{t.home.eyebrow}</Badge>
-          <Badge tone="warning">{t.common.badgePrototype}</Badge>
-        </div>
-        <h1 className="font-display text-3xl font-semibold leading-tight text-ink sm:text-5xl">
-          {t.home.title}
-        </h1>
-        <p className="max-w-2xl text-[15px] leading-relaxed text-ink-2">{t.home.lead}</p>
-        <div className="flex flex-wrap items-center gap-3 pt-1">
-          <Button variant="primary" disabled>
-            {t.home.primaryCta}
-          </Button>
-          <a href="#/styleguide">
-            <Button variant="secondary">{t.home.secondaryCta}</Button>
+    <section className="solar-bg relative isolate flex min-h-[70svh] items-center overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="solar-sun absolute right-1/2 top-1/2 size-[24rem] -translate-y-1/2 translate-x-1/2 rounded-full landscape:right-[-6%] landscape:size-[34rem] landscape:translate-x-0 lg:size-[40rem]"
+      />
+
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 800 800"
+        className="pointer-events-none absolute right-1/2 top-1/2 h-[30rem] w-[30rem] -translate-y-1/2 translate-x-1/2 opacity-60 landscape:right-[-4%] landscape:h-[38rem] landscape:w-[38rem] landscape:translate-x-0 lg:h-[44rem] lg:w-[44rem]"
+      >
+        <circle
+          cx="400"
+          cy="400"
+          r="250"
+          fill="none"
+          stroke="var(--color-jade)"
+          strokeOpacity="0.35"
+          strokeWidth="1"
+          strokeDasharray="2 10"
+        />
+        <circle
+          cx="400"
+          cy="400"
+          r="330"
+          fill="none"
+          stroke="var(--color-indigo)"
+          strokeOpacity="0.45"
+          strokeWidth="1"
+          strokeDasharray="1 14"
+        />
+        <circle cx="650" cy="400" r="4" fill="var(--color-cream)" />
+      </svg>
+
+      <div className="relative grid w-full items-center gap-10 landscape:grid-cols-[minmax(0,0.9fr)_minmax(0,1.4fr)] landscape:gap-8 lg:gap-16">
+        <div className="order-2 flex w-full flex-col items-start gap-4 landscape:order-1 landscape:max-w-sm">
+          <a
+            href="./menuprincipal/index.html"
+            className="cta-glow inline-flex h-14 w-full items-center justify-center rounded-full bg-cream px-10 font-display text-lg font-semibold tracking-wide text-bg transition-colors duration-200 hover:bg-coral hover:text-on-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cream sm:w-auto"
+          >
+            {t.start.cta}
           </a>
-        </div>
-      </section>
-
-      <section className="grid gap-4 lg:grid-cols-2">
-        <Panel className="p-6">
-          <div className="flex items-center justify-between gap-3">
-            <h2 className="label-caps text-ink-2">{t.home.statusTitle}</h2>
-            <Badge tone="success">Phase 0</Badge>
-          </div>
-          <p className="mt-3 text-sm leading-relaxed text-ink-2">{t.home.statusLead}</p>
-          <ul className="mt-5 space-y-2 text-[13px] text-ink-2">
-            {[
-              'Vite + React + TypeScript + Tailwind v4',
-              'Design tokens and component primitives',
-              'i18n scaffold (EN default, ES toggle)',
-              'Engine contract and unit helpers',
-              'Docs, CODEOWNERS, CI and Pages workflow',
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <span aria-hidden="true" className="mt-1.5 size-1.5 rounded-full bg-success" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </Panel>
-
-        <Panel className="p-6">
-          <h2 className="label-caps text-ink-2">{t.home.nextTitle}</h2>
-          <ol className="mt-4 space-y-4">
-            {next.map((item, index) => (
-              <li key={item.title} className="flex gap-3">
-                <span className="num mt-0.5 text-[11px] text-ink-3">0{index + 1}</span>
-                <div>
-                  <p className="text-sm font-medium text-ink">{item.title}</p>
-                  <p className="mt-0.5 text-[13px] leading-relaxed text-ink-3">{item.body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </Panel>
-      </section>
-
-      <section>
-        <Panel className="border-border/70 bg-surface/60 p-6">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
-            <h2 className="label-caps text-ink-2">{t.home.sourcesTitle}</h2>
-            <Badge tone="info">DONKI · POWER · GIBS</Badge>
-          </div>
-          <p className="mt-3 max-w-3xl text-[13px] leading-relaxed text-ink-3">
-            {t.home.sourcesBody}
+          <p className="max-w-[18rem] text-[13px] leading-relaxed text-ink-2 sm:text-sm">
+            {t.start.tagline}
           </p>
-        </Panel>
-      </section>
-    </div>
+        </div>
+
+        <h1 className="sun-title order-1 text-left font-display text-[clamp(3rem,14vw,5rem)] font-bold uppercase leading-[0.82] tracking-[-0.03em] landscape:order-2 landscape:text-right landscape:text-[clamp(2.5rem,9vw,7.5rem)] lg:text-[clamp(4rem,9vw,8rem)]">
+          <span className="block">Milky</span>
+          <span className="block">Mission</span>
+        </h1>
+      </div>
+    </section>
   )
 }

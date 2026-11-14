@@ -68,6 +68,24 @@ Implementation: [`src/styles/tokens.css`](../src/styles/tokens.css) and
 Resource colors and role colors overlap intentionally: context (gauge vs. avatar)
 disambiguates them, and every element carries a text label.
 
+### Solarpunk accent palette (additive)
+
+The start menu introduces the user-provided palette. Tokens are additive: existing
+semantic tokens keep their values until the full remap lands.
+
+| Token | Hex | Usage |
+|---|---|---|
+| `jade` | `#529D7B` | Growth, success, orbital accents |
+| `indigo` | `#3D5588` | Night sky, orbital arcs, structure |
+| `plum` | `#5B3365` | Depth, science accents |
+| `mauve` | `#B4567C` | Warm secondary accent |
+| `coral` | `#EC816B` | Primary hover, warning, energy |
+| `cream` | `#F4D08B` | Sunlight, primary action, wordmark |
+| `on-primary` | `#141013` | Text on cream/coral surfaces |
+
+Contrast on `bg`: cream 13.4:1, coral 7.5:1, jade 6.1:1, mauve 4.3:1, indigo 2.7:1,
+plum 2.0:1. Use indigo and plum for fills and lines, never for body text.
+
 ---
 
 ## 2. Typography
@@ -160,6 +178,31 @@ never an automatic switch.
 - Ground station: `comms` dot with a 10° elevation cone, dashed.
 - Graticule: 1 px white at 4 %.
 
+### Start menu
+
+- Landscape and desktop: primary action on the left, wordmark on the right.
+- Portrait: wordmark, primary action and tagline stack automatically.
+- Wordmark: Space Grotesk 700, cream → mauve → coral gradient, tight leading.
+- Decorations: one sun disc and two orbital arcs; nothing else.
+- One primary action only; it opens the static mission menu at
+  `public/menuprincipal/index.html`.
+
+### Static mission menu (`public/menuprincipal/`)
+
+The playable menu is a standalone HTML/CSS/JS page served unbuilt from `public/`.
+It is a separate visual surface and keeps its own CSS variables.
+
+- **Palette:** the same six colors (`jade`, `indigo`, `plum`, `mauve`, `coral`, `cream`);
+  indigo and plum are used for fills and lines, never for body text.
+- **Type:** Fredoka, bundled locally (`fonts/fredoka-latin.woff2`) with its OFL license.
+  No runtime font CDN.
+- **Language:** English default, Spanish toggle. It reads and writes the `milky-ui`
+  key so the choice follows the React shell.
+- **Handoff:** “Launch” stores `milky-mission-selection` in `localStorage` and opens
+  `../index.html#/design`.
+- **Data:** missions, roles and costs are prototype content; they must move to Track C
+  catalogs before they are treated as canonical.
+
 ---
 
 ## 5. Logo
@@ -219,6 +262,8 @@ next event instead of animating.
 | `src/ui/Badge.tsx` | Status tones |
 | `src/ui/Panel.tsx` | Card container |
 | `src/ui/ResourceBar.tsx` | Canonical resource display |
+| `src/app/Home.tsx` | Start screen (solarpunk) |
+| `public/menuprincipal/` | Static, bilingual mission menu |
 | `src/app/Styleguide.tsx` | Live reference (route `#/styleguide`) |
 
 Change the tokens, not the components, when adjusting the visual language.
