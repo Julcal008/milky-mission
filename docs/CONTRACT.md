@@ -44,15 +44,19 @@ export function simulateMission(
   config: MissionConfig,
   scenario: ScenarioSpec,
   catalogs: Catalogs,
+  players?: number, // 1 = solo, 2..4 = team; defaults to 1
 ): SimulationResult
 
 /** Pure scoring pass. Called by simulateMission; exported for tests and reports. */
 export function scoreMission(
-  config: MissionConfig,
   scenario: ScenarioSpec,
-  result: Omit<SimulationResult, 'score'>,
+  inputs: ScoreInputs,
 ): ScoreBreakdown
 ```
+
+`ScoreInputs` carries the requirement results, raw science value, budget snapshot,
+mass and power margins, anomaly handling and player count. `SimulationResult` includes
+`budgets: BudgetSnapshot` so the report does not re-run validation.
 
 Supporting types (already declared in `src/engine/types.ts`):
 
