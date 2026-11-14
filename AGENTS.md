@@ -18,7 +18,7 @@ Deadline: NASA Space Apps submission closes **Sunday 15 Nov 2026, 23:59**.
 3. `docs/CONTRACT.md` — engine API, units, invariants.
 4. The document for your area:
    - Core → `docs/GAME_DATA.md` + `docs/NASA_DATA.md`
-   - Experience → `docs/DESIGN_SYSTEM.md`
+   - Experience → `docs/DESIGN_SYSTEM.md` + `docs/UI_TASKS.md`
    - Data & Content → `docs/GAME_DATA.md` + `docs/DATA_PROVENANCE.md`
    - Everyone → `docs/GAME_DESIGN.md`
 5. If you are about to change a shared file, read section 3.
@@ -37,6 +37,19 @@ write it in your `docs/state/*.md` under "Blockers" and open a documentation-onl
 the owner can act.
 
 Track boundaries in one sentence: **Core computes, Experience renders, Data supplies.**
+
+### UI sprint split (see `docs/UI_TASKS.md`)
+
+For the final sprint, Track B is split by screen and file. Last match wins in CODEOWNERS.
+
+| Owner | Files |
+|---|---|
+| @AngelicaHueje707-glitch | `App.tsx`, `Home.tsx`, `Brief.tsx`, `routes.ts`, `src/ui/menu/*`, `src/i18n/menu.*` |
+| @Julcal008 | `screens/Design.tsx`, `screens/Review.tsx`, `src/ui/game/*`, `src/i18n/game.*`, `src/i18n/en.ts`, `src/i18n/es.ts` |
+| @Metsus-S | `screens/Simulate.tsx`, `screens/Report.tsx`, `src/ui/ops/*`, `src/i18n/ops.*` |
+
+`App.tsx` and `routes.ts` are Angelica's. Nobody edits another owner's screen or
+i18n module. Shared primitives are frozen; create new components in your folder.
 
 ## 3. Shared-file protocol
 
@@ -75,12 +88,16 @@ These rules protect three people working in parallel. Breaking them can destroy 
 Each clone declares its track once:
 
 ```bash
-git config --local milky.track core        # Track A
-git config --local milky.track experience  # Track B
-git config --local milky.track data        # Track C
-git config --local milky.track all         # integrator only
+git config --local milky.track core                 # Track A
+git config --local milky.track experience           # Track B
+git config --local milky.track data                 # Track C
+git config --local milky.track data,experience      # UI sprint (Track C helping B)
+git config --local milky.track all                  # integrator only
 git config --local core.hooksPath .githooks
 ```
+
+`milky.track` accepts a comma-separated list. The hook combines the allowed paths
+and rejects anything outside them.
 
 The pre-commit hook (`scripts/check-track.mjs`) rejects any commit that touches a file
 outside the configured track, with a message listing the allowed paths. This is not

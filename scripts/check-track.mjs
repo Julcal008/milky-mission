@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 /**
- * Track guard — blocks commits that touch files outside your track.
+ * Track guard — blocks commits that touch files outside your track(s).
  * Owner: Integrator.
  *
  * Setup (once per clone):
  *   git config --local milky.track core|experience|data|all
+ *   git config --local milky.track data,experience     # UI sprint
  *   git config --local core.hooksPath .githooks
  *
  * `all` is reserved for the integrator. Emergencies can bypass with
@@ -33,6 +34,7 @@ const TRACKS = {
       'public/',
       'docs/DESIGN_SYSTEM.md',
       'docs/state/experience.md',
+      'docs/UI_TASKS.md',
     ],
   },
   data: {
@@ -56,36 +58,46 @@ function git(args) {
   return execSync(`git ${args}`, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] })
 }
 
-function configuredTrack() {
+function configuredTracks() {
   try {
-    return git('config --get milky.track').trim()
+    return git('config --get milky.track')
+      .trim()
+      .split(/[,\s]+/)
+      .filter(Boolean)
   } catch {
-    return ''
+    return []
   }
 }
 
-const track = configuredTrack()
+const tracks = configuredTracks()
 
-if (!track) {
+if (tracks.length === 0) {
   console.error('\n[track guard] No track configured for this clone.')
   console.error('Run one of these, then commit again:')
-  console.error('  git config --local milky.track core        # Track A')
-  console.error('  git config --local milky.track experience  # Track B')
-  console.error('  git config --local milky.track data        # Track C')
-  console.error('  git config --local milky.track all         # integrator only\n')
+  console.error('  git config --local milky.track core                 # Track A')
+  console.error('  git config --local milky.track experience           # Track B')
+  console.error('  git config --local milky.track data                 # Track C')
+  console.error('  git config --local milky.track data,experience      # UI sprint')
+  console.error('  git config --local milky.track all                  # integrator only\n')
   process.exit(1)
 }
 
-if (!TRACKS[track]) {
-  console.error(`\n[track guard] Unknown track "${track}". Valid values: ${VALID}\n`)
-  process.exit(1)
-}
-
-if (track === 'all') {
+if (tracks.includes('all')) {
   process.exit(0)
 }
 
-const spec = TRACKS[track]
+const specs = []
+for (const track of tracks) {
+  if (!TRACKS[track]) {
+    console.error(`\n[track guard] Unknown track "${track}". Valid values: ${VALID}\n`)
+    process.exit(1)
+  }
+  specs.push(TRACKS[track])
+}
+
+const label = specs.map((spec) => spec.label).join(' + ')
+const paths = specs.flatMap((spec) => spec.paths)
+
 let staged = ''
 try {
   staged = git('diff --cached --name-only --diff-filter=ACMRD')
@@ -98,16 +110,16 @@ const files = staged
   .map((file) => file.trim())
   .filter(Boolean)
 
-const isAllowed = (file) => spec.paths.some((prefix) => file === prefix || file.startsWith(prefix))
+const isAllowed = (file) => paths.some((prefix) => file === prefix || file.startsWith(prefix))
 const offending = files.filter((file) => !isAllowed(file))
 
 if (offending.length > 0) {
-  console.error(`\n[track guard] ${spec.label} cannot commit these files:\n`)
+  console.error(`\n[track guard] ${label} cannot commit these files:\n`)
   for (const file of offending) {
     console.error(`  - ${file}`)
   }
-  console.error('\nAllowed paths for your track:')
-  for (const prefix of spec.paths) {
+  console.error('\nAllowed paths for your track(s):')
+  for (const prefix of paths) {
     console.error(`  + ${prefix}`)
   }
   console.error('\nMove the change to its owner, or set the correct track with:')
@@ -116,4 +128,4 @@ if (offending.length > 0) {
   process.exit(1)
 }
 
-console.log(`[track guard] ${spec.label}: ${files.length} file(s) inside scope.`)
+console.log(`[track guard] ${label}: ${files.length} file(s) inside scope.`)

@@ -19,6 +19,31 @@
 /public/ @AngelicaHueje707-glitch
 /docs/DESIGN_SYSTEM.md @AngelicaHueje707-glitch
 
+# UI sprint split — last match wins
+/src/app/App.tsx @AngelicaHueje707-glitch
+/src/app/Home.tsx @AngelicaHueje707-glitch
+/src/app/Brief.tsx @AngelicaHueje707-glitch
+/src/app/routes.ts @AngelicaHueje707-glitch
+/src/ui/menu/ @AngelicaHueje707-glitch
+/src/i18n/menu.en.ts @AngelicaHueje707-glitch
+/src/i18n/menu.es.ts @AngelicaHueje707-glitch
+
+/src/app/screens/Design.tsx @Julcal008
+/src/app/screens/Review.tsx @Julcal008
+/src/app/screens/ScreenPlaceholder.tsx @Julcal008
+/src/ui/game/ @Julcal008
+/src/i18n/game.en.ts @Julcal008
+/src/i18n/game.es.ts @Julcal008
+/src/i18n/en.ts @Julcal008
+/src/i18n/es.ts @Julcal008
+
+/src/app/screens/Simulate.tsx @Metsus-S
+/src/app/screens/Report.tsx @Metsus-S
+/src/ui/ops/ @Metsus-S
+/src/i18n/ops.en.ts @Metsus-S
+/src/i18n/ops.es.ts @Metsus-S
+/docs/UI_TASKS.md @Julcal008
+
 # Track C — Data & Content
 /src/data/ @Metsus-S
 /src/content/ @Metsus-S
