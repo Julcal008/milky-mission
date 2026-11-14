@@ -12,6 +12,7 @@ export const opsEn = {
     decision: 'Decision',
     apply: 'Apply decision',
     report: 'View report',
+    back: 'Back to review',
     noSimulation: 'Run the mission to see the timeline.',
     critical: 'Critical',
     warning: 'Warning',

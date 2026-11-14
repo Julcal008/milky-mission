@@ -37,6 +37,59 @@ export const gameEn = {
     simulate: 'Simulate mission',
     back: 'Back to design',
   },
+  decisions: {
+    'decision.cme.shelter.label': 'Shelter the payload',
+    'decision.cme.shelter.description':
+      'Pause science for 3 days and protect the instruments. Less data, anomaly handled.',
+    'decision.cme.ride.label': 'Ride it out',
+    'decision.cme.ride.description':
+      'Keep observing through the storm. More data, anomaly not handled.',
+    'decision.flare.protect.label': 'Protect the imager',
+    'decision.flare.protect.description':
+      'Close the aperture for 2 days. Less data, anomaly handled.',
+    'decision.flare.observe.label': 'Keep observing',
+    'decision.flare.observe.description':
+      'Risk saturation for 2 days. More data, anomaly not handled.',
+    'decision.power.shed.label': 'Shed instrument load',
+    'decision.power.shed.description':
+      'Turn off one instrument for 2 days. Recovers 20 W, less data, handled.',
+    'decision.power.safe.label': 'Safe mode',
+    'decision.power.safe.description':
+      'Drop to minimum power for 3 days. Recovers 40 W, costs $0.1M, handled.',
+    'decision.power.ignore.label': 'Ignore the deficit',
+    'decision.power.ignore.description':
+      'Keep the load. Data halves while the battery is empty, not handled.',
+    'decision.fail.continue.label': 'Continue without it',
+    'decision.fail.continue.description':
+      'Keep the rest of the payload running. Slight science loss, handled.',
+    'decision.fail.safe.label': 'Safe mode',
+    'decision.fail.safe.description': 'Stabilise the bus for 3 days. Costs $0.2M, handled.',
+    'decision.gs.wait.label': 'Wait for the station',
+    'decision.gs.wait.description': 'No downlink for 2 days. The buffer keeps the data, handled.',
+    'decision.gs.backup.label': 'Use a backup station',
+    'decision.gs.backup.description': 'Restore downlink for $0.2M, handled.',
+    'decision.buffer.science.label': 'Prioritise science',
+    'decision.buffer.science.description': 'Compress data for 3 days. Less volume, handled.',
+    'decision.buffer.dump.label': 'Dump low-value data',
+    'decision.buffer.dump.description': 'Free the buffer. Lose 10 % of science value, handled.',
+    'decision.buffer.ignore.label': 'Ignore the buffer',
+    'decision.buffer.ignore.description':
+      'Keep recording. Science is lost while full, not handled.',
+  },
+  event: {
+    cmeHit: 'Coronal mass ejection impact',
+    flareX: 'X-class solar flare',
+    instFail: 'Instrument failure',
+    gsOutage: 'Ground station outage',
+    powerDeficit: 'Power deficit',
+    bufferFull: 'Recorder buffer full',
+  },
+  roles: {
+    director: 'Mission Director',
+    systems: 'Systems Engineer',
+    science: 'Science Lead',
+    comms: 'Comms & Ops',
+  },
   validation: {
     unknownCatalogId: 'Unknown catalog entry',
     tooManyInstruments: 'Too many instruments (max 4)',

@@ -36,6 +36,60 @@ export const gameEs = {
     simulate: 'Simular misión',
     back: 'Volver al diseño',
   },
+  decisions: {
+    'decision.cme.shelter.label': 'Protege la carga',
+    'decision.cme.shelter.description':
+      'Pausa la ciencia 3 días y protege los instrumentos. Menos datos, anomalía atendida.',
+    'decision.cme.ride.label': 'Resiste la tormenta',
+    'decision.cme.ride.description':
+      'Sigue observando durante la tormenta. Más datos, anomalía no atendida.',
+    'decision.flare.protect.label': 'Protege el imager',
+    'decision.flare.protect.description':
+      'Cierra la apertura 2 días. Menos datos, anomalía atendida.',
+    'decision.flare.observe.label': 'Sigue observando',
+    'decision.flare.observe.description':
+      'Riesgo de saturación por 2 días. Más datos, anomalía no atendida.',
+    'decision.power.shed.label': 'Reduce la carga',
+    'decision.power.shed.description':
+      'Apaga un instrumento 2 días. Recupera 20 W, menos datos, atendida.',
+    'decision.power.safe.label': 'Modo seguro',
+    'decision.power.safe.description':
+      'Baja al mínimo 3 días. Recupera 40 W, cuesta $0.1M, atendida.',
+    'decision.power.ignore.label': 'Ignora el déficit',
+    'decision.power.ignore.description':
+      'Mantén la carga. Los datos se reducen a la mitad con la batería vacía, no atendida.',
+    'decision.fail.continue.label': 'Continúa sin él',
+    'decision.fail.continue.description':
+      'Mantén el resto de la carga útil. Pérdida leve de ciencia, atendida.',
+    'decision.fail.safe.label': 'Modo seguro',
+    'decision.fail.safe.description': 'Estabiliza el bus 3 días. Cuesta $0.2M, atendida.',
+    'decision.gs.wait.label': 'Espera la estación',
+    'decision.gs.wait.description': 'Sin enlace 2 días. El buffer conserva los datos, atendida.',
+    'decision.gs.backup.label': 'Usa una estación de respaldo',
+    'decision.gs.backup.description': 'Recupera el enlace por $0.2M, atendida.',
+    'decision.buffer.science.label': 'Prioriza la ciencia',
+    'decision.buffer.science.description': 'Comprime datos 3 días. Menos volumen, atendida.',
+    'decision.buffer.dump.label': 'Descarta datos de bajo valor',
+    'decision.buffer.dump.description':
+      'Libera el buffer. Pierdes 10 % del valor científico, atendida.',
+    'decision.buffer.ignore.label': 'Ignora el buffer',
+    'decision.buffer.ignore.description':
+      'Sigue grabando. La ciencia se pierde mientras esté lleno, no atendida.',
+  },
+  event: {
+    cmeHit: 'Impacto de eyección de masa coronal',
+    flareX: 'Fulgor solar clase X',
+    instFail: 'Falla de instrumento',
+    gsOutage: 'Caída de estación terrena',
+    powerDeficit: 'Déficit de potencia',
+    bufferFull: 'Buffer de grabación lleno',
+  },
+  roles: {
+    director: 'Director de misión',
+    systems: 'Ingeniero de sistemas',
+    science: 'Líder científico',
+    comms: 'Comunicaciones y operaciones',
+  },
   validation: {
     unknownCatalogId: 'Entrada de catálogo desconocida',
     tooManyInstruments: 'Demasiados instrumentos (máximo 4)',
