@@ -18,6 +18,11 @@
 - **Store action:** `useMissionStore.simulate()` returns `SimulationResult` and stores
   `report`; config changes clear both.
 - **99 tests passing**, including validity tests.
+- **Share codec** (`share.ts`): URL-safe base64 of the full config with seed; store
+  exposes `shareCode()` and `loadShareCode()`.
+- **Partial science credit:** an instrument still contributes science when its
+  requirement is only partially met (35 % floor), so failure reports are informative.
+- **104 tests passing**, including validity tests.
 - **UI fixtures:** `result-baseline.json` (365 day states) and `report-baseline.json`
   for Track B to build the simulation and report screens without waiting.
 - Balance: reference **825 A** without decisions; naive **317 D** (power deficit, fails

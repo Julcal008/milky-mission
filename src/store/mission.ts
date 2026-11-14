@@ -13,6 +13,7 @@ import { scenarioFixtures } from '@/engine/__fixtures__/scenario-fixture'
 import type { DecisionChoice } from '@/engine/decisions'
 import { buildMissionReport } from '@/engine/report'
 import type { MissionReport } from '@/engine/report'
+import { decodeMission, encodeMission } from '@/engine/share'
 import { simulateMission } from '@/engine/simulator'
 import type { MissionConfig, SimulationResult, ValidationResult } from '@/engine/types'
 import { validateMission } from '@/engine/validate'
@@ -28,6 +29,8 @@ interface MissionState {
   setPlayers: (players: number) => void
   setDecision: (eventId: string, optionId: string) => void
   simulate: () => SimulationResult
+  shareCode: () => string
+  loadShareCode: (code: string) => boolean
   reset: () => void
 }
 
@@ -87,4 +90,21 @@ export const useMissionStore = create<MissionState>((set, get) => ({
       simulation: null,
       report: null,
     }),
+
+  shareCode: () => encodeMission(get().config),
+
+  loadShareCode: (code) => {
+    const config = decodeMission(code)
+    if (!config) {
+      return false
+    }
+    set({
+      config,
+      validation: validate(config),
+      simulation: null,
+      report: null,
+      decisions: [],
+    })
+    return true
+  },
 }))
