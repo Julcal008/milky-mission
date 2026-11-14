@@ -1,29 +1,29 @@
 # Track C — Data & Content · status
 
 **Owner:** @Metsus-S
-**Updated:** 2026-11-14 11:30 (America/Bogota)
+**Updated:** 2026-11-14 15:20 (America/Bogota)
 
 ## Now
 
-- Repository invitation sent; waiting for acceptance.
-- Catalog tables specified in `docs/GAME_DATA.md` (v0.1).
-- No data files cached yet.
+- Catalogs v1 landed in `src/data/catalogs/`: 10 typed tables, `index.ts` exporting
+  `catalogs: Catalogs`, and `index.test.ts` with 48 validity tests.
+- Every entry keeps its `source` and `confidence`; reference rows from
+  `docs/GAME_DATA.md` are pinned by tests.
+- NASA DONKI and POWER caches are in PR #11 (`data/nasa-cache`), independent of this branch.
 
 ## Next (in order)
 
-1. Cache NASA DONKI (1–15 May 2024) into `src/data/nasa/donki_2024_05.json` with wrapper
-   metadata (source, endpoint, consultedAt, fields).
-2. Cache NASA POWER climatology for Neiva and the Magdalena basin.
-3. Catalogs v1 in `src/data/catalogs/`: orbits, launchers, buses, propulsion, arrays,
-   batteries, comms, ground networks, storage, instruments.
-4. Storm Watch scenario in `src/content/scenarios/` (EN + ES).
-5. Provenance rows for every cached value.
+1. Track A: import `catalogs` from `@/data/catalogs` in `src/store/mission.ts` and delete
+   `src/engine/__fixtures__/catalog-fixture.ts`. A owns those files.
+2. Scenario content in `src/content/scenarios/` (EN + ES), with keys matching
+   `scenario.<id>.rN.title` and `.description`.
+3. Rebase this branch on `main` after PR #11 merges; resolve the small docs overlap in
+   `DATA_PROVENANCE.md` and this file.
 
 ## Blockers
 
-- Waiting for GitHub invitation acceptance.
-- Catalog TypeScript types are frozen by Track A; read `src/engine/types.ts` before writing
-  JSON. Do not edit that file.
+- `docs/ARCHITECTURE.md` still says `data/catalogs/*.json`; the implementation is typed
+  `.ts`. The integrator should update the file map (not a Track C file).
 
 ## Editing now (lock)
 
@@ -31,5 +31,6 @@
 
 ## Notes
 
-- No runtime network calls: everything is cached in the repository.
-- Label every value `official`, `derived`, `estimate` or `game`.
+- No runtime network calls.
+- Catalog tables are the only source of values for engine and UI; no magic numbers.
+- `src/engine/types.ts` remains read-only.

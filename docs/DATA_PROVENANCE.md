@@ -8,6 +8,10 @@ Legend: **O** official · **D** derived · **E** estimate · **G** game.
 
 Owner: Track C (Data & Content). Add a row in the same PR that changes a catalog value.
 
+Catalog source of truth: `src/data/catalogs/` (one typed TS file per table, every entry
+with `source` and `confidence`). `src/engine/__fixtures__/catalog-fixture.ts` is
+temporary and must be deleted after Track A switches its imports.
+
 ---
 
 ## 1. NASA datasets
