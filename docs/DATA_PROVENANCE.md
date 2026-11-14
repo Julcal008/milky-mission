@@ -6,7 +6,7 @@ estimate or a game-balance value. This file is the audit trail and the basis for
 
 Legend: **O** official · **D** derived · **E** estimate · **G** game.
 
-Owner: Track A. Add a row in the same PR that changes a catalog value.
+Owner: Track C (Data & Content). Add a row in the same PR that changes a catalog value.
 
 ---
 

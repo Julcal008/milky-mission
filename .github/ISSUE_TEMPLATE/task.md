@@ -16,8 +16,9 @@ labels: task
 
 ## Track
 
-- [ ] A — Simulation (`src/engine`, `src/data`)
-- [ ] B — Experience (`src/app`, `src/ui`, `src/styles`)
+- [ ] A — Core & Simulation (`src/engine`, `src/store/mission.ts`)
+- [ ] B — Experience & Visual (`src/app`, `src/ui`, `src/styles`)
+- [ ] C — Data & Content (`src/data`, `src/content`)
 - [ ] Docs / submission
 
 ## Files likely touched

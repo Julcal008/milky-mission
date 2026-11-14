@@ -4,7 +4,7 @@ Milky Mission is a **deterministic simulation** wrapped in a single-screen inter
 The architecture exists to guarantee three things:
 
 1. The physics is testable without a browser.
-2. Two people can work in parallel without waiting for each other.
+2. Three people can work in parallel without waiting for each other.
 3. The same mission configuration always produces the same result.
 
 ---
@@ -19,7 +19,7 @@ The architecture exists to guarantee three things:
                 │ results                      │ actions
 ┌───────────────┴──────────────────────────────▼───────────────┐
 │  STORE (src/store)                                           │
-│  Mission config (A) + UI state (B). Selectors for the UI.    │
+│  Mission config + selectors (A) · UI state (B).              │
 └───────────────▲──────────────────────────────┬───────────────┘
                 │ derived data                 │ config
 ┌───────────────┴──────────────────────────────▼───────────────┐
@@ -29,8 +29,8 @@ The architecture exists to guarantee three things:
 └───────────────▲──────────────────────────────┬───────────────┘
                 │ typed catalogs               │
 ┌───────────────┴──────────────────────────────▼───────────────┐
-│  DATA (src/data)                                             │
-│  catalogs/*.json · nasa/*.json (cached) · provenance          │
+│  DATA & CONTENT (src/data, src/content)                      │
+│  catalogs/*.json · nasa/*.json (cached) · provenance · copy   │
 └──────────────────────────────────────────────────────────────┘
 ```
 
@@ -38,8 +38,9 @@ The architecture exists to guarantee three things:
 
 - `engine` imports only from `engine` and `data` (types/constants). Never React.
 - `ui` never imports a formula. It calls a selector or an engine function.
-- `data` is static JSON plus a provenance file. No runtime network calls.
+- `data` and `content` are static JSON/TS plus provenance. No runtime network calls.
 - The store is the only place that mutates state; it calls the engine, not the UI.
+- One owner per directory: A computes, B renders, C supplies.
 
 ## 2. Mission lifecycle
 
@@ -134,9 +135,10 @@ src/
   ui/         Button, Badge, Panel, ResourceBar, LogoMark, future Gauge/Map/Timeline
   styles/     tokens.css, global.css
   store/      ui.ts (Track B), future mission.ts (Track A)
-  i18n/       en.ts, es.ts, index.ts
+  i18n/       en.ts, es.ts, index.ts (interface copy, Track B)
   engine/     types.ts, units.ts, future mass.ts, orbit.ts, power.ts, link.ts, data.ts,
-              cost.ts, reliability.ts, score.ts, simulator.ts, prng.ts
-  data/       catalogs/*.json, nasa/*.json, provenance.json
+              cost.ts, reliability.ts, score.ts, simulator.ts, prng.ts (Track A)
+  data/       catalogs/*.json, nasa/*.json, provenance (Track C)
+  content/    scenarios, requirements, glossary, report copy in EN/ES (Track C)
 docs/
 ```

@@ -4,6 +4,19 @@ Lightweight ADR log. New decisions go on top. Format: date · decision · why ·
 
 ---
 
+## 2026-11-14 · Three tracks + integrator
+
+**Decision:** Split the work into A — Core & Simulation (@Julcal008), B — Experience &
+Visual (@AngelicaHueje707-glitch) and C — Data & Content (@Metsus-S). A fourth
+"integrator" role, held by A with the AI agent, owns repo plumbing, CI, merges and shared
+documents. Introduce `src/content/` for domain copy so C does not edit `src/i18n/`.
+
+**Why:** A layer split (engine vs UI) would leave the third person without a coherent
+slice. Data and content is independent, verifiable and unblocks the other two tracks.
+
+**Consequence:** One live state file per track; merge order core → data → experience;
+CODEOWNERS per path; `package.json` and `.github/` owned by the integrator.
+
 ## 2026-11-14 · Simulation pacing
 
 **Decision:** 365 daily steps computed instantly, played back as a ~75-second timeline

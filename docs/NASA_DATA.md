@@ -4,7 +4,7 @@ The challenge requires **significant** use of NASA resources. This document defi
 exactly which datasets drive which game mechanics, how they are cached, and how they are
 credited. Decorative use is not acceptable.
 
-Owner: Track A. Update with every dataset change.
+Owner: Track C (Data & Content). Update with every dataset change.
 
 ---
 

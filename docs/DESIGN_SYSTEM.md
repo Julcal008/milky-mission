@@ -1,5 +1,7 @@
 # Design system — "Mission Control Dark"
 
+Owner: Track B (Experience & Visual).
+
 One dark theme, one warm accent, dense data, no decoration without meaning. The UI
 should feel like a mission control console at 3 a.m., not a sci-fi movie.
 

@@ -1,33 +1,49 @@
-# Contributing — two people, one repository
+# Contributing — three tracks, one repository
 
-We are two contributors (plus our AI agents) building this in about 48 hours. Optimize
+Three contributors (plus their AI agents) are building this in about 48 hours. Optimize
 for **small, reversible, non-overlapping changes**.
 
-## 1. Tracks
+## 1. Tracks and ownership
 
-| Track | Scope | Owns |
-|---|---|---|
-| **A — Simulation** | Physics, catalogs, scenarios, scoring, tests | `src/engine/**`, `src/data/**`, `docs/CONTRACT.md`, `docs/GAME_DATA.md`, `docs/NASA_DATA.md` |
-| **B — Experience** | Screens, components, tokens, i18n, persistence, submission copy | `src/app/**`, `src/ui/**`, `src/styles/**`, `src/store/**`, `src/i18n/**`, `public/**`, `docs/DESIGN_SYSTEM.md`, `docs/STATE.md`, `docs/SUBMISSION_EN.md` |
+| Track | Owner | Scope | Owns |
+|---|---|---|---|
+| **A — Core & Simulation** | @Julcal008 | Physics, catalogs consumer, scoring, determinism, fixtures | `src/engine/**`, `src/store/mission.ts`, `docs/CONTRACT.md` |
+| **B — Experience & Visual** | @AngelicaHueje707-glitch | Shell, screens, components, map, charts, i18n, accessibility | `src/app/**`, `src/ui/**`, `src/styles/**`, `src/store/ui.ts`, `src/i18n/**`, `public/**`, `docs/DESIGN_SYSTEM.md` |
+| **C — Data & Content** | @Metsus-S | NASA data, catalogs, scenarios, educational copy, provenance, submission text | `src/data/**`, `src/content/**`, `docs/GAME_DATA.md`, `docs/NASA_DATA.md`, `docs/DATA_PROVENANCE.md`, `docs/SUBMISSION_EN.md` |
+| **Integrator** | @Julcal008 | Repo plumbing, CI/Pages, merges, dependencies, shared docs | `.github/**`, `package.json`, lockfile, `AGENTS.md`, `README.md`, `docs/STATE.md`, `docs/DECISIONS.md`, `docs/ARCHITECTURE.md` |
 
-`src/engine/types.ts` is owned by A. `docs/STATE.md` is owned by B. `README.md` and
-`package.json` are shared: announce before editing.
+One sentence: **Core computes, Experience renders, Data supplies.**
+
+`src/engine/types.ts` is owned by A. `src/styles/tokens.css` by B. `package.json` by the
+integrator. Announce before editing any shared file.
 
 ## 2. Branch and PR flow
 
 ```bash
-git switch -c b/ui-design-board
+git switch -c exp/design-board
 # work, commit small
 git pull --rebase origin main
-git push -u origin b/ui-design-board
+git push -u origin exp/design-board
 gh pr create --fill
 ```
 
+- Branch prefixes: `core/`, `exp/`, `data/`, `docs/`.
 - Branches live less than a few hours.
-- PRs are under 300 changed lines. If it is bigger, split it.
-- One approval is required. If the other contributor is not available, self-merge is
-  allowed **only** when CI is green and no shared file is touched.
-- Squash merge, delete the branch.
+- PRs under 300 changed lines. Bigger work is split.
+- One approval from a **different track** is required, plus green CI.
+- Squash merge and delete the branch.
+
+### Review matrix
+
+| Change touches | Required reviewer |
+|---|---|
+| `types.ts`, engine API, invariants | A |
+| Components, tokens, layouts, i18n | B |
+| Catalogs, scenarios, NASA data, provenance | C |
+| CI, dependencies, repo settings | Integrator (A) |
+
+If the required reviewer is unavailable, the integrator may review, but the contract
+owner must be tagged.
 
 ## 3. Commit messages
 
@@ -36,57 +52,71 @@ gh pr create --fill
 ```
 feat(engine): add eclipse fraction model
 fix(ui): clamp mass gauge at zero
+data: cache DONKI May 2024 events
 docs: record decision to drop Ariane 62
 test(engine): cover link budget monotonicity
 ```
 
-## 4. Pull request checklist
+## 4. Merge order at every checkpoint
 
-The PR template asks for:
+**core → data → experience.**
 
-1. What changed and why.
-2. How to test it (commands or a route).
-3. Shared files touched.
-4. Screenshot for UI changes.
+1. Core lands contract/type changes first.
+2. Data lands catalogs and scenarios against the new contract.
+3. Experience lands UI against the freshest contract and data.
+
+This order prevents the UI from building against stale shapes.
 
 ## 5. Conflict protocol
 
-If both contributors need the same file:
+If two tracks need the same file:
 
 1. Stop.
-2. Write one line in `docs/STATE.md` → "Blockers".
-3. One person makes the change; the other reviews.
-4. The change lands in a dedicated PR before any other work continues.
+2. Write it in your `docs/state/*.md` → "Blockers" (with the file name).
+3. The file's owner makes the change; the requester reviews.
+4. The change lands in a dedicated PR before other work continues.
 
-If a merge conflict happens anyway: resolve it by hand, never by accepting one side
-wholesale. Run `npm run typecheck && npm test && npm run build` after resolving.
+Merge conflicts are resolved by hand, never by accepting one side wholesale. Run
+`npm run typecheck && npm test && npm run build` afterwards.
 
-## 6. Checkpoints
+## 6. State files (no conflicts)
 
-| When | What |
+Each track has its own live status file:
+
+- `docs/state/core.md` → Track A
+- `docs/state/experience.md` → Track B
+- `docs/state/data.md` → Track C
+
+Only the owner edits their file. The integrator maintains `docs/STATE.md` as a checkpoint
+snapshot. During work, use the state file; at checkpoints, the snapshot.
+
+## 7. Checkpoints
+
+| When | Goal |
 |---|---|
-| 11:00 | Contract frozen; UI shell running |
-| 12:30 | Engine integrated into the design screen |
-| 15:30 | Simulation + review flow working end to end |
-| 16:40 | Scope frozen for Sunday |
-| Sunday 10:45 | Feature freeze; only fixes |
+| Sat 11:00 | Contract + base catalogs frozen |
+| Sat 12:30 | Engine integrated into the design screen |
+| Sat 15:30 | Full flow working end to end |
+| Sat 16:40 | Scope frozen for Sunday |
+| Sun 10:45 | Feature freeze; fixes only |
+| Sun 14:00 | Project submitted |
 
-At each checkpoint: pull `main`, run the full check, update `docs/STATE.md`, agree on
-the next two tasks.
+At each checkpoint: pull `main`, run the full check, 2 minutes per track, update state,
+agree on the next two tasks.
 
-## 7. Definition of done
+## 8. Definition of done
 
 - `npm run typecheck`, `npm test` and `npm run build` pass.
 - New engine logic has tests, including at least one validity test.
 - Numbers carry units in their names.
 - Catalog changes update `docs/DATA_PROVENANCE.md`.
-- Contract changes update `docs/CONTRACT.md`.
+- Contract changes update `docs/CONTRACT.md` and fixtures.
 - No file outside your track changed.
-- `docs/STATE.md` is current.
+- Your state file is current.
 
-## 8. Data honesty
+## 9. Data honesty
 
-Every value in a catalog is labelled:
+Every catalog value is labelled:
 
 | Label | Meaning |
 |---|---|
@@ -98,9 +128,9 @@ Every value in a catalog is labelled:
 Never present an estimate as official. The in-game "Show the math" panel and
 `docs/DATA_PROVENANCE.md` must agree.
 
-## 9. Content and legal rules (NASA Space Apps)
+## 10. Content and legal rules (NASA Space Apps)
 
-- Project page, demo and submitted text must be in **English**.
+- Project page, demo and submitted text in **English**.
 - AI-generated images/videos need a visible watermark and must not include NASA logos,
   flags or mission identifiers.
 - Do not include recognizable minors in any media.

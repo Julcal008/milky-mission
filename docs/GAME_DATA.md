@@ -1,5 +1,7 @@
 # Game data v0.1 — catalogs, scenarios and balance
 
+Owner: Track C (Data & Content). Consumed by Track A (engine) and rendered by Track B.
+
 Single source of truth for numbers. The engine implements these tables; the UI never
 hardcodes them. **Every value is labelled:**
 

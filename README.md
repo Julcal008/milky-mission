@@ -55,20 +55,26 @@ src/
   app/      Shell, routing, screens (Track B)
   ui/       Reusable primitives: Button, Badge, Panel, ResourceBar (Track B)
   styles/   Design tokens and global CSS (Track B)
-  store/    UI state only (Track B)
-  i18n/     English + Spanish dictionaries
+  store/    Mission state (A) and UI state (B)
+  i18n/     English + Spanish interface dictionaries (Track B)
   engine/   Pure TypeScript simulation core (Track A)
-  data/     Cached NASA datasets and catalogs (Track A)
-docs/       Architecture, contract, design, game data, provenance, submission
+  data/     Cached NASA datasets and catalogs (Track C)
+  content/  Scenario copy, glossary, educational text (Track C)
+docs/       Architecture, contract, design, game data, provenance, submission, state
 ```
 
 ## Working together
 
-Two people, two AI agents, one repository. Read [`AGENTS.md`](AGENTS.md) before writing code and [`CONTRIBUTING.md`](CONTRIBUTING.md) before opening a pull request. The short version:
+Three contributors, three AI agents, one repository. Read [`AGENTS.md`](AGENTS.md) before
+writing code and [`CONTRIBUTING.md`](CONTRIBUTING.md) before opening a pull request.
+The short version:
 
-- **Track A owns `src/engine/` and `src/data/`.** Track B owns `src/app/`, `src/ui/`, `src/styles/` and `src/store/`.
+- **Core (A)** owns `src/engine/` and `src/store/mission.ts`. It computes.
+- **Experience (B)** owns `src/app/`, `src/ui/`, `src/styles/`, `src/store/ui.ts` and
+  `src/i18n/`. It renders.
+- **Data & Content (C)** owns `src/data/` and `src/content/`. It supplies.
 - The engine is pure TypeScript: no React, no DOM.
-- The UI never computes physics: it reads engine results.
+- The UI never computes physics: it reads engine results through the mission store.
 - Units live in the variable name (`massKg`, `powerW`, `costUsdM`).
 - Every catalog value is labelled `official`, `derived`, `estimate` or `game`.
 
