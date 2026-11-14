@@ -16,6 +16,7 @@ export const menuEn = {
     presentation: 'Presentation mode',
   },
   start: {
+    eyebrow: 'NASA Space Apps Challenge 2026 · Neiva',
     cta: 'Start',
     tagline: 'An immersive space adventure experience.',
   },

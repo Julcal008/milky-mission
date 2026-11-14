@@ -182,6 +182,8 @@ never an automatic switch.
 
 - Landscape and desktop: primary action on the left, wordmark on the right.
 - Portrait: wordmark, primary action and tagline stack automatically.
+- Above the wordmark: a small caps eyebrow with the event context
+  (`NASA Space Apps Challenge 2026 · Neiva`).
 - Wordmark: Space Grotesk 700, cream → mauve → coral gradient, tight leading.
 - Decorations: one sun disc and two orbital arcs; nothing else.
 - One primary action only; it opens the Brief screen (`#/brief`).
@@ -189,11 +191,13 @@ never an automatic switch.
 ### Brief
 
 - Two scenario cards from `src/content/scenarios`: Storm Watch and Andes Flood Watch.
-- Selected card: jade border/tint plus a visible “Selected” label, never color alone.
+- Cards stretch to equal height; the stat row sits on the card baseline.
+- Selected card: jade border/tint plus a visible check and “Selected” label, never color
+  alone.
 - Stats: budget, duration, launch window and requirement count from the scenario spec.
 - Players 1–4; one shared screen, turns pass explicitly.
-- One primary action: “Start mission”. It writes the scenario and player count to the
-  mission store, then opens the design screen.
+- One primary action: “Start mission”. Full width on mobile, auto on desktop. It writes
+  the scenario and player count to the mission store, then opens the design screen.
 - No fictional materials or roles here: design choices happen on the board.
 
 ---
