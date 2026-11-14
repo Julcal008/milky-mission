@@ -13,22 +13,21 @@
   failures, requirement evaluation, score, verdict and assumptions.
 - **Interactive decisions landed:** `decisions.ts` options per event, two-pass simulation
   (discover, choose, re-run), decision costs and anomaly handling.
-- **Store action:** `useMissionStore.simulate()` returns `SimulationResult`; config changes
-  clear the previous run.
-- **93 tests passing**, including validity tests.
-- Reference mission simulates to **861 points (grade A), verdict success**.
+- **Report model landed:** `report.ts` builds the causal chain, highlights, suggestions
+  from validation issues and the weakest score component.
+- **Store action:** `useMissionStore.simulate()` returns `SimulationResult` and stores
+  `report`; config changes clear both.
+- **99 tests passing**, including validity tests.
+- Balance: reference **861 A**; naive **317 D** (power deficit, fails R1); over-budget
+  design is a blocking error and simulates as **failure**.
 
 ## Next (in order)
 
 1. Replace placeholder CME/flare dates with the DONKI cache (Track C).
-2. UI wiring: design screen reads `useMissionStore`; simulation screen uses `simulate()`.
-3. Report screen: causal chain and "what if" using decision re-runs.
-4. Balance pass: naive mission should land 500-650.
-
-## Blockers
-
-- The store test lives in `src/store/`, which the `core` agent cannot edit; it needs the
-  `build` agent or Track B to add it.
+2. UI wiring: design screen reads `useMissionStore`; simulation screen uses `simulate()`;
+   report screen uses `buildMissionReport`.
+3. Balance a middle-tier mission (expected 500-650) to tighten the grade curve.
+4. Add the store test from the `build` agent (the `core` agent cannot write `src/store/`).
 
 ## Editing now (lock)
 
