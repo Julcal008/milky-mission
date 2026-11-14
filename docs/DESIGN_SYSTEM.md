@@ -178,30 +178,23 @@ never an automatic switch.
 - Ground station: `comms` dot with a 10° elevation cone, dashed.
 - Graticule: 1 px white at 4 %.
 
-### Start menu
+### Start screen
 
 - Landscape and desktop: primary action on the left, wordmark on the right.
 - Portrait: wordmark, primary action and tagline stack automatically.
 - Wordmark: Space Grotesk 700, cream → mauve → coral gradient, tight leading.
 - Decorations: one sun disc and two orbital arcs; nothing else.
-- One primary action only; it opens the static mission menu at
-  `public/menuprincipal/index.html`.
+- One primary action only; it opens the Brief screen (`#/brief`).
 
-### Static mission menu (`public/menuprincipal/`)
+### Brief
 
-The playable menu is a standalone HTML/CSS/JS page served unbuilt from `public/`.
-It is a separate visual surface and keeps its own CSS variables.
-
-- **Palette:** the same six colors (`jade`, `indigo`, `plum`, `mauve`, `coral`, `cream`);
-  indigo and plum are used for fills and lines, never for body text.
-- **Type:** Fredoka, bundled locally (`fonts/fredoka-latin.woff2`) with its OFL license.
-  No runtime font CDN.
-- **Language:** English default, Spanish toggle. It reads and writes the `milky-ui`
-  key so the choice follows the React shell.
-- **Handoff:** “Launch” stores `milky-mission-selection` in `localStorage` and opens
-  `../index.html#/design`.
-- **Data:** missions, roles and costs are prototype content; they must move to Track C
-  catalogs before they are treated as canonical.
+- Two scenario cards from `src/content/scenarios`: Storm Watch and Andes Flood Watch.
+- Selected card: jade border/tint plus a visible “Selected” label, never color alone.
+- Stats: budget, duration, launch window and requirement count from the scenario spec.
+- Players 1–4; one shared screen, turns pass explicitly.
+- One primary action: “Start mission”. It writes the scenario and player count to the
+  mission store, then opens the design screen.
+- No fictional materials or roles here: design choices happen on the board.
 
 ---
 
@@ -263,7 +256,7 @@ next event instead of animating.
 | `src/ui/Panel.tsx` | Card container |
 | `src/ui/ResourceBar.tsx` | Canonical resource display |
 | `src/app/Home.tsx` | Start screen (solarpunk) |
-| `public/menuprincipal/` | Static, bilingual mission menu |
+| `src/app/Brief.tsx` | Real scenario menu |
 | `src/app/Styleguide.tsx` | Live reference (route `#/styleguide`) |
 
 Change the tokens, not the components, when adjusting the visual language.

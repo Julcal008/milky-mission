@@ -6,15 +6,17 @@
  * the mission phase. The hash is only used for internal tools (styleguide).
  */
 import { useEffect, useState } from 'react'
+import { Brief } from '@/app/Brief'
 import { Home } from '@/app/Home'
 import { Styleguide } from '@/app/Styleguide'
 import { useI18n, useUiStore } from '@/store/ui'
 import { cx } from '@/ui/cx'
 import { LogoMark } from '@/ui/LogoMark'
 
-type Route = 'home' | 'styleguide' | 'design'
+type Route = 'home' | 'brief' | 'styleguide' | 'design'
 
 function routeFromHash(): Route {
+  if (window.location.hash.startsWith('#/brief')) return 'brief'
   if (window.location.hash.startsWith('#/styleguide')) return 'styleguide'
   if (window.location.hash.startsWith('#/design')) return 'design'
   return 'home'
@@ -111,7 +113,9 @@ export function App() {
       </header>
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-5 py-10 sm:px-8 sm:py-14">
-        {route === 'design' ? (
+        {route === 'brief' ? (
+          <Brief />
+        ) : route === 'design' ? (
           <div className="mx-auto flex min-h-[50svh] max-w-xl flex-col items-center justify-center text-center">
             <p className="label-caps text-ink-3">{t.common.comingSoon}</p>
             <a href="#/" className="mt-4 text-sm text-cream hover:text-coral">
