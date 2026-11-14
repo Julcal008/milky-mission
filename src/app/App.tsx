@@ -8,28 +8,24 @@
 import { useEffect, useState } from 'react'
 import { Brief } from '@/app/Brief'
 import { Home } from '@/app/Home'
+import { routeFromHash } from '@/app/routes'
+import { DesignScreen } from '@/app/screens/Design'
+import { ReportScreen } from '@/app/screens/Report'
+import { ReviewScreen } from '@/app/screens/Review'
+import { SimulateScreen } from '@/app/screens/Simulate'
 import { Styleguide } from '@/app/Styleguide'
 import { useI18n, useUiStore } from '@/store/ui'
 import { cx } from '@/ui/cx'
 import { LogoMark } from '@/ui/LogoMark'
 
-type Route = 'home' | 'brief' | 'styleguide' | 'design'
-
-function routeFromHash(): Route {
-  if (window.location.hash.startsWith('#/brief')) return 'brief'
-  if (window.location.hash.startsWith('#/styleguide')) return 'styleguide'
-  if (window.location.hash.startsWith('#/design')) return 'design'
-  return 'home'
-}
-
 export function App() {
-  const [route, setRoute] = useState<Route>(routeFromHash)
+  const [route, setRoute] = useState(() => routeFromHash(window.location.hash))
   const { t, lang, setLang } = useI18n()
   const density = useUiStore((state) => state.density)
   const setDensity = useUiStore((state) => state.setDensity)
 
   useEffect(() => {
-    const onHashChange = () => setRoute(routeFromHash())
+    const onHashChange = () => setRoute(routeFromHash(window.location.hash))
     window.addEventListener('hashchange', onHashChange)
     return () => window.removeEventListener('hashchange', onHashChange)
   }, [])
@@ -61,6 +57,15 @@ export function App() {
               )}
             >
               {t.nav.home}
+            </a>
+            <a
+              href="#/brief"
+              className={cx(
+                'rounded-sm px-3 py-1.5 text-[13px] transition-colors',
+                route === 'brief' ? 'bg-white/5 text-ink' : 'text-ink-2 hover:text-ink',
+              )}
+            >
+              {t.nav.brief}
             </a>
             <a
               href="#/styleguide"
@@ -116,12 +121,13 @@ export function App() {
         {route === 'brief' ? (
           <Brief />
         ) : route === 'design' ? (
-          <div className="mx-auto flex min-h-[50svh] max-w-xl flex-col items-center justify-center text-center">
-            <p className="label-caps text-ink-3">{t.common.comingSoon}</p>
-            <a href="#/" className="mt-4 text-sm text-cream hover:text-coral">
-              {t.nav.home}
-            </a>
-          </div>
+          <DesignScreen />
+        ) : route === 'review' ? (
+          <ReviewScreen />
+        ) : route === 'simulate' ? (
+          <SimulateScreen />
+        ) : route === 'report' ? (
+          <ReportScreen />
         ) : route === 'styleguide' ? (
           <Styleguide />
         ) : (

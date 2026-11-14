@@ -4,6 +4,7 @@ Three contributors (plus their AI agents) are building this in about 48 hours. O
 for **small, reversible, non-overlapping changes**.
 
 > **Windows contributors:** follow [`docs/SETUP_WINDOWS.md`](SETUP_WINDOWS.md) first.
+> **UI sprint:** the per-screen split lives in [`docs/UI_TASKS.md`](docs/UI_TASKS.md).
 
 ## 0. One-time setup in your clone
 
@@ -13,6 +14,7 @@ Declare your track and enable the guard hook:
 git config --local milky.track core          # Track A
 git config --local milky.track experience    # Track B
 git config --local milky.track data          # Track C
+git config --local milky.track data,experience  # UI sprint
 git config --local milky.track all           # integrator only
 git config --local core.hooksPath .githooks
 ```
