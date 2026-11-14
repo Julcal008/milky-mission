@@ -51,7 +51,7 @@ export function Brief() {
             <label
               key={id}
               className={cx(
-                'relative block cursor-pointer rounded-lg border p-5 transition-colors',
+                'relative flex h-full cursor-pointer flex-col rounded-lg border p-5 transition-colors',
                 'focus-within:ring-2 focus-within:ring-cream focus-within:ring-offset-2 focus-within:ring-offset-bg',
                 selected
                   ? 'border-jade/60 bg-jade/10'
@@ -70,20 +70,21 @@ export function Brief() {
               <span className="flex items-start justify-between gap-3">
                 <span className="font-display text-xl font-semibold text-ink">{copy.title}</span>
                 {selected ? (
-                  <span className="inline-flex shrink-0 items-center rounded-sm border border-jade/40 bg-jade/10 px-2 py-0.5 text-[11px] font-medium text-jade">
+                  <span className="inline-flex shrink-0 items-center gap-1 rounded-sm border border-jade/40 bg-jade/10 px-2 py-0.5 text-[11px] font-medium text-jade">
+                    <span aria-hidden="true">✓</span>
                     {t.brief.selected}
                   </span>
                 ) : null}
               </span>
 
-              <span className="mt-2 block text-[13px] leading-relaxed text-ink-2">
+              <span className="mt-2 block text-pretty text-[13px] leading-relaxed text-ink-2">
                 {copy.summary}
               </span>
-              <span className="mt-3 block text-[13px] leading-relaxed text-ink-3">
+              <span className="mt-3 block text-pretty text-[13px] leading-relaxed text-ink-3">
                 {copy.brief}
               </span>
 
-              <span className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <span className="mt-auto grid grid-cols-2 gap-3 pt-4 sm:grid-cols-4">
                 <span className="block">
                   <span className="label-caps block text-ink-3">{t.brief.budget}</span>
                   <span className="num mt-1 block text-[13px] text-ink">
@@ -118,7 +119,12 @@ export function Brief() {
       <Panel className="flex flex-col gap-5 p-5 sm:flex-row sm:items-end sm:justify-between">
         <div className="space-y-2">
           <p className="label-caps text-ink-3">{t.brief.players}</p>
-          <div className="flex items-center gap-1" role="group" aria-label={t.brief.players}>
+          <div
+            className="flex items-center gap-1"
+            role="group"
+            aria-label={t.brief.players}
+            aria-describedby="players-hint"
+          >
             {[1, 2, 3, 4].map((count) => (
               <button
                 key={count}
@@ -136,15 +142,20 @@ export function Brief() {
               </button>
             ))}
           </div>
-          <p className="text-[11px] text-ink-3">{t.brief.playersHint}</p>
+          <p id="players-hint" className="text-[11px] text-ink-3">
+            {t.brief.playersHint}
+          </p>
         </div>
 
         <div className="flex flex-col items-start gap-2 sm:items-end">
-          <p className="text-[11px] text-ink-3">{t.brief.requirementsHint}</p>
+          <p id="requirements-hint" className="text-[11px] text-ink-3">
+            {t.brief.requirementsHint}
+          </p>
           <button
             type="button"
             onClick={startMission}
-            className="cta-glow inline-flex h-10 items-center justify-center rounded-full bg-cream px-6 font-display text-sm font-semibold tracking-wide text-bg transition-colors duration-200 hover:bg-coral hover:text-on-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cream"
+            aria-describedby="requirements-hint"
+            className="cta-glow inline-flex h-12 w-full items-center justify-center rounded-full bg-cream px-6 font-display text-sm font-semibold tracking-wide text-bg transition-colors duration-200 hover:bg-coral hover:text-on-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cream sm:w-auto"
           >
             {t.brief.start}
           </button>

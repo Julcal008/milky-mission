@@ -1,13 +1,15 @@
 # Track B — Experience & Visual · status
 
 **Owner:** @AngelicaHueje707-glitch
-**Updated:** 2026-11-14 17:05 (America/Bogota)
+**Updated:** 2026-11-14 18:10 (America/Bogota)
 
 ## Now
 
 - Start screen at `#/` with solarpunk treatment and the six-color palette.
 - Palette tokens added additively (`jade`, `indigo`, `plum`, `mauve`, `coral`, `cream`);
   existing semantic tokens are unchanged.
+- **Menu polish:** event eyebrow above the wordmark, viewport-height hero, equal-height
+  Brief cards, check + “Selected” state, and a larger full-width CTA on mobile.
 - **Brief screen at `#/brief`** with the two real scenarios (Storm Watch, Andes Flood
   Watch), real budget/duration/requirement counts and a 1–4 player selector.
 - “Start” / “Inicio” opens the Brief; “Start mission” writes `scenarioId` and the player
@@ -33,7 +35,7 @@
 
 ## Editing now (lock)
 
-- `src/app/{Brief,Home,App}.tsx`, `src/i18n/`, `docs/DESIGN_SYSTEM.md`.
+- `src/app/{Home,Brief}.tsx`, `src/i18n/menu.*`, `docs/DESIGN_SYSTEM.md`.
 
 ## Notes
 

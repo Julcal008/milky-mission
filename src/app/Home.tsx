@@ -12,7 +12,7 @@ export function Home() {
   const { t } = useI18n()
 
   return (
-    <section className="solar-bg relative isolate flex min-h-[70svh] items-center overflow-hidden">
+    <section className="solar-bg relative isolate flex min-h-[65svh] items-center overflow-hidden sm:min-h-[calc(100svh_-_15rem)]">
       <div
         aria-hidden="true"
         className="solar-sun absolute right-1/2 top-1/2 size-[24rem] -translate-y-1/2 translate-x-1/2 rounded-full landscape:right-[-6%] landscape:size-[34rem] landscape:translate-x-0 lg:size-[40rem]"
@@ -59,10 +59,15 @@ export function Home() {
           </p>
         </div>
 
-        <h1 className="sun-title order-1 text-left font-display text-[clamp(3rem,14vw,5rem)] font-bold uppercase leading-[0.82] tracking-[-0.03em] landscape:order-2 landscape:text-right landscape:text-[clamp(2.5rem,9vw,7.5rem)] lg:text-[clamp(4rem,9vw,8rem)]">
-          <span className="block">Milky</span>
-          <span className="block">Mission</span>
-        </h1>
+        <div className="order-1 landscape:order-2">
+          <p className="label-caps mb-3 text-left text-ink-3 landscape:text-right">
+            {t.start.eyebrow}
+          </p>
+          <h1 className="sun-title text-left font-display text-[clamp(3rem,14vw,5rem)] font-bold uppercase leading-[0.82] tracking-[-0.03em] landscape:text-right landscape:text-[clamp(2.5rem,9vw,7.5rem)] lg:text-[clamp(4rem,9vw,8rem)]">
+            <span className="block">Milky</span>
+            <span className="block">Mission</span>
+          </h1>
+        </div>
       </div>
     </section>
   )
