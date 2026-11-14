@@ -96,6 +96,27 @@ npm test
 npm run build
 ```
 
+## 5.1 Enable the track guard (required)
+
+Declare your track and activate the pre-commit hook:
+
+```powershell
+# Angelica
+git config --local milky.track experience
+# Metsus
+git config --local milky.track data
+
+git config --local core.hooksPath .githooks
+```
+
+From now on, a commit that touches files outside your track is rejected with a message
+listing the allowed paths. That is the intended behavior: the file belongs to another
+track. Do not use `--no-verify` to bypass it.
+
+OpenCode also exposes three primary agents: `core`, `experience` and `data`. Select your
+track agent when you start a session. Its edit permissions are limited to that track's
+paths.
+
 ## 6. First branch
 
 ```powershell

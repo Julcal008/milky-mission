@@ -53,7 +53,45 @@ Track boundaries in one sentence: **Core computes, Experience renders, Data supp
 Never run a repository-wide formatter (`prettier --write .`) on a branch that is not
 yours: it rewrites files you do not own and creates conflicts.
 
-## 4. Non-negotiable rules
+## 4. Git safety (non-negotiable)
+
+These rules protect three people working in parallel. Breaking them can destroy work.
+
+- **NEVER** run `git push --force`, `git push -f`, `git push --force-with-lease`,
+  `git push --mirror`, `git push --delete` or any refspec with `+` or `:`.
+  Force-pushing is blocked by repository protection on `main` and by OpenCode permissions.
+- **NEVER** force-push to another contributor's branch or to any branch you did not create.
+- **NEVER** delete a remote branch you do not own.
+- **NEVER** run `git reset --hard`, `git clean -fdx`, `git checkout -- .`,
+  `git restore --source` or `git branch -D` on shared history. Ask first.
+- **NEVER** commit `node_modules`, `dist`, `.env`, tokens, credentials or personal keys.
+- If a push is rejected, run `git pull --rebase origin main` **on your own branch**.
+  Never "fix" a rejected push with force.
+- If history must be rewritten for any reason, stop and ask the human.
+- `git commit --no-verify` is forbidden without explicit human approval.
+
+## 5. Track enforcement
+
+Each clone declares its track once:
+
+```bash
+git config --local milky.track core        # Track A
+git config --local milky.track experience  # Track B
+git config --local milky.track data        # Track C
+git config --local milky.track all         # integrator only
+git config --local core.hooksPath .githooks
+```
+
+The pre-commit hook (`scripts/check-track.mjs`) rejects any commit that touches a file
+outside the configured track, with a message listing the allowed paths. This is not
+advisory: it runs before every commit.
+
+OpenCode additionally exposes three primary agents (`core`, `experience`, `data`) whose
+edit permissions are restricted to their own paths. Select your track agent at the start
+of the session. If the agent refuses an edit, that is correct: the file belongs to
+another track. Do not work around it with shell commands.
+
+## 6. Non-negotiable rules
 
 1. **The engine is pure TypeScript.** No React, no DOM, no `localStorage`, no `fetch`.
 2. **The UI never computes physics.** It reads `src/store/mission.ts` selectors or engine
@@ -69,7 +107,7 @@ yours: it rewrites files you do not own and creates conflicts.
 9. **Accessibility.** Status never color-only; keyboard reachable; reduced motion honored.
 10. **Do not add dependencies casually.** Ask the integrator first.
 
-## 5. Code style
+## 7. Code style
 
 - TypeScript strict, `verbatimModuleSyntax`: use `import type`.
 - Functional components, named exports, one component per file.
@@ -91,7 +129,7 @@ yours: it rewrites files you do not own and creates conflicts.
 - Markers: `TODO(@owner)`, `FIXME`, `NOTE`, `HACK` (with justification). No unowned TODOs
   on `main`.
 
-## 6. Definition of done (every PR)
+## 8. Definition of done (every PR)
 
 - [ ] `npm run typecheck`, `npm test`, `npm run build` pass.
 - [ ] New engine behavior has a test, including a validity test.
@@ -102,7 +140,7 @@ yours: it rewrites files you do not own and creates conflicts.
 - [ ] No file outside your track was modified.
 - [ ] English in code, comments and docs.
 
-## 7. Branches, reviews, merge order
+## 9. Branches, reviews, merge order
 
 - Branches: `core/<topic>`, `exp/<topic>`, `data/<topic>`, `docs/<topic>`.
 - Commits: `feat(engine): link budget`, `fix(ui): gauge overflow`, `data: shortlist launchers`.
@@ -112,7 +150,7 @@ yours: it rewrites files you do not own and creates conflicts.
   the freshest contract and data.
 - Squash merge. `main` must always build.
 
-## 8. Checkpoints
+## 10. Checkpoints
 
 Merge and sync at **11:00, 12:30, 15:30, 16:40** (Saturday) and **10:45** (Sunday).
 At each checkpoint:

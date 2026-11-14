@@ -172,7 +172,7 @@ export interface InstrumentSpec extends Provenance {
   /** Science value used by the scoring model, 0..40. */
   scienceValue: number
   /** Technology readiness level: drives failure probability. */
-  trl: 5 | 7 | 9
+  trl: 5 | 6 | 7 | 8 | 9
   /** Requirement ids this instrument can satisfy. */
   supports: string[]
 }

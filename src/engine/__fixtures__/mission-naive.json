@@ -1,0 +1,16 @@
+{
+  "scenarioId": "storm-watch",
+  "seed": 20260515,
+  "orbitId": "sso500",
+  "launcherId": "rideshare",
+  "busId": "micro",
+  "propulsionId": "none",
+  "arrayId": "si",
+  "arrayAreaM2": 0.6,
+  "batteryId": "b300",
+  "commsId": "sband",
+  "groundNetworkId": "neiva",
+  "storageId": "s4",
+  "instrumentIds": ["xrs"],
+  "requirements": ["R1", "R5", "R6"]
+}
