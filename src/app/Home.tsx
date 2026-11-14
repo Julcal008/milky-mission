@@ -49,7 +49,7 @@ export function Home() {
       <div className="relative grid w-full items-center gap-10 landscape:grid-cols-[minmax(0,0.9fr)_minmax(0,1.4fr)] landscape:gap-8 lg:gap-16">
         <div className="order-2 flex w-full flex-col items-start gap-4 landscape:order-1 landscape:max-w-sm">
           <a
-            href="./menuprincipal/index.html"
+            href="#/brief"
             className="cta-glow inline-flex h-14 w-full items-center justify-center rounded-full bg-cream px-10 font-display text-lg font-semibold tracking-wide text-bg transition-colors duration-200 hover:bg-coral hover:text-on-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cream sm:w-auto"
           >
             {t.start.cta}
