@@ -417,7 +417,7 @@
     },
     {
       "day": 40,
-      "powerGeneratedW": 141.6,
+      "powerGeneratedW": 120.4,
       "loadW": 98.5,
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
@@ -427,7 +427,7 @@
     },
     {
       "day": 41,
-      "powerGeneratedW": 135.1,
+      "powerGeneratedW": 114.8,
       "loadW": 98.5,
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
@@ -437,7 +437,7 @@
     },
     {
       "day": 42,
-      "powerGeneratedW": 145.8,
+      "powerGeneratedW": 124,
       "loadW": 98.5,
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
@@ -967,7 +967,7 @@
     },
     {
       "day": 95,
-      "powerGeneratedW": 128.1,
+      "powerGeneratedW": 150.7,
       "loadW": 98.5,
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
@@ -977,7 +977,7 @@
     },
     {
       "day": 96,
-      "powerGeneratedW": 131.6,
+      "powerGeneratedW": 154.9,
       "loadW": 98.5,
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
@@ -987,7 +987,7 @@
     },
     {
       "day": 97,
-      "powerGeneratedW": 124.4,
+      "powerGeneratedW": 146.4,
       "loadW": 98.5,
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
@@ -1520,9 +1520,9 @@
       "powerGeneratedW": 158.6,
       "loadW": 98.5,
       "batterySocWh": 240,
-      "dataGeneratedGb": 2.028,
+      "dataGeneratedGb": 4.056,
       "dataDownlinkedGb": 3.424,
-      "bufferGb": 14.604,
+      "bufferGb": 16,
       "costSpentUsdM": 39.7
     },
     {
@@ -1530,9 +1530,9 @@
       "powerGeneratedW": 148.4,
       "loadW": 98.5,
       "batterySocWh": 240,
-      "dataGeneratedGb": 2.028,
+      "dataGeneratedGb": 4.056,
       "dataDownlinkedGb": 3.424,
-      "bufferGb": 13.208,
+      "bufferGb": 16,
       "costSpentUsdM": 39.71
     },
     {
@@ -1542,7 +1542,7 @@
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
       "dataDownlinkedGb": 3.424,
-      "bufferGb": 13.839,
+      "bufferGb": 16,
       "costSpentUsdM": 39.73
     },
     {
@@ -1552,7 +1552,7 @@
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
       "dataDownlinkedGb": 3.424,
-      "bufferGb": 14.471,
+      "bufferGb": 16,
       "costSpentUsdM": 39.75
     },
     {
@@ -1562,7 +1562,7 @@
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
       "dataDownlinkedGb": 3.424,
-      "bufferGb": 15.103,
+      "bufferGb": 16,
       "costSpentUsdM": 39.76
     },
     {
@@ -1572,7 +1572,7 @@
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
       "dataDownlinkedGb": 3.424,
-      "bufferGb": 15.735,
+      "bufferGb": 16,
       "costSpentUsdM": 39.78
     },
     {
@@ -2017,7 +2017,7 @@
     },
     {
       "day": 200,
-      "powerGeneratedW": 123.9,
+      "powerGeneratedW": 145.8,
       "loadW": 98.5,
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
@@ -2027,7 +2027,7 @@
     },
     {
       "day": 201,
-      "powerGeneratedW": 129.8,
+      "powerGeneratedW": 152.7,
       "loadW": 98.5,
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
@@ -2037,7 +2037,7 @@
     },
     {
       "day": 202,
-      "powerGeneratedW": 125.7,
+      "powerGeneratedW": 147.9,
       "loadW": 98.5,
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
@@ -2367,7 +2367,7 @@
     },
     {
       "day": 235,
-      "powerGeneratedW": 151.9,
+      "powerGeneratedW": 129.1,
       "loadW": 98.5,
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
@@ -2377,7 +2377,7 @@
     },
     {
       "day": 236,
-      "powerGeneratedW": 148.1,
+      "powerGeneratedW": 125.9,
       "loadW": 98.5,
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
@@ -2387,7 +2387,7 @@
     },
     {
       "day": 237,
-      "powerGeneratedW": 143.3,
+      "powerGeneratedW": 121.8,
       "loadW": 98.5,
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
@@ -2907,7 +2907,7 @@
     },
     {
       "day": 289,
-      "powerGeneratedW": 138.9,
+      "powerGeneratedW": 118.1,
       "loadW": 98.5,
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
@@ -2917,7 +2917,7 @@
     },
     {
       "day": 290,
-      "powerGeneratedW": 136.8,
+      "powerGeneratedW": 116.3,
       "loadW": 98.5,
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
@@ -2927,7 +2927,7 @@
     },
     {
       "day": 291,
-      "powerGeneratedW": 149,
+      "powerGeneratedW": 126.6,
       "loadW": 98.5,
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
@@ -3017,7 +3017,7 @@
     },
     {
       "day": 300,
-      "powerGeneratedW": 121.3,
+      "powerGeneratedW": 142.7,
       "loadW": 98.5,
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
@@ -3027,7 +3027,7 @@
     },
     {
       "day": 301,
-      "powerGeneratedW": 120,
+      "powerGeneratedW": 141.1,
       "loadW": 98.5,
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
@@ -3037,7 +3037,7 @@
     },
     {
       "day": 302,
-      "powerGeneratedW": 122.2,
+      "powerGeneratedW": 143.8,
       "loadW": 98.5,
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
@@ -3350,9 +3350,9 @@
       "powerGeneratedW": 135.6,
       "loadW": 98.5,
       "batterySocWh": 240,
-      "dataGeneratedGb": 4.056,
+      "dataGeneratedGb": 2.028,
       "dataDownlinkedGb": 3.424,
-      "bufferGb": 16,
+      "bufferGb": 14.604,
       "costSpentUsdM": 42.7
     },
     {
@@ -3360,9 +3360,9 @@
       "powerGeneratedW": 137.7,
       "loadW": 98.5,
       "batterySocWh": 240,
-      "dataGeneratedGb": 4.056,
+      "dataGeneratedGb": 2.028,
       "dataDownlinkedGb": 3.424,
-      "bufferGb": 16,
+      "bufferGb": 13.208,
       "costSpentUsdM": 42.72
     },
     {
@@ -3372,7 +3372,7 @@
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
       "dataDownlinkedGb": 3.424,
-      "bufferGb": 16,
+      "bufferGb": 13.839,
       "costSpentUsdM": 42.74
     },
     {
@@ -3382,7 +3382,7 @@
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
       "dataDownlinkedGb": 3.424,
-      "bufferGb": 16,
+      "bufferGb": 14.471,
       "costSpentUsdM": 42.75
     },
     {
@@ -3392,7 +3392,7 @@
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
       "dataDownlinkedGb": 3.424,
-      "bufferGb": 16,
+      "bufferGb": 15.103,
       "costSpentUsdM": 42.77
     },
     {
@@ -3402,7 +3402,7 @@
       "batterySocWh": 240,
       "dataGeneratedGb": 4.056,
       "dataDownlinkedGb": 3.424,
-      "bufferGb": 16,
+      "bufferGb": 15.735,
       "costSpentUsdM": 42.78
     },
     {
@@ -3686,36 +3686,36 @@
       "titleKey": "event.bufferFull"
     },
     {
-      "id": "cme_hit-95",
-      "day": 95,
+      "id": "cme_hit-40",
+      "day": 40,
       "type": "cme_hit",
       "role": "systems",
       "severity": "critical",
       "titleKey": "event.cmeHit"
     },
     {
-      "id": "flare_x-150",
-      "day": 150,
+      "id": "cme_hit-235",
+      "day": 235,
+      "type": "cme_hit",
+      "role": "systems",
+      "severity": "critical",
+      "titleKey": "event.cmeHit"
+    },
+    {
+      "id": "cme_hit-289",
+      "day": 289,
+      "type": "cme_hit",
+      "role": "systems",
+      "severity": "critical",
+      "titleKey": "event.cmeHit"
+    },
+    {
+      "id": "flare_x-333",
+      "day": 333,
       "type": "flare_x",
       "role": "science",
       "severity": "warning",
       "titleKey": "event.flareX"
-    },
-    {
-      "id": "cme_hit-200",
-      "day": 200,
-      "type": "cme_hit",
-      "role": "systems",
-      "severity": "critical",
-      "titleKey": "event.cmeHit"
-    },
-    {
-      "id": "cme_hit-300",
-      "day": 300,
-      "type": "cme_hit",
-      "role": "systems",
-      "severity": "critical",
-      "titleKey": "event.cmeHit"
     }
   ],
   "decisions": [],
@@ -3780,7 +3780,7 @@
   },
   "verdict": "success",
   "assumptions": [
-    "Event dates are placeholders until the NASA DONKI cache lands.",
+    "Event dates are derived from the cached NASA DONKI window (May 2024).",
     "Battery, data and cost are integrated at daily resolution.",
     "Link capacity assumes a 10 deg elevation pass at maximum slant range.",
     "Instruments generate data at their nominal rate while alive.",

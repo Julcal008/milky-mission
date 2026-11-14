@@ -14,6 +14,7 @@ import { computeLinkBreakdown } from './link'
 import { computePowerBreakdown } from './power'
 import { DECISION_OPTIONS } from './decisions'
 import type { DecisionChoice, DecisionOption } from './decisions'
+import { spaceWeatherDaysFor } from '../data/nasa/donki'
 import { trlFailureProbability } from './reliability'
 import { revisitHours } from './orbit'
 import { createRng } from './prng'
@@ -27,24 +28,13 @@ import type {
   InstrumentId,
   MissionConfig,
   RequirementResult,
-  ScenarioId,
   ScenarioSpec,
   SimulationResult,
 } from './types'
 import { DAYS_PER_YEAR } from './units'
 
-/** Placeholder event dates until Track C lands the DONKI cache. */
-const SCRIPTED_CME_DAYS: Record<ScenarioId, number[]> = {
-  'storm-watch': [95, 200, 300],
-  'andes-flood-watch': [120, 300, 450],
-}
+/** Space-weather event days, derived from the cached DONKI window (May 2024). */
 
-const SCRIPTED_FLARE_DAYS: Record<ScenarioId, number[]> = {
-  'storm-watch': [150],
-  'andes-flood-watch': [],
-}
-
-/** Game values for the instrument footprint used by the revisit model. */
 const INSTRUMENT_SWATH_KM: Partial<Record<InstrumentId, number>> = {
   msi: 100,
   hri: 25,
@@ -75,8 +65,7 @@ export function simulateMission(
   const cost = computeCostBreakdown(config, catalogs, scenario.durationDays)
 
   const rng = createRng(config.seed)
-  const cmeDays = SCRIPTED_CME_DAYS[scenario.id] ?? []
-  const flareDays = SCRIPTED_FLARE_DAYS[scenario.id] ?? []
+  const { cmeDays, flareDays } = spaceWeatherDaysFor(scenario.durationDays)
   const groundOutageChance = dailyProbability(GROUND_OUTAGE_ANNUAL)
 
   const decisionMap = new Map(decisions.map((choice) => [choice.eventId, choice.optionId]))
@@ -393,7 +382,7 @@ export function simulateMission(
     score,
     verdict,
     assumptions: [
-      'Event dates are placeholders until the NASA DONKI cache lands.',
+      'Event dates are derived from the cached NASA DONKI window (May 2024).',
       'Battery, data and cost are integrated at daily resolution.',
       'Link capacity assumes a 10 deg elevation pass at maximum slant range.',
       'Instruments generate data at their nominal rate while alive.',
