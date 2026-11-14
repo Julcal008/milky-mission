@@ -35,6 +35,14 @@ export const opsEn = {
     verdict: 'Verdict',
     weakest: 'Weakest area',
     noReport: 'Run the mission to see the report.',
+    noBlocking: 'No blocking issues. Improve the weakest area first.',
+    weakestHints: {
+      mission: 'Meet the chosen requirements; each one is worth points.',
+      science: 'Install instruments that match the requirements and deliver their data.',
+      efficiency: 'Keep mass and power margins healthy and stay under budget.',
+      robustness: 'Handle critical events with explicit decisions and improve reliability.',
+      teamwork: 'Complete the role objectives and use consensus decisions.',
+    },
     back: 'Back to simulation',
     components: {
       mission: 'Mission success',

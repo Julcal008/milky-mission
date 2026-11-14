@@ -34,6 +34,14 @@ export const opsEs = {
     verdict: 'Veredicto',
     weakest: 'Área más débil',
     noReport: 'Ejecuta la misión para ver el informe.',
+    noBlocking: 'Sin problemas bloqueantes. Mejora primero el área más débil.',
+    weakestHints: {
+      mission: 'Cumple los requisitos elegidos; cada uno vale puntos.',
+      science: 'Instala instrumentos que correspondan a los requisitos y entrega sus datos.',
+      efficiency: 'Mantén márgenes sanos de masa y potencia y no excedas el presupuesto.',
+      robustness: 'Atiende los eventos críticos con decisiones y mejora la confiabilidad.',
+      teamwork: 'Completa los objetivos de rol y usa decisiones por consenso.',
+    },
     back: 'Volver a la simulación',
     components: {
       mission: 'Éxito de misión',

@@ -69,5 +69,7 @@ export function getInstrument(catalogs: Catalogs, id: string): InstrumentSpec {
 }
 
 export function getInstruments(catalogs: Catalogs, ids: readonly string[]): InstrumentSpec[] {
-  return ids.map((id) => getInstrument(catalogs, id))
+  return ids
+    .filter((id): id is string => typeof id === 'string' && id.length > 0)
+    .map((id) => getInstrument(catalogs, id))
 }
