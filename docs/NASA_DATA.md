@@ -15,19 +15,33 @@ Owner: Track C (Data & Content). Update with every dataset change.
 | | |
 |---|---|
 | Source | NASA CCMC / DONKI |
-| Base URL | `https://api.nasa.gov/DONKI/` |
-| Endpoints | `FLR` (flares), `CME` (coronal mass ejections), `GST` (geomagnetic storms) |
-| Auth | `api_key=DEMO_KEY` for development; rate-limited but sufficient for a one-time cache |
+| Base URL | `https://ccmc.gsfc.nasa.gov/DONKI-API/` |
+| Endpoints | `/get/FLR` (flares), `/get/CME` (coronal mass ejections), `/get/GST` (geomagnetic storms) |
+| Auth | None. Public endpoint, no API key required. |
 | Drives | Scenario brief, event timeline (`cme_hit`, `flare_x`), radiation risk, science value of XRS/SUVI/magnetometer |
 | Cache | `src/data/nasa/donki_2024_05.json` |
 | Confidence | **O** (official event dates and classes) |
 
+> **Migration (2026-09-30).** DONKI moved from `api.nasa.gov/DONKI/*` to
+> `ccmc.gsfc.nasa.gov/DONKI-API/get/*`. The legacy path still documents `FLR` but returned
+> `404` during the cache run, while `CME` and `GST` were intermittently redirected. The
+> cache uses the new CCMC endpoints exclusively and stores the raw responses unmodified.
+
 Reference window: **1–15 May 2024**, which includes the G5 storm (the strongest in two
 decades). The game replays this sequence as the "historical" difficulty.
 
+Event selection and mapping (`src/data/nasa/donki.ts`):
+
+- `cme_hit` days come from **GST onsets**, not from every CME: the catalogue contains
+  69 CMEs, most of which never reach Earth. We take the three highest-Kp storms.
+- `flare_x` day is the strongest **X-class** flare in the window (X8.7, 2024-05-14).
+- The 15-day window is scaled linearly onto `[1, durationDays]`, clamped at the edges.
+  Storm Watch (365 d) → CME days 40, 235, 289; flare day 333. Andes (548 d) → 60, 352,
+  434; flare day 501. Dates are official (**O**); selection and scaling are derived (**D**).
+
 Fields used: `flrID`, `beginTime`, `peakTime`, `endTime`, `classType`, `note`;
-`activityID`, `startTime`, `sourceLocation`, `type`, `speed`, `halfAngle`;
-`gstID`, `startTime`, `allKpIndex[].kpIndex`.
+`activityID`, `startTime`, `sourceLocation`, `cmeAnalyses[].type`, `cmeAnalyses[].speed`,
+`cmeAnalyses[].halfAngle`; `gstID`, `startTime`, `allKpIndex[].kpIndex`.
 
 ### 1.2 NASA POWER — solar and cloud climatology
 
@@ -35,15 +49,22 @@ Fields used: `flrID`, `beginTime`, `peakTime`, `endTime`, `classType`, `note`;
 |---|---|
 | Source | NASA LaRC POWER Project |
 | Base URL | `https://power.larc.nasa.gov/api/temporal/climatology/point` |
-| Parameters | `ALLSKY_SFC_SW_DWN` (irradiance), `CLOUD_AMT` (cloud amount) |
-| Drives | Solar array output; optical vs. SAR trade-off in Andes Flood Watch |
+| Parameters | `ALLSKY_SFC_SW_DWN` (surface), `TOA_SW_DWN` (top of atmosphere), `CLOUD_AMT` (cloud amount) |
+| Drives | Optical vs. SAR trade-off via cloud cover; TOA climatology for seasonal validation; surface irradiance as ground context |
 | Cache | `src/data/nasa/power_neiva.json`, `src/data/nasa/power_magdalena.json` |
 | Confidence | **O** (monthly climatology, 20+ year baseline) |
 
 Points: Neiva (2.93°N, −75.28°W) and Magdalena basin centroid (7.0°N, −74.0°W).
 
-The engine multiplies the catalog array power by `irradiance / 1361` and applies the
-cloud penalty to optical instruments (fraction of usable days).
+POWER returns daily insolation in **kWh/m²/day** and cloud amount in **%**. Convert
+insolation to a 24-hour mean flux with `× 1000 / 24` (`kwhPerM2DayToWPerM2` in
+`src/data/nasa/power.ts`).
+
+> **Model note.** The array is sized from cell W/m² at 1 AU and the engine already applies
+> eclipse (`sunlightFraction`) and mean incidence. Do **not** pass the daily mean into
+> `PowerOptions.irradianceFactor`: it double-counts night and understates the array by
+> roughly 3×. The gameplay hook is `cloudUsableFraction(...)` for optical instruments;
+> TOA is kept for seasonal validation.
 
 ### 1.3 NASA GIBS / Blue Marble — imagery
 
@@ -73,12 +94,20 @@ of the imagery used, and the specific product/date is recorded in the provenance
 
 ```json
 {
-  "source": "NASA DONKI",
-  "endpoint": "https://api.nasa.gov/DONKI/CME?startDate=2024-05-01&endDate=2024-05-15",
-  "consultedAt": "2026-11-14T15:20:00Z",
+  "source": "NASA CCMC DONKI",
+  "endpoint": "https://ccmc.gsfc.nasa.gov/DONKI-API/get/{FLR,CME,GST}?startDate=2024-05-01&endDate=2024-05-15",
+  "consultedAt": "2026-11-14T19:47:07Z",
   "license": "NASA public domain",
-  "fields": ["activityID", "startTime", "type", "speed", "halfAngle"],
-  "data": []
+  "fields": {
+    "flr": ["flrID", "beginTime", "peakTime", "endTime", "classType"],
+    "cme": ["activityID", "startTime", "cmeAnalyses[].speed"],
+    "gst": ["gstID", "startTime", "allKpIndex[].kpIndex"]
+  },
+  "data": {
+    "flr": [],
+    "cme": [],
+    "gst": []
+  }
 }
 ```
 
@@ -107,7 +136,7 @@ of the imagery used, and the specific product/date is recorded in the provenance
 | If we removed the dataset | What would break |
 |---|---|
 | DONKI | The scenario loses its historical storm timeline; events would be arbitrary |
-| POWER | Power generation and the optical/SAR trade-off would be invented constants |
+| POWER | The optical/SAR trade-off and the Colombia climatology would be invented constants |
 | GIBS | The map loses its real Earth context; ground tracks would float on a blank grid |
 
 This is the test for "significant use": the mechanics depend on the data, not the other

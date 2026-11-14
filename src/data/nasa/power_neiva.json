@@ -1,0 +1,11 @@
+{
+  "source": "NASA LaRC POWER",
+  "endpoint": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=ALLSKY_SFC_SW_DWN,CLOUD_AMT,TOA_SW_DWN&community=RE&longitude=-75.28&latitude=2.93&format=JSON",
+  "consultedAt": "2026-11-14T19:52:37Z",
+  "license": "NASA public domain",
+  "parameters": ["ALLSKY_SFC_SW_DWN", "CLOUD_AMT", "TOA_SW_DWN"],
+  "units": { "ALLSKY_SFC_SW_DWN": "kWh/m2/day", "CLOUD_AMT": "%", "TOA_SW_DWN": "kWh/m2/day" },
+  "location": { "name": "Neiva, Colombia", "latitude": 2.93, "longitude": -75.28 },
+  "fields": ["properties.parameter.ALLSKY_SFC_SW_DWN", "properties.parameter.CLOUD_AMT", "properties.parameter.TOA_SW_DWN"],
+  "data": {"type":"Feature","geometry":{"type":"Point","coordinates":[-75.28,2.93,1402.97]},"properties":{"parameter":{"ALLSKY_SFC_SW_DWN":{"JAN":4.6164,"FEB":4.4426,"MAR":4.0541,"APR":4.1374,"MAY":4.1698,"JUN":4.0387,"JUL":4.0051,"AUG":4.0229,"SEP":4.4347,"OCT":4.3733,"NOV":4.2838,"DEC":4.3829,"ANN":4.2456},"CLOUD_AMT":{"JAN":72.24,"FEB":79.31,"MAR":86.5,"APR":86.82,"MAY":86.24,"JUN":84.08,"JUL":84.66,"AUG":83.57,"SEP":80.21,"OCT":83.36,"NOV":83.34,"DEC":76.22,"ANN":82.22},"TOA_SW_DWN":{"JAN":9.7826,"FEB":10.2185,"MAR":10.4501,"APR":10.2665,"MAY":9.8309,"JUN":9.5359,"JUL":9.6341,"AUG":10.0051,"SEP":10.2775,"OCT":10.194,"NOV":9.8302,"DEC":9.5837,"ANN":9.9655}}},"header":{"title":"NASA/POWER Source Native Resolution Climatology Climatologies","api":{"version":"v2.10.1","name":"POWER Climatology API"},"sources":["SYN1DEG"],"fill_value":-999.0,"time_standard":"LST","range":"25-year Meteorological and Solar Monthly & Annual Climatologies (January 2001 - December 2025)"},"messages":["The requested parameters are retrieved from a pre-computed climatological period (January 2001 - December 2025)"],"parameters":{"ALLSKY_SFC_SW_DWN":{"units":"kW-hr/m^2/day","longname":"All Sky Surface Shortwave Downward Irradiance"},"CLOUD_AMT":{"units":"%","longname":"Cloud Amount"},"TOA_SW_DWN":{"units":"kW-hr/m^2/day","longname":"Top-Of-Atmosphere Shortwave Downward Irradiance"}},"times":{"data":0.127,"process":0.03}}
+}

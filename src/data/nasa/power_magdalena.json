@@ -1,0 +1,11 @@
+{
+  "source": "NASA LaRC POWER",
+  "endpoint": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=ALLSKY_SFC_SW_DWN,CLOUD_AMT,TOA_SW_DWN&community=RE&longitude=-74&latitude=7&format=JSON",
+  "consultedAt": "2026-11-14T19:52:37Z",
+  "license": "NASA public domain",
+  "parameters": ["ALLSKY_SFC_SW_DWN", "CLOUD_AMT", "TOA_SW_DWN"],
+  "units": { "ALLSKY_SFC_SW_DWN": "kWh/m2/day", "CLOUD_AMT": "%", "TOA_SW_DWN": "kWh/m2/day" },
+  "location": { "name": "Magdalena basin centroid, Colombia", "latitude": 7, "longitude": -74 },
+  "fields": ["properties.parameter.ALLSKY_SFC_SW_DWN", "properties.parameter.CLOUD_AMT", "properties.parameter.TOA_SW_DWN"],
+  "data": {"type":"Feature","geometry":{"type":"Point","coordinates":[-74.0,7.0,391.22]},"properties":{"parameter":{"ALLSKY_SFC_SW_DWN":{"JAN":5.3594,"FEB":5.5373,"MAR":5.076,"APR":4.7964,"MAY":4.9234,"JUN":5.1197,"JUL":5.2918,"AUG":5.3419,"SEP":5.2265,"OCT":4.8175,"NOV":4.5593,"DEC":4.8878,"ANN":5.0762},"CLOUD_AMT":{"JAN":46.01,"FEB":51.49,"MAR":69.49,"APR":80.61,"MAY":84.62,"JUN":79.54,"JUL":76.79,"AUG":77.48,"SEP":79.67,"OCT":81.02,"NOV":74.45,"DEC":56.6,"ANN":71.55},"TOA_SW_DWN":{"JAN":9.2009,"FEB":9.8266,"MAR":10.3322,"APR":10.4366,"MAY":10.2182,"JUN":10.0178,"JUL":10.0663,"AUG":10.2554,"SEP":10.2634,"OCT":9.895,"NOV":9.3017,"DEC":8.9491,"ANN":9.8964}}},"header":{"title":"NASA/POWER Source Native Resolution Climatology Climatologies","api":{"version":"v2.10.1","name":"POWER Climatology API"},"sources":["SYN1DEG"],"fill_value":-999.0,"time_standard":"LST","range":"25-year Meteorological and Solar Monthly & Annual Climatologies (January 2001 - December 2025)"},"messages":["The requested parameters are retrieved from a pre-computed climatological period (January 2001 - December 2025)"],"parameters":{"ALLSKY_SFC_SW_DWN":{"units":"kW-hr/m^2/day","longname":"All Sky Surface Shortwave Downward Irradiance"},"CLOUD_AMT":{"units":"%","longname":"Cloud Amount"},"TOA_SW_DWN":{"units":"kW-hr/m^2/day","longname":"Top-Of-Atmosphere Shortwave Downward Irradiance"}},"times":{"data":0.132,"process":0.04}}
+}
