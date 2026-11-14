@@ -71,3 +71,40 @@ export function revisitHours(swathKm: number, passesPerDay: number, agilePointin
   const targetPasses = passesPerDay * accessFactor
   return 24 / Math.max(targetPasses, 0.1)
 }
+
+/**
+ * Natural orbital lifetime without propulsion, days.
+ * Piecewise-linear order-of-magnitude model for the catalog altitudes.
+ * Source: engineering estimate; documented in docs/DATA_PROVENANCE.md (confidence: estimate).
+ */
+export function naturalLifetimeDays(altitudeKm: number): number {
+  const points: Array<[number, number]> = [
+    [400, 120],
+    [500, 400],
+    [550, 600],
+    [700, 1200],
+  ]
+
+  if (altitudeKm <= points[0][0]) {
+    return points[0][1]
+  }
+
+  for (let index = 1; index < points.length; index += 1) {
+    const [highAltitude, highDays] = points[index]
+    const [lowAltitude, lowDays] = points[index - 1]
+    if (altitudeKm <= highAltitude) {
+      const t = (altitudeKm - lowAltitude) / (highAltitude - lowAltitude)
+      return lowDays + t * (highDays - lowDays)
+    }
+  }
+
+  return points[points.length - 1][1]
+}
+
+/** Days of lifetime added by the available delta-v against drag. */
+export function deltaVExtensionDays(dragMSYear: number, availableDeltaVMps: number): number {
+  if (dragMSYear <= 0) {
+    return 0
+  }
+  return (availableDeltaVMps / dragMSYear) * 365
+}
