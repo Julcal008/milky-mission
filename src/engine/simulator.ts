@@ -12,6 +12,8 @@ import { getInstruments, getOrbit, getStorage } from './catalog'
 import { computeCostBreakdown } from './cost'
 import { computeLinkBreakdown } from './link'
 import { computePowerBreakdown } from './power'
+import { DECISION_OPTIONS } from './decisions'
+import type { DecisionChoice, DecisionOption } from './decisions'
 import { trlFailureProbability } from './reliability'
 import { revisitHours } from './orbit'
 import { createRng } from './prng'
@@ -20,6 +22,7 @@ import { REQUIREMENT_TAGS, validateMission } from './validate'
 import type {
   Catalogs,
   DayState,
+  DecisionLog,
   GameEvent,
   InstrumentId,
   MissionConfig,
@@ -61,6 +64,7 @@ export function simulateMission(
   scenario: ScenarioSpec,
   catalogs: Catalogs,
   players = 1,
+  decisions: DecisionChoice[] = [],
 ): SimulationResult {
   const validation = validateMission(config, scenario, catalogs)
   const orbit = getOrbit(catalogs, config.orbitId)
@@ -74,6 +78,61 @@ export function simulateMission(
   const cmeDays = SCRIPTED_CME_DAYS[scenario.id] ?? []
   const flareDays = SCRIPTED_FLARE_DAYS[scenario.id] ?? []
   const groundOutageChance = dailyProbability(GROUND_OUTAGE_ANNUAL)
+
+  const decisionMap = new Map(decisions.map((choice) => [choice.eventId, choice.optionId]))
+  const optionIndex = new Map<string, DecisionOption>()
+  for (const options of Object.values(DECISION_OPTIONS)) {
+    for (const option of options) {
+      optionIndex.set(`${option.eventType}:${option.id}`, option)
+    }
+  }
+
+  interface ActiveEffect {
+    startDay: number
+    endDay: number
+    dataFactor: number
+    powerBonusW: number
+  }
+  const activeEffects: ActiveEffect[] = []
+  const decisionLogs: DecisionLog[] = []
+  const handledEventIds = new Set<string>()
+  let decisionCostUsdM = 0
+  let scienceFactor = 1
+
+  const applyDecision = (event: GameEvent): void => {
+    const optionId = decisionMap.get(event.id)
+    if (!optionId) {
+      return
+    }
+    const option = optionIndex.get(`${event.type}:${optionId}`)
+    if (!option) {
+      return
+    }
+    const durationDays = option.effect.durationDays ?? 3
+    activeEffects.push({
+      startDay: event.day,
+      endDay: event.day + durationDays - 1,
+      dataFactor: option.effect.dataFactor ?? 1,
+      powerBonusW: option.effect.powerBonusW ?? 0,
+    })
+    if (option.effect.handled) {
+      handledEventIds.add(event.id)
+    }
+    if (option.effect.scienceFactor) {
+      scienceFactor *= option.effect.scienceFactor
+    }
+    const costUsdM = option.effect.costUsdM ?? 0
+    if (costUsdM > 0) {
+      decisionCostUsdM += costUsdM
+    }
+    decisionLogs.push({
+      eventId: event.id,
+      day: event.day,
+      role: event.role,
+      optionId,
+      costUsdM,
+    })
+  }
 
   const failedOn = new Map<InstrumentId, number>()
   const aliveFraction = new Map<InstrumentId, number>()
@@ -95,9 +154,45 @@ export function simulateMission(
   const fixedCostUsdM = cost.hardwareUsdM + cost.marginUsdM + cost.launchUsdM
   const opsPerDayUsdM = cost.operationsUsdM / scenario.durationDays
 
+  // Scripted space-weather events are created before the loop so decisions can
+  // affect the days they occur on.
+  for (const day of cmeDays) {
+    const event: GameEvent = {
+      id: `cme_hit-${day}`,
+      day,
+      type: 'cme_hit',
+      role: 'systems',
+      severity: 'critical',
+      titleKey: 'event.cmeHit',
+    }
+    events.push(event)
+    applyDecision(event)
+  }
+  for (const day of flareDays) {
+    const event: GameEvent = {
+      id: `flare_x-${day}`,
+      day,
+      type: 'flare_x',
+      role: 'science',
+      severity: 'warning',
+      titleKey: 'event.flareX',
+    }
+    events.push(event)
+    applyDecision(event)
+  }
+
   for (let day = 1; day <= scenario.durationDays; day += 1) {
     const cmeActive = cmeDays.some((start) => day >= start && day <= start + 2)
     const flareActive = flareDays.some((start) => day >= start && day <= start + 1)
+
+    const dayEffects = activeEffects.filter(
+      (effect) => day >= effect.startDay && day <= effect.endDay,
+    )
+    const decisionDataFactor = dayEffects.reduce(
+      (product, effect) => product * effect.dataFactor,
+      1,
+    )
+    const powerBonusW = dayEffects.reduce((sum, effect) => sum + effect.powerBonusW, 0)
 
     // Component failures (instrument-level, TRL-driven).
     for (const instrument of instruments) {
@@ -107,27 +202,31 @@ export function simulateMission(
       if (rng.chance(dailyProbability(trlFailureProbability(instrument.trl)))) {
         failedOn.set(instrument.id, day)
         aliveFraction.set(instrument.id, (day - 1) / scenario.durationDays)
-        events.push({
+        const event: GameEvent = {
           id: `inst_fail-${instrument.id}-${day}`,
           day,
           type: 'inst_fail',
           role: 'science',
           severity: 'critical',
           titleKey: `event.instFail.${instrument.id}`,
-        })
+        }
+        events.push(event)
+        applyDecision(event)
       }
     }
 
     const groundOutage = rng.chance(groundOutageChance)
     if (groundOutage) {
-      events.push({
+      const event: GameEvent = {
         id: `gs_outage-${day}`,
         day,
         type: 'gs_outage',
         role: 'comms',
         severity: 'warning',
         titleKey: 'event.gsOutage',
-      })
+      }
+      events.push(event)
+      applyDecision(event)
     }
 
     // Power: seasonal variation, noise, CME degradation, battery integration.
@@ -135,7 +234,7 @@ export function simulateMission(
     const noise = rng.range(0.95, 1.05)
     const cmeFactor = cmeActive ? 0.85 : 1
     const powerGeneratedW = power.orbitAverageGenerationW * seasonal * noise * cmeFactor
-    const loadW = power.totalLoadW
+    const loadW = Math.max(0, power.totalLoadW - powerBonusW)
 
     const netWh = (powerGeneratedW - loadW) * 24
     batterySocWh = Math.min(usableBatteryWh, Math.max(0, batterySocWh + netWh * 0.9))
@@ -145,14 +244,16 @@ export function simulateMission(
       deficit = true
       if (day - lastDeficitDay > 30) {
         lastDeficitDay = day
-        events.push({
+        const event: GameEvent = {
           id: `power_deficit-${day}`,
           day,
           type: 'power_deficit',
           role: 'systems',
           severity: 'critical',
           titleKey: 'event.powerDeficit',
-        })
+        }
+        events.push(event)
+        applyDecision(event)
       }
     }
 
@@ -162,7 +263,7 @@ export function simulateMission(
       (sum, instrument) => sum + instrument.dataGbPerDay,
       0,
     )
-    const dutyFactor = (flareActive ? 0.5 : 1) * (deficit ? 0.5 : 1)
+    const dutyFactor = (flareActive ? 0.5 : 1) * (deficit ? 0.5 : 1) * decisionDataFactor
     const generatedGb = baseGenerated * dutyFactor
     const downlinkGb = groundOutage ? 0 : link.downlinkGbPerDay
     const deliveredGb = Math.min(downlinkGb, generatedGb + bufferGb)
@@ -173,14 +274,16 @@ export function simulateMission(
 
     if (!bufferFullLogged && bufferGb >= storage.capacityGb * 0.95) {
       bufferFullLogged = true
-      events.push({
+      const event: GameEvent = {
         id: `buffer_full-${day}`,
         day,
         type: 'buffer_full',
         role: 'comms',
         severity: 'warning',
         titleKey: 'event.bufferFull',
-      })
+      }
+      events.push(event)
+      applyDecision(event)
     }
 
     days.push({
@@ -191,29 +294,8 @@ export function simulateMission(
       dataGeneratedGb: Math.round(generatedGb * 1000) / 1000,
       dataDownlinkedGb: Math.round(deliveredGb * 1000) / 1000,
       bufferGb: Math.round(bufferGb * 1000) / 1000,
-      costSpentUsdM: Math.round((fixedCostUsdM + opsPerDayUsdM * day) * 100) / 100,
-    })
-  }
-
-  // Scripted space-weather events (logged after the loop so days are stable).
-  for (const day of cmeDays) {
-    events.push({
-      id: `cme_hit-${day}`,
-      day,
-      type: 'cme_hit',
-      role: 'systems',
-      severity: 'critical',
-      titleKey: 'event.cmeHit',
-    })
-  }
-  for (const day of flareDays) {
-    events.push({
-      id: `flare_x-${day}`,
-      day,
-      type: 'flare_x',
-      role: 'science',
-      severity: 'warning',
-      titleKey: 'event.flareX',
+      costSpentUsdM:
+        Math.round((fixedCostUsdM + decisionCostUsdM + opsPerDayUsdM * day) * 100) / 100,
     })
   }
 
@@ -240,7 +322,7 @@ export function simulateMission(
   })
 
   const requirementFraction = new Map(requirements.map((item) => [item.id, item.fraction]))
-  const scienceValue = instruments.reduce((sum, instrument) => {
+  const rawScienceValue = instruments.reduce((sum, instrument) => {
     const supported = instrument.supports
       .map((tag) => {
         const requirementsWithTag = scenario.requirements.filter((requirement) =>
@@ -263,12 +345,19 @@ export function simulateMission(
     const alive = aliveFraction.get(instrument.id) ?? 1
     return sum + instrument.scienceValue * deliveredFraction * coverage * alive
   }, 0)
+  const scienceValue = rawScienceValue * scienceFactor
 
-  const criticalEvents = events.filter((event) => event.severity === 'critical').length
-  const anomalyHandling = criticalEvents > 0 ? 0.6 : 1
-  const massMargin = validation.budgets.massCapacityKg
-    ? (validation.budgets.massCapacityKg - validation.budgets.massKg) /
-      validation.budgets.massCapacityKg
+  const criticalEvents = events.filter((event) => event.severity === 'critical')
+  const handledCritical = criticalEvents.filter((event) => handledEventIds.has(event.id)).length
+  const anomalyHandling = criticalEvents.length > 0 ? handledCritical / criticalEvents.length : 1
+
+  const budgets = {
+    ...validation.budgets,
+    costUsdM: validation.budgets.costUsdM + decisionCostUsdM,
+  }
+
+  const massMargin = budgets.massCapacityKg
+    ? (budgets.massCapacityKg - budgets.massKg) / budgets.massCapacityKg
     : 0
 
   const score = scoreMission(scenario, {
@@ -276,7 +365,7 @@ export function simulateMission(
       config.requirements.includes(requirement.id),
     ),
     scienceValue,
-    budgets: validation.budgets,
+    budgets,
     massMarginFraction: massMargin,
     powerMarginFraction: power.marginFraction,
     anomalyHandling,
@@ -295,9 +384,9 @@ export function simulateMission(
     config,
     days,
     events,
-    decisions: [],
+    decisions: decisionLogs,
     requirements,
-    budgets: validation.budgets,
+    budgets,
     score,
     verdict,
     assumptions: [
@@ -305,6 +394,7 @@ export function simulateMission(
       'Battery, data and cost are integrated at daily resolution.',
       'Link capacity assumes a 10 deg elevation pass at maximum slant range.',
       'Instruments generate data at their nominal rate while alive.',
+      'Decision effects are game values documented in docs/GAME_DESIGN.md.',
       hasStormSensor
         ? 'Storm sensor present.'
         : 'No storm sensor: radiation requirement is weaker.',
