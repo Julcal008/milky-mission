@@ -45,6 +45,7 @@ export function simulateMission(
   scenario: ScenarioSpec,
   catalogs: Catalogs,
   players?: number, // 1 = solo, 2..4 = team; defaults to 1
+  decisions?: DecisionChoice[], // eventId -> optionId; empty for a first pass
 ): SimulationResult
 
 /** Pure scoring pass. Called by simulateMission; exported for tests and reports. */
