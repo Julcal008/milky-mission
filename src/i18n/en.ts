@@ -20,6 +20,10 @@ export const en = {
     comingSoon: 'In progress',
     readDocs: 'Read the docs',
   },
+  start: {
+    cta: 'Start',
+    tagline: 'An immersive space adventure experience.',
+  },
   home: {
     eyebrow: 'NASA Space Apps Challenge 2026 · Neiva',
     title: 'Mission design, from concept to consequences.',

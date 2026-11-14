@@ -25,6 +25,17 @@
   --color-milk-strong: #ffd79a;
   --color-ion: #6ea8ff;
 
+  /* Solarpunk palette — additive, used by the start menu until the full remap lands.
+     Source: user-provided six-color palette (2026-11-14). */
+  --color-jade: #529d7b;
+  --color-indigo: #3d5588;
+  --color-plum: #5b3365;
+  --color-mauve: #b4567c;
+  --color-coral: #ec816b;
+  --color-cream: #f4d08b;
+  /* Dark text placed on cream/coral primary surfaces. */
+  --color-on-primary: #141013;
+
   /* Semantic status */
   --color-success: #3ddc97;
   --color-warning: #ffc857;

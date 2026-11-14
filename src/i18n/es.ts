@@ -21,6 +21,10 @@ export const es = {
     comingSoon: 'En desarrollo',
     readDocs: 'Ver documentación',
   },
+  start: {
+    cta: 'Inicio',
+    tagline: 'Experiencia inmersiva de una aventura espacial.',
+  },
   home: {
     eyebrow: 'NASA Space Apps Challenge 2026 · Neiva',
     title: 'Diseño de misiones, del concepto a las consecuencias.',
