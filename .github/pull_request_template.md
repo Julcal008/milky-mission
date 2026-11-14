@@ -25,9 +25,11 @@
 ## Checklist
 
 - [ ] Only files inside my track (or announced shared files)
+- [ ] Track guard passed (`git config --local milky.track` matches my track)
+- [ ] No force-push, branch deletion or shared-history reset
 - [ ] Units are explicit in new numeric names
 - [ ] Catalog changes update `docs/DATA_PROVENANCE.md`
 - [ ] Contract changes update `docs/CONTRACT.md`
-- [ ] `docs/STATE.md` updated
+- [ ] `docs/state/<track>.md` updated
 - [ ] No NASA logos or branding added
 - [ ] English in code, comments and docs

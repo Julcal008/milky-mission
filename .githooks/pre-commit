@@ -1,0 +1,4 @@
+#!/bin/sh
+# Track guard: blocks commits outside the contributor's track when
+# milky.track is configured. See scripts/check-track.mjs.
+exec node scripts/check-track.mjs

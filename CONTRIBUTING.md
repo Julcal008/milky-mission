@@ -5,6 +5,21 @@ for **small, reversible, non-overlapping changes**.
 
 > **Windows contributors:** follow [`docs/SETUP_WINDOWS.md`](SETUP_WINDOWS.md) first.
 
+## 0. One-time setup in your clone
+
+Declare your track and enable the guard hook:
+
+```bash
+git config --local milky.track core          # Track A
+git config --local milky.track experience    # Track B
+git config --local milky.track data          # Track C
+git config --local milky.track all           # integrator only
+git config --local core.hooksPath .githooks
+```
+
+From that moment, **every commit is checked**: the hook rejects files outside your track
+and prints the allowed paths. This is enforcement, not advice.
+
 ## 1. Tracks and ownership
 
 | Track | Owner | Scope | Owns |
@@ -113,8 +128,21 @@ agree on the next two tasks.
 - Numbers carry units in their names.
 - Catalog changes update `docs/DATA_PROVENANCE.md`.
 - Contract changes update `docs/CONTRACT.md` and fixtures.
-- No file outside your track changed.
+- No file outside your track changed (the hook enforces it).
 - Your state file is current.
+
+## 9. Git safety
+
+- **Never** force-push (`--force`, `-f`, `--force-with-lease`) to `main`, to another
+  person's branch, or to a branch you did not create.
+- **Never** delete remote branches you do not own.
+- **Never** `git reset --hard`, `git clean -fdx`, `git checkout -- .` or `git branch -D`
+  on shared history. Ask first.
+- Never commit `node_modules`, `dist`, `.env`, tokens or credentials.
+- A rejected push means `git pull --rebase origin main` on your own branch. Never force.
+- `git commit --no-verify` requires explicit human approval.
+- OpenCode blocks force-push, mirror, branch deletion, `reset --hard`, `clean -f` and
+  `rm -rf` at the permission layer. If a command is refused, do not try to bypass it.
 
 ## 9. Data honesty
 

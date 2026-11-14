@@ -29,6 +29,10 @@
 
 # Integrator — repo plumbing and shared documents
 /.github/ @Julcal008
+/scripts/ @Julcal008
+/.githooks/ @Julcal008
+/.opencode/ @Julcal008
+/opencode.jsonc @Julcal008
 /package.json @Julcal008
 /package-lock.json @Julcal008
 /AGENTS.md @Julcal008
