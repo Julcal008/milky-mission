@@ -1,29 +1,30 @@
 # Track C — Data & Content · status
 
 **Owner:** @Metsus-S
-**Updated:** 2026-11-14 11:30 (America/Bogota)
+**Updated:** 2026-11-14 15:25 (America/Bogota)
 
 ## Now
 
-- Repository invitation sent; waiting for acceptance.
-- Catalog tables specified in `docs/GAME_DATA.md` (v0.1).
-- No data files cached yet.
+- Scenario domain copy in `src/content/scenarios/`: Storm Watch (r1–r6) and Andes Flood
+  Watch (r1–r5), each with title, summary and brief in EN and ES.
+- `scenarioContent` is keyed by locale and `ScenarioId`; keys mirror
+  `scenario.<id>.rN.title` and `.description`.
+- 6 tests; full suite on this branch: 99 tests.
+- Catalogs v1 are in PR #12 (`data/catalogs`); DONKI/POWER are in PR #11
+  (`data/nasa-cache`).
 
 ## Next (in order)
 
-1. Cache NASA DONKI (1–15 May 2024) into `src/data/nasa/donki_2024_05.json` with wrapper
-   metadata (source, endpoint, consultedAt, fields).
-2. Cache NASA POWER climatology for Neiva and the Magdalena basin.
-3. Catalogs v1 in `src/data/catalogs/`: orbits, launchers, buses, propulsion, arrays,
-   batteries, comms, ground networks, storage, instruments.
-4. Storm Watch scenario in `src/content/scenarios/` (EN + ES).
-5. Provenance rows for every cached value.
+1. Track B: merge `scenarioContent[lang]` into `src/i18n` under `scenario` and render the
+   Brief and Requirements screens.
+2. Track A: after PR #12 merges, import `catalogs` from `@/data/catalogs` in
+   `src/store/mission.ts` and delete `src/engine/__fixtures__/catalog-fixture.ts`.
+3. Merge order #11 → #12 → #13; rebase #13 on `main` after #12 to resolve the small
+   `docs/state/data.md` overlap.
 
 ## Blockers
 
-- Waiting for GitHub invitation acceptance.
-- Catalog TypeScript types are frozen by Track A; read `src/engine/types.ts` before writing
-  JSON. Do not edit that file.
+- None for Track C. Wiring these strings into the UI is Track B's file (`src/i18n`).
 
 ## Editing now (lock)
 
@@ -31,5 +32,6 @@
 
 ## Notes
 
-- No runtime network calls: everything is cached in the repository.
-- Label every value `official`, `derived`, `estimate` or `game`.
+- English in `*.en.ts`; Spanish only in `*.es.ts`.
+- No runtime network calls.
+- Scenario copy is domain copy, not engine logic.

@@ -14,6 +14,9 @@ hardcodes them. **Every value is labelled:**
 
 If a value has no label, it is a bug. Update `docs/DATA_PROVENANCE.md` with every change.
 
+Scenario copy (EN/ES) lives in `src/content/scenarios/`; Track B merges it into i18n
+under `scenario.*`.
+
 ---
 
 ## 1. Scenarios
