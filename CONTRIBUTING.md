@@ -3,6 +3,8 @@
 Three contributors (plus their AI agents) are building this in about 48 hours. Optimize
 for **small, reversible, non-overlapping changes**.
 
+> **Windows contributors:** follow [`docs/SETUP_WINDOWS.md`](SETUP_WINDOWS.md) first.
+
 ## 1. Tracks and ownership
 
 | Track | Owner | Scope | Owns |

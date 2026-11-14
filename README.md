@@ -83,6 +83,7 @@ The short version:
 | Document | Purpose |
 |---|---|
 | [ARCHITECTURE.md](docs/ARCHITECTURE.md) | Layers, data flow, boundaries |
+| [SETUP_WINDOWS.md](docs/SETUP_WINDOWS.md) | Windows setup for contributors |
 | [CONTRACT.md](docs/CONTRACT.md) | Engine API, units and invariants |
 | [GAME_DESIGN.md](docs/GAME_DESIGN.md) | Loop, roles, decisions, scoring |
 | [GAME_DATA.md](docs/GAME_DATA.md) | Catalogs, scenarios and balance targets |
