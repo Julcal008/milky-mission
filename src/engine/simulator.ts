@@ -149,6 +149,7 @@ export function simulateMission(
   let totalGeneratedGb = 0
   let totalDeliveredGb = 0
   let lastDeficitDay = -999
+  let deficitDays = 0
   let bufferFullLogged = false
 
   const fixedCostUsdM = cost.hardwareUsdM + cost.marginUsdM + cost.launchUsdM
@@ -242,6 +243,7 @@ export function simulateMission(
     let deficit = false
     if (batterySocWh <= 0) {
       deficit = true
+      deficitDays += 1
       if (day - lastDeficitDay > 30) {
         lastDeficitDay = day
         const event: GameEvent = {
@@ -304,7 +306,7 @@ export function simulateMission(
   const deliveredFraction =
     totalGeneratedGb > 0 ? Math.min(1, totalDeliveredGb / totalGeneratedGb) : 1
   const outageDays = events.filter((event) => event.type === 'gs_outage').length
-  const duty = Math.max(0.5, 1 - outageDays / scenario.durationDays)
+  const duty = Math.max(0, 1 - (outageDays + deficitDays) / scenario.durationDays)
   const doseKrad = orbit.radiationKradYear * (scenario.durationDays / DAYS_PER_YEAR)
   const hasStormSensor = instruments.some((instrument) => instrument.supports.includes('storm'))
 
@@ -373,8 +375,9 @@ export function simulateMission(
   })
 
   const chosen = requirements.filter((requirement) => config.requirements.includes(requirement.id))
-  const verdict: SimulationResult['verdict'] =
-    chosen.length > 0 && chosen.every((requirement) => requirement.fraction >= 0.99)
+  const verdict: SimulationResult['verdict'] = !validation.ok
+    ? 'failure'
+    : chosen.length > 0 && chosen.every((requirement) => requirement.fraction >= 0.99)
       ? 'success'
       : chosen.some((requirement) => requirement.fraction >= 0.5)
         ? 'partial'
