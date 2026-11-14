@@ -1,7 +1,7 @@
 # Track C — Data & Content · status
 
 **Owner:** @Metsus-S
-**Updated:** 2026-11-14 15:25 (America/Bogota)
+**Updated:** 2026-11-14 15:45 (America/Bogota)
 
 ## Now
 
@@ -9,22 +9,21 @@
   Watch (r1–r5), each with title, summary and brief in EN and ES.
 - `scenarioContent` is keyed by locale and `ScenarioId`; keys mirror
   `scenario.<id>.rN.title` and `.description`.
-- 6 tests; full suite on this branch: 99 tests.
-- Catalogs v1 are in PR #12 (`data/catalogs`); DONKI/POWER are in PR #11
-  (`data/nasa-cache`).
+- Catalogs v1 are merged into `main` (#14): 10 typed tables, 48 validity tests.
+- DONKI/POWER caches are merged (#11), and scenario copy is merged (#15).
+- Track A wired all three: catalogs in the store, DONKI event days in the simulator and
+  POWER cloud climatology for optical instruments.
 
 ## Next (in order)
 
 1. Track B: merge `scenarioContent[lang]` into `src/i18n` under `scenario` and render the
    Brief and Requirements screens.
-2. Track A: after PR #12 merges, import `catalogs` from `@/data/catalogs` in
-   `src/store/mission.ts` and delete `src/engine/__fixtures__/catalog-fixture.ts`.
-3. Merge order #11 → #12 → #13; rebase #13 on `main` after #12 to resolve the small
-   `docs/state/data.md` overlap.
+2. Track B: show the NASA data provenance panel using `docs/DATA_PROVENANCE.md`.
+3. Track C: real-mission analogues for the report (GOES-R, SDO, ICON).
 
 ## Blockers
 
-- None for Track C. Wiring these strings into the UI is Track B's file (`src/i18n`).
+- None for Track C. Rendering the strings is Track B's file (`src/i18n`).
 
 ## Editing now (lock)
 

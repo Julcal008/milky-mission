@@ -30,7 +30,7 @@ The architecture exists to guarantee three things:
                 │ typed catalogs               │
 ┌───────────────┴──────────────────────────────▼───────────────┐
 │  DATA & CONTENT (src/data, src/content)                      │
-│  catalogs/*.json · nasa/*.json (cached) · provenance · copy   │
+│  catalogs/*.ts · nasa/*.json (cached) · provenance · copy     │
 └──────────────────────────────────────────────────────────────┘
 ```
 

@@ -15,7 +15,9 @@
 - Share codec: URL-safe mission code with seed; store exposes `shareCode`/`loadShareCode`.
 - **Real data wired:** store and all tests use `src/data/catalogs`; the temporary catalog
   fixture is deleted. Space-weather days come from `spaceWeatherDaysFor()`.
-- **171 tests passing** (engine + data + content), including validity tests.
+- **Cloud wired:** optical Earth imagers (`msi`, `hri`) lose data to NASA POWER monthly
+  cloud climatology; SAR and solar instruments are unaffected.
+- **176 tests passing** (engine + data + content), including validity tests.
 - Balance: reference **825 A**, naive **317 D** (fails R1), over-budget design **failure**.
 
 ## Next (in order)
