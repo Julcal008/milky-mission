@@ -1,0 +1,16 @@
+{
+  "scenarioId": "andes-flood-watch",
+  "seed": 20260516,
+  "orbitId": "sso700",
+  "launcherId": "firefly",
+  "busId": "small",
+  "propulsionId": "mono",
+  "arrayId": "gaas",
+  "arrayAreaM2": 3.5,
+  "batteryId": "b1600",
+  "commsId": "ka",
+  "groundNetworkId": "dsn",
+  "storageId": "s64",
+  "instrumentIds": ["sar", "mag", "gnssro"],
+  "requirements": ["R1", "R2", "R3"]
+}
