@@ -59,6 +59,45 @@ export function scoreMission(
 mass and power margins, anomaly handling and player count. `SimulationResult` includes
 `budgets: BudgetSnapshot` so the report does not re-run validation.
 
+## 2.1 UI integration (Track B)
+
+The UI never imports engine formulas. It uses the mission store:
+
+```ts
+import { useMissionStore } from '@/store/mission'
+import { decisionOptionsFor } from '@/engine/decisions'
+
+// Design screen
+const config = useMissionStore((state) => state.config)
+const validation = useMissionStore((state) => state.validation)
+const setConfig = useMissionStore((state) => state.setConfig)
+setConfig({ orbitId: 'sso700' }) // validation recomputes synchronously
+
+// Review screen
+validation.ok          // false if any blocking error
+validation.issues      // { code, severity, messageKey, detail }
+validation.budgets     // gauges read from here
+
+// Simulation screen
+const simulate = useMissionStore((state) => state.simulate)
+const simulation = simulate() // SimulationResult
+simulation.events.forEach((event) => decisionOptionsFor(event.type))
+
+// Player chooses an option for an event, then re-runs deterministically:
+useMissionStore.getState().setDecision(event.id, optionId)
+const updated = useMissionStore.getState().simulate()
+
+// Team mode
+useMissionStore.getState().setPlayers(4)
+```
+
+Rules:
+
+- `setConfig` clears the previous simulation and decisions. Run the simulation again.
+- The first simulation pass discovers events; the second applies the chosen options.
+- Never compute mass, power, link or score in a component.
+- Every `messageKey` and decision `labelKey` must exist in `src/i18n/{en,es}.ts`.
+
 Supporting types (already declared in `src/engine/types.ts`):
 
 ```ts
