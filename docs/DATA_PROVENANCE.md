@@ -8,15 +8,22 @@ Legend: **O** official · **D** derived · **E** estimate · **G** game.
 
 Owner: Track C (Data & Content). Add a row in the same PR that changes a catalog value.
 
+Catalog source of truth: `src/data/catalogs/` (one typed TS file per table, every entry
+with `source` and `confidence`). `src/engine/__fixtures__/catalog-fixture.ts` is
+temporary and must be deleted after Track A switches its imports.
+
 ---
 
 ## 1. NASA datasets
 
 | Dataset / field | Drives | Endpoint or product | Consulted | Conf. |
 |---|---|---|---|---|
-| DONKI `FLR`, `CME`, `GST` (May 2024) | Scenario timeline, storm events, radiation risk | `https://api.nasa.gov/DONKI/` | 2026-11-14 | O |
-| POWER `ALLSKY_SFC_SW_DWN` | Solar array output | `https://power.larc.nasa.gov/api/temporal/climatology/point` | 2026-11-14 | O |
+| DONKI `FLR`, `CME`, `GST` (May 2024) | Scenario timeline, storm events, radiation risk | `https://ccmc.gsfc.nasa.gov/DONKI-API/get/` | 2026-11-14 | O |
+| DONKI event selection + window scaling | Mission event days (3 GST + strongest X flare) | `src/data/nasa/donki.ts`, derived from the cache above | 2026-11-14 | D |
+| POWER `ALLSKY_SFC_SW_DWN` | Ground context; not array sizing | `https://power.larc.nasa.gov/api/temporal/climatology/point` | 2026-11-14 | O |
+| POWER `TOA_SW_DWN` | Seasonal validation of the solar model | same | 2026-11-14 | O |
 | POWER `CLOUD_AMT` | Optical vs. SAR trade-off | same | 2026-11-14 | O |
+| Cloud usable fraction | `1 − CLOUD_AMT/100`, clamped to [0, 1] | `src/data/nasa/power.ts` | 2026-11-14 | D |
 | GIBS / Blue Marble imagery | Map base, scenario cards | NASA EOSDIS GIBS / Visible Earth | 2026-11-14 | O |
 | JPL CNEOS close approaches | Reserved, not used in v0.1 | `https://ssd-api.jpl.nasa.gov/cad.api` | 2026-11-14 | O |
 
@@ -92,14 +99,16 @@ science values are game values.
 | Drag 8 / 3 / 60 / 12 m/s·yr | Order-of-magnitude at nominal solar activity | E |
 | Dose 3 / 5 / 6 / 4 krad/yr | Behind 3 mm Al, order-of-magnitude | E |
 | Revisit model | `targetPassesPerDay × accessFactor` | G |
-| Cloud penalty | POWER `CLOUD_AMT` mapped to usable-day fraction | D |
+| Cloud penalty | POWER `CLOUD_AMT` mapped linearly to usable-day fraction, clamped | D |
+| Daily insolation to mean flux | `kWh/m²/day × 1000 / 24` | O |
 
 ## 7. Game-design values
 
 These are **not** real-world claims and must be presented as game mechanics:
 
 - Requirement thresholds and weights.
-- Event probabilities and scripted days.
+- Event probabilities. Scripted days are derived from DONKI (dates official, selection
+  and scaling derived), not invented.
 - Decision effects and token rules.
 - Score weights, grade thresholds and difficulty multipliers.
 - Scenario budgets and lifetimes.
@@ -117,6 +126,7 @@ These are **not** real-world claims and must be presented as game mechanics:
 | Radiation dose by orbit | Check with a published environment tool or leave as estimate |
 | Drag at 400/500/550/700 km | Check against a standard atmosphere model or leave as estimate |
 | Battery cycle life | Keep as estimate, label clearly |
+| DONKI endpoint migration | Confirm `ccmc.gsfc.nasa.gov/DONKI-API` stability before submission; keep the raw cache if it changes |
 
 Until verified, the values stay labelled **E** and the in-app panel says
 "engineering estimate".

@@ -14,6 +14,12 @@ hardcodes them. **Every value is labelled:**
 
 If a value has no label, it is a bug. Update `docs/DATA_PROVENANCE.md` with every change.
 
+Scenario copy (EN/ES) lives in `src/content/scenarios/`; Track B merges it into i18n
+under `scenario.*`.
+
+Machine-readable catalogs live in `src/data/catalogs/` (one typed TS file per table,
+`source` and `confidence` on every entry).
+
 ---
 
 ## 1. Scenarios
@@ -298,7 +304,8 @@ R5 = lifetimeDays >= 548 ? 1 : lifetimeDays/548
 
 ## 10. Events
 
-Conf.: **G**, except the CME/flare timeline which is **O** (DONKI dates).
+Conf.: **G**, except the CME/flare timeline: dates are **O** (DONKI), selection and
+linear scaling are **D**.
 
 | ID | Trigger | Annual rate | Role | Effect |
 |---|---|---|---|---|
@@ -316,6 +323,14 @@ Conf.: **G**, except the CME/flare timeline which is **O** (DONKI dates).
 
 Random rates are stored per year and converted to per-day:
 `p_day = 1 − (1 − p_year)^(1/365)`.
+
+**Historical timeline (DONKI).** The official window 1–15 May 2024 is scaled linearly
+onto the mission. Storm days use GST onsets (actual Earth impact), taking the three
+highest Kp events; the flare day is the strongest X-class event (X8.7, 2024-05-14).
+For Storm Watch (365 days): CME days **40, 235, 289** and flare day **333**. For
+Andes Flood Watch (548 days): **60, 352, 434** and flare day **501**. The raw cache is
+`src/data/nasa/donki_2024_05.json`; the mapping lives in `src/data/nasa/donki.ts`.
+Dates: **O**; event selection and scaling: **D**.
 
 ---
 
@@ -418,7 +433,8 @@ data delivery, and loses points on robustness.
 
 | Source | Field | Used by | Conf. |
 |---|---|---|---|
-| NASA POWER `ALLSKY_SFC_SW_DWN` | monthly irradiance, kWh/m²/day | power generation | O |
+| NASA POWER `ALLSKY_SFC_SW_DWN` | monthly surface insolation, kWh/m²/day | ground context; not array sizing | O |
+| NASA POWER `TOA_SW_DWN` | monthly top-of-atmosphere insolation, kWh/m²/day | seasonal validation | O |
 | NASA POWER `CLOUD_AMT` | monthly cloud amount, % | optical vs SAR trade-off | O |
 | NASA DONKI `FLR`, `CME`, `GST` | event dates and classes | simulation timeline | O |
 | NASA GIBS / Blue Marble | base imagery | map and scenario cards | O |

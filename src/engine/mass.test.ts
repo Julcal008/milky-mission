@@ -2,7 +2,7 @@
  * Tests for the mass model, including validity properties.
  */
 import { describe, expect, it } from 'vitest'
-import { catalogFixture } from './__fixtures__/catalog-fixture'
+import { catalogs as catalogFixture } from '@/data/catalogs'
 import { getLauncher, getOrbit } from './catalog'
 import {
   computeMassBreakdown,
