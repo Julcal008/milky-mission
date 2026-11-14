@@ -8,7 +8,7 @@
  */
 import { create } from 'zustand'
 import { baselineConfig } from '@/engine/__fixtures__/baseline'
-import { catalogFixture } from '@/engine/__fixtures__/catalog-fixture'
+import { catalogs as catalogFixture } from '@/data/catalogs'
 import { scenarioFixtures } from '@/engine/__fixtures__/scenario-fixture'
 import type { DecisionChoice } from '@/engine/decisions'
 import { buildMissionReport } from '@/engine/report'

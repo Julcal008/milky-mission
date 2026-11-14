@@ -138,7 +138,7 @@ src/
   i18n/       en.ts, es.ts, index.ts (interface copy, Track B)
   engine/     types.ts, units.ts, future mass.ts, orbit.ts, power.ts, link.ts, data.ts,
               cost.ts, reliability.ts, score.ts, simulator.ts, prng.ts (Track A)
-  data/       catalogs/*.json, nasa/*.json, provenance (Track C)
+  data/       catalogs/*.ts, nasa/*.json, provenance (Track C)
   content/    scenarios, requirements, glossary, report copy in EN/ES (Track C)
 docs/
 ```

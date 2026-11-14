@@ -11,51 +11,51 @@
       "titleKey": "event.bufferFull"
     },
     {
-      "day": 95,
+      "day": 40,
       "kind": "event",
       "severity": "critical",
       "role": "systems",
       "titleKey": "event.cmeHit"
     },
     {
-      "day": 150,
+      "day": 235,
+      "kind": "event",
+      "severity": "critical",
+      "role": "systems",
+      "titleKey": "event.cmeHit"
+    },
+    {
+      "day": 289,
+      "kind": "event",
+      "severity": "critical",
+      "role": "systems",
+      "titleKey": "event.cmeHit"
+    },
+    {
+      "day": 333,
       "kind": "event",
       "severity": "warning",
       "role": "science",
       "titleKey": "event.flareX"
-    },
-    {
-      "day": 200,
-      "kind": "event",
-      "severity": "critical",
-      "role": "systems",
-      "titleKey": "event.cmeHit"
-    },
-    {
-      "day": 300,
-      "kind": "event",
-      "severity": "critical",
-      "role": "systems",
-      "titleKey": "event.cmeHit"
     }
   ],
   "highlights": [
     {
-      "day": 95,
+      "day": 40,
       "kind": "event",
       "severity": "critical",
       "role": "systems",
       "titleKey": "event.cmeHit"
     },
     {
-      "day": 200,
+      "day": 235,
       "kind": "event",
       "severity": "critical",
       "role": "systems",
       "titleKey": "event.cmeHit"
     },
     {
-      "day": 300,
+      "day": 289,
       "kind": "event",
       "severity": "critical",
       "role": "systems",

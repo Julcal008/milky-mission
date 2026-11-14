@@ -3,7 +3,7 @@
  */
 import { describe, expect, it } from 'vitest'
 import { baselineConfig } from './__fixtures__/baseline'
-import { catalogFixture } from './__fixtures__/catalog-fixture'
+import { catalogs as catalogFixture } from '@/data/catalogs'
 import { scenarioFixtures } from './__fixtures__/scenario-fixture'
 import { buildMissionReport } from './report'
 import { simulateMission } from './simulator'

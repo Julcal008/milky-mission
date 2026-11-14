@@ -3,7 +3,7 @@
  */
 import { describe, expect, it } from 'vitest'
 import { baselineConfig } from './__fixtures__/baseline'
-import { catalogFixture } from './__fixtures__/catalog-fixture'
+import { catalogs as catalogFixture } from '@/data/catalogs'
 import { computeLinkBreakdown, pathLossDb, slantRangeKm, BAND_FREQUENCY_HZ } from './link'
 import type { MissionConfig } from './types'
 
