@@ -8,6 +8,7 @@ You get an objective, a budget and one launch. You choose the orbit, the launch 
 
 **Team:** Kessler Syndrome · **with Laura**
 **Challenge:** [Space Mission Design Game](https://www.spaceappschallenge.org/2026/challenges/space-mission-design-game/)
+**Prototype:** https://julcal008.github.io/milky-mission/
 
 ---
 

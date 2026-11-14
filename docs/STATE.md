@@ -3,8 +3,10 @@
 > Live status. Update on every merge. Keep it short: five lines per section.
 > Owner: Track B. Read this first, every session.
 
-**Last update:** 2026-11-14 11:15 (America/Bogota)
-**Phase:** 0 — Foundation complete · 1 — Engine contract in progress
+**Last update:** 2026-11-14 11:20 (America/Bogota)
+**Phase:** 0 — Foundation complete · 1 — Engine contract next
+**Repository:** https://github.com/Julcal008/milky-mission
+**Prototype:** https://julcal008.github.io/milky-mission/ (`#/styleguide` for the design system)
 **Submission deadline:** Sunday 15 Nov 2026, 23:59
 **Feature freeze:** Sunday 15 Nov 2026, 10:45
 
@@ -21,6 +23,7 @@
 - Collaboration docs: AGENTS, CONTRIBUTING, ARCHITECTURE, CONTRACT, GAME_DESIGN,
   GAME_DATA, DESIGN_SYSTEM, NASA_DATA, DATA_PROVENANCE, DECISIONS, SUBMISSION_EN.
 - CODEOWNERS, PR template, issue templates, CI and Pages workflows.
+- GitHub repository created and pushed; CI green; Pages deploy live.
 
 ## In progress
 
@@ -38,9 +41,8 @@
 
 ## Blockers
 
-- Second contributor GitHub handle missing → CODEOWNERS invitation and branch
-  protection cannot be finalised.
-- GitHub repository URL not yet provided; local repo is committed but not pushed.
+- Second contributor GitHub handle missing → CODEOWNERS invitation cannot be sent.
+- Decide whether to protect `main` with required CI (recommended once both push).
 
 ## Checkpoints
 
