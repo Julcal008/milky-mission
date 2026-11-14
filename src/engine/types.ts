@@ -313,6 +313,7 @@ export interface SimulationResult {
   events: GameEvent[]
   decisions: DecisionLog[]
   requirements: RequirementResult[]
+  budgets: BudgetSnapshot
   score: ScoreBreakdown
   verdict: 'success' | 'partial' | 'failure'
   /** Non-fatal notes, e.g. simplifications applied at run time. */

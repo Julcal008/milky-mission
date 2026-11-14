@@ -9,14 +9,17 @@
 - Fixtures: temporary catalog, scenarios, baseline/naive/over-budget missions, baseline budget.
 - Engine landed: PRNG, mass, orbit.
 - Second layer landed: power, link, data, cost, reliability, validation and mission store.
-- **79 tests passing**, including validity tests.
+- **Simulation landed:** deterministic 365-day loop, scripted CME/flare events, component
+  failures, requirement evaluation, score, verdict and assumptions.
+- **87 tests passing**, including validity tests.
+- Reference mission simulates to **861 points (grade A), verdict success**.
 
 ## Next (in order)
 
-1. `score.ts` and `simulator.ts` (day loop, events, requirement evaluation).
-2. Report data (causal chain) and `SimulationResult` fixtures for the UI.
-3. Wire the design screen to the real engine through `src/store/mission.ts`.
-4. Balance pass against the reference mission (expected 800-860).
+1. Replace placeholder CME/flare dates with the DONKI cache (Track C).
+2. Wire the design screen to `useMissionStore` (Track B) and expose the simulation screen.
+3. Add interactive event decisions and teamwork scoring.
+4. Balance pass: naive mission should land 500-650.
 
 ## Blockers
 
@@ -24,7 +27,7 @@
 
 ## Editing now (lock)
 
-- `src/engine/{score,simulator}.ts` (creating).
+- `src/engine/{score,simulator}.ts` (polish while PR #4 is reviewed).
 
 ## Notes
 
