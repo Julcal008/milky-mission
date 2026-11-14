@@ -43,13 +43,18 @@ export function DesignScreen() {
   const update = (patch: Partial<MissionConfig>) => setConfig(patch)
 
   const setInstrumentAt = (index: number, id: string) => {
-    const next = [...config.instrumentIds]
-    if (id) {
-      next[index] = id as InstrumentId
-    } else {
-      next.splice(index, 1)
+    const current = config.instrumentIds
+    if (!id) {
+      update({ instrumentIds: current.filter((_, itemIndex) => itemIndex !== index) })
+      return
     }
-    update({ instrumentIds: next })
+    if (index < current.length) {
+      const next = [...current]
+      next[index] = id as InstrumentId
+      update({ instrumentIds: next })
+      return
+    }
+    update({ instrumentIds: [...current, id as InstrumentId] })
   }
 
   const availableInstruments = catalogs.instruments.filter(

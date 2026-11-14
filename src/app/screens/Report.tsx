@@ -243,7 +243,12 @@ export function ReportScreen() {
       <Panel className="space-y-3 p-5">
         <h2 className="label-caps text-ink-2">{t.ops.report.suggestions}</h2>
         {report.suggestions.length === 0 ? (
-          <p className="text-[12px] text-ink-3">{t.game.review.noIssues}</p>
+          <div className="space-y-1">
+            <p className="text-[12px] text-ink-2">{t.ops.report.noBlocking}</p>
+            <p className="text-[11px] text-ink-3">
+              {t.ops.report.weakestHints[report.weakestComponent]}
+            </p>
+          </div>
         ) : (
           <ul className="grid gap-2 sm:grid-cols-2">
             {report.suggestions.map((suggestion) => (
