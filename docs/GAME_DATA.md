@@ -14,6 +14,9 @@ hardcodes them. **Every value is labelled:**
 
 If a value has no label, it is a bug. Update `docs/DATA_PROVENANCE.md` with every change.
 
+Machine-readable catalogs live in `src/data/catalogs/` (one typed TS file per table,
+`source` and `confidence` on every entry).
+
 ---
 
 ## 1. Scenarios
