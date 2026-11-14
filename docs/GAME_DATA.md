@@ -17,6 +17,9 @@ If a value has no label, it is a bug. Update `docs/DATA_PROVENANCE.md` with ever
 Scenario copy (EN/ES) lives in `src/content/scenarios/`; Track B merges it into i18n
 under `scenario.*`.
 
+Machine-readable catalogs live in `src/data/catalogs/` (one typed TS file per table,
+`source` and `confidence` on every entry).
+
 ---
 
 ## 1. Scenarios
