@@ -1,11 +1,11 @@
 {
   "massKg": 196.5,
   "massCapacityKg": 250,
-  "powerMarginW": 47.7,
-  "energyMarginWh": 181.1,
+  "powerMarginW": 48.2,
+  "energyMarginWh": 181.4,
   "dataGbPerDay": 4.056,
-  "downlinkGbPerDay": 3.456,
-  "costUsdM": 43.2,
+  "downlinkGbPerDay": 3.41,
+  "costUsdM": 43.23,
   "budgetUsdM": 50,
   "lifetimeDays": 365,
   "reliability": 0.649
