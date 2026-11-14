@@ -11,6 +11,7 @@ export const opsEs = {
     decision: 'Decisión',
     apply: 'Aplicar decisión',
     report: 'Ver informe',
+    back: 'Volver a la revisión',
     noSimulation: 'Ejecuta la misión para ver la línea de tiempo.',
     critical: 'Crítico',
     warning: 'Advertencia',
