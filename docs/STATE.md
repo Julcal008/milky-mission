@@ -29,15 +29,15 @@
 
 | Owner | Task | Branch |
 |---|---|---|
-| A | Engine implementation: mass, orbit, power, link, data, cost, reliability | `a/engine-core` |
-| B | Mission design screen against fixtures | `b/design-board` |
+| — | Awaiting go-ahead for Phase 1 | — |
 
 ## Next
 
-1. A: PRNG + `simulateMission` skeleton returning fixtures; three fixture missions.
-2. B: Design-screen layout with live budgets fed by fixtures.
-3. A: validation codes and budgets (`validateMission`).
-4. B: requirements contract screen and review panel.
+1. A: PRNG + engine modules (mass, orbit, power, link, data, cost, reliability) with
+   validity tests.
+2. B: design-screen layout against fixtures; requirements contract screen.
+3. A: `validateMission` with the initial validation codes.
+4. B: review panel and simulation timeline shell.
 
 ## Blockers
 

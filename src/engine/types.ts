@@ -178,6 +178,84 @@ export interface InstrumentSpec extends Provenance {
 }
 
 /* ------------------------------------------------------------------ */
+/* Scenarios and catalogs                                              */
+/* ------------------------------------------------------------------ */
+
+/** Version of the public contract. Bump when a signature or invariant changes. */
+export const CONTRACT_VERSION = '0.1'
+
+export type Difficulty = 'cadet' | 'engineer' | 'flight-director'
+
+export interface RequirementSpec {
+  id: string
+  /** Points awarded when the requirement is fully met (0..120). */
+  weight: number
+  /** i18n keys; the engine never contains user-facing copy. */
+  titleKey: string
+  descriptionKey: string
+}
+
+export interface ScenarioSpec {
+  id: ScenarioId
+  budgetUsdM: number
+  durationDays: number
+  launchWindowDays: number
+  instrumentSlots: number
+  /** Denominator used to normalize the science component. */
+  scienceNormalization: number
+  requirements: RequirementSpec[]
+}
+
+export interface Catalogs {
+  orbits: OrbitSpec[]
+  launchers: LauncherSpec[]
+  buses: BusSpec[]
+  propulsion: PropulsionSpec[]
+  arrays: ArraySpec[]
+  batteries: BatterySpec[]
+  comms: CommsSpec[]
+  groundNetworks: GroundNetworkSpec[]
+  storage: StorageSpec[]
+  instruments: InstrumentSpec[]
+}
+
+/* ------------------------------------------------------------------ */
+/* Validation                                                          */
+/* ------------------------------------------------------------------ */
+
+export interface BudgetSnapshot {
+  massKg: number
+  massCapacityKg: number
+  powerMarginW: number
+  energyMarginWh: number
+  dataGbPerDay: number
+  downlinkGbPerDay: number
+  costUsdM: number
+  budgetUsdM: number
+  lifetimeDays: number
+  /** 0..1 series reliability over the mission life. */
+  reliability: number
+}
+
+export interface ValidationIssue {
+  /** Stable machine code, e.g. "MASS_OVER_CAPACITY". */
+  code: string
+  severity: 'error' | 'warning' | 'info'
+  field: keyof MissionConfig | string
+  /** i18n key resolved by the UI. */
+  messageKey: string
+  detail?: Record<string, number | string>
+}
+
+export interface ValidationResult {
+  /** False if any issue has severity 'error'. */
+  ok: boolean
+  issues: ValidationIssue[]
+  /** Computed even when invalid, so the UI can keep its gauges alive. */
+  budgets: BudgetSnapshot
+}
+
+/* ------------------------------------------------------------------ */
 /* Simulation output (engine result)                                   */
 /* ------------------------------------------------------------------ */
 

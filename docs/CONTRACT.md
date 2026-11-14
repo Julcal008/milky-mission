@@ -54,7 +54,7 @@ export function scoreMission(
 ): ScoreBreakdown
 ```
 
-Supporting types to add with the implementation (keep names stable):
+Supporting types (already declared in `src/engine/types.ts`):
 
 ```ts
 export interface ValidationIssue {
