@@ -1,0 +1,36 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Dependencies and build output
+node_modules
+dist
+dist-ssr
+coverage
+*.local
+
+# Environment (never commit secrets)
+.env
+.env.*
+!.env.example
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# TypeScript incremental build info
+*.tsbuildinfo
+
+# Local event material (not part of the product)
+CRONOGRAMA E INFORMACIÓN DEL EVENTO.pdf

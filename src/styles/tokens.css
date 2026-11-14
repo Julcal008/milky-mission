@@ -1,0 +1,61 @@
+/* eslint-disable */
+/**
+ * MILKY MISSION — Design tokens
+ * Owner: Track B (Experience). Do not edit without updating docs/DESIGN_SYSTEM.md.
+ *
+ * Tokens are exposed to Tailwind v4 through `@theme`, so every color is available
+ * both as a CSS variable (var(--color-milk)) and as a utility (bg-milk, text-ion...).
+ * Never hardcode hex values in components.
+ */
+@theme {
+  /* Base surfaces */
+  --color-bg: #070a12;
+  --color-surface: #0d1320;
+  --color-surface-2: #131b2c;
+  --color-border: #223049;
+  --color-border-strong: #2f4263;
+
+  /* Text */
+  --color-ink: #e9eef8;
+  --color-ink-2: #a7b3c9;
+  --color-ink-3: #6b7a93;
+
+  /* Brand */
+  --color-milk: #f4e3c1;
+  --color-milk-strong: #ffd79a;
+  --color-ion: #6ea8ff;
+
+  /* Semantic status */
+  --color-success: #3ddc97;
+  --color-warning: #ffc857;
+  --color-danger: #ff6b6b;
+  --color-info: #6ea8ff;
+
+  /* Player roles */
+  --color-role-director: #f5b84c;
+  --color-role-systems: #6ea8ff;
+  --color-role-science: #c084fc;
+  --color-role-comms: #2dd4bf;
+
+  /* Mission resources */
+  --color-res-mass: #ff8a5b;
+  --color-res-power: #ffd166;
+  --color-res-budget: #3ddc97;
+  --color-res-data: #6ea8ff;
+  --color-res-link: #2dd4bf;
+  --color-res-time: #c084fc;
+
+  /* Typography */
+  --font-display: 'Space Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, monospace;
+
+  /* Shape */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
+}

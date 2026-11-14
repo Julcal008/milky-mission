@@ -1,0 +1,91 @@
+/**
+ * Global stylesheet.
+ * Fonts are bundled locally (offline-first: the event WiFi cannot be trusted).
+ */
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/space-grotesk';
+@import '@fontsource-variable/jetbrains-mono';
+@import 'tailwindcss';
+@import './tokens.css';
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scrollbar-color: var(--color-border) transparent;
+  }
+
+  /* Presentation mode: 17px root scales the whole rem-based UI for projectors. */
+  html[data-density='presentation'] {
+    font-size: 17px;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: 0.02em;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-milk) 35%, transparent);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ion);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  /* Tabular figures: numbers must align in every gauge and table. */
+  .num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+
+  /* Subtle engineering grid, used only in map / visualization areas. */
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Space backdrop: two very low-opacity radial gradients (brand, never decorative noise). */
+  .space-bg {
+    background-image:
+      radial-gradient(60rem 40rem at 15% -10%, rgb(110 168 255 / 0.1), transparent 60%),
+      radial-gradient(50rem 35rem at 90% 110%, rgb(192 132 252 / 0.08), transparent 60%);
+  }
+
+  /* Label style for uppercase section headers. */
+  .label-caps {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

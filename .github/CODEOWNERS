@@ -1,0 +1,35 @@
+# CODEOWNERS — change protection for parallel work.
+# Docs: https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# TODO: add the second contributor's GitHub handle next to @Julcal008 once known,
+# e.g. "/src/engine/ @Julcal008 @partner-handle". Keep one owner per track.
+
+# Default owner
+* @Julcal008
+
+# Track A — Simulation
+/src/engine/ @Julcal008
+/src/data/ @Julcal008
+/docs/CONTRACT.md @Julcal008
+/docs/GAME_DATA.md @Julcal008
+/docs/NASA_DATA.md @Julcal008
+/docs/DATA_PROVENANCE.md @Julcal008
+
+# Track B — Experience
+/src/app/ @Julcal008
+/src/ui/ @Julcal008
+/src/styles/ @Julcal008
+/src/store/ @Julcal008
+/src/i18n/ @Julcal008
+/public/ @Julcal008
+/docs/DESIGN_SYSTEM.md @Julcal008
+/docs/STATE.md @Julcal008
+/docs/SUBMISSION_EN.md @Julcal008
+
+# Shared (require both humans in practice; GitHub only supports listed owners)
+/package.json @Julcal008
+/package-lock.json @Julcal008
+/README.md @Julcal008
+/AGENTS.md @Julcal008
+/CONTRIBUTING.md @Julcal008
+/.github/ @Julcal008
