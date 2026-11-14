@@ -70,4 +70,35 @@ describe('simulateMission', () => {
       expect(day.batterySocWh).toBeGreaterThanOrEqual(0)
     }
   })
+
+  it('does not declare success when the power budget is negative (validity)', () => {
+    const starved = { ...baselineConfig, arrayAreaM2: 0.1 }
+    const result = simulateMission(starved, storm, catalogFixture)
+    expect(result.budgets.powerMarginW).toBeLessThan(0)
+    expect(result.verdict).not.toBe('success')
+  })
+
+  it('fails a mission with a blocking design error', () => {
+    const andes = scenarioFixtures['andes-flood-watch']
+    const overBudget = {
+      ...baselineConfig,
+      scenarioId: 'andes-flood-watch' as const,
+      orbitId: 'sso700' as const,
+      launcherId: 'firefly' as const,
+      busId: 'small' as const,
+      arrayAreaM2: 3.5,
+      batteryId: 'b1600' as const,
+      commsId: 'ka' as const,
+      groundNetworkId: 'dsn' as const,
+      storageId: 's64' as const,
+      instrumentIds: ['sar', 'hri'] as const,
+      requirements: ['R1', 'R2', 'R3'],
+    }
+    const result = simulateMission(
+      { ...overBudget, instrumentIds: [...overBudget.instrumentIds] },
+      andes,
+      catalogFixture,
+    )
+    expect(result.verdict).toBe('failure')
+  })
 })

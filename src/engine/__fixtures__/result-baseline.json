@@ -1,0 +1,3790 @@
+{
+  "config": {
+    "scenarioId": "storm-watch",
+    "seed": 20260514,
+    "orbitId": "sso500",
+    "launcherId": "electron",
+    "busId": "micro",
+    "propulsionId": "mono",
+    "arrayId": "gaas",
+    "arrayAreaM2": 1.2,
+    "batteryId": "b300",
+    "commsId": "sband",
+    "groundNetworkId": "neiva",
+    "storageId": "s16",
+    "instrumentIds": [
+      "xrs",
+      "mag",
+      "gnssro",
+      "suvi"
+    ],
+    "requirements": [
+      "R1",
+      "R2",
+      "R3"
+    ]
+  },
+  "days": [
+    {
+      "day": 1,
+      "powerGeneratedW": 139.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 0.632,
+      "costSpentUsdM": 37.25
+    },
+    {
+      "day": 2,
+      "powerGeneratedW": 135.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 1.264,
+      "costSpentUsdM": 37.27
+    },
+    {
+      "day": 3,
+      "powerGeneratedW": 136.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 1.895,
+      "costSpentUsdM": 37.28
+    },
+    {
+      "day": 4,
+      "powerGeneratedW": 144.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 2.527,
+      "costSpentUsdM": 37.3
+    },
+    {
+      "day": 5,
+      "powerGeneratedW": 138,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 3.159,
+      "costSpentUsdM": 37.32
+    },
+    {
+      "day": 6,
+      "powerGeneratedW": 137,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 3.791,
+      "costSpentUsdM": 37.33
+    },
+    {
+      "day": 7,
+      "powerGeneratedW": 135.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 4.423,
+      "costSpentUsdM": 37.35
+    },
+    {
+      "day": 8,
+      "powerGeneratedW": 139.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 5.054,
+      "costSpentUsdM": 37.36
+    },
+    {
+      "day": 9,
+      "powerGeneratedW": 137.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 5.686,
+      "costSpentUsdM": 37.38
+    },
+    {
+      "day": 10,
+      "powerGeneratedW": 140.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 6.318,
+      "costSpentUsdM": 37.4
+    },
+    {
+      "day": 11,
+      "powerGeneratedW": 134.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 6.95,
+      "costSpentUsdM": 37.41
+    },
+    {
+      "day": 12,
+      "powerGeneratedW": 144.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 7.582,
+      "costSpentUsdM": 37.43
+    },
+    {
+      "day": 13,
+      "powerGeneratedW": 143.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 8.213,
+      "costSpentUsdM": 37.45
+    },
+    {
+      "day": 14,
+      "powerGeneratedW": 138.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 8.845,
+      "costSpentUsdM": 37.46
+    },
+    {
+      "day": 15,
+      "powerGeneratedW": 145.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 9.477,
+      "costSpentUsdM": 37.48
+    },
+    {
+      "day": 16,
+      "powerGeneratedW": 143.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 10.109,
+      "costSpentUsdM": 37.5
+    },
+    {
+      "day": 17,
+      "powerGeneratedW": 146.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 10.74,
+      "costSpentUsdM": 37.51
+    },
+    {
+      "day": 18,
+      "powerGeneratedW": 134,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 11.372,
+      "costSpentUsdM": 37.53
+    },
+    {
+      "day": 19,
+      "powerGeneratedW": 142.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 12.004,
+      "costSpentUsdM": 37.55
+    },
+    {
+      "day": 20,
+      "powerGeneratedW": 145.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 12.636,
+      "costSpentUsdM": 37.56
+    },
+    {
+      "day": 21,
+      "powerGeneratedW": 146.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 13.268,
+      "costSpentUsdM": 37.58
+    },
+    {
+      "day": 22,
+      "powerGeneratedW": 134.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 13.899,
+      "costSpentUsdM": 37.59
+    },
+    {
+      "day": 23,
+      "powerGeneratedW": 139.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 14.531,
+      "costSpentUsdM": 37.61
+    },
+    {
+      "day": 24,
+      "powerGeneratedW": 139.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 15.163,
+      "costSpentUsdM": 37.63
+    },
+    {
+      "day": 25,
+      "powerGeneratedW": 147.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 15.795,
+      "costSpentUsdM": 37.64
+    },
+    {
+      "day": 26,
+      "powerGeneratedW": 147.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.66
+    },
+    {
+      "day": 27,
+      "powerGeneratedW": 134.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.68
+    },
+    {
+      "day": 28,
+      "powerGeneratedW": 141,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.69
+    },
+    {
+      "day": 29,
+      "powerGeneratedW": 135.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.71
+    },
+    {
+      "day": 30,
+      "powerGeneratedW": 137.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.73
+    },
+    {
+      "day": 31,
+      "powerGeneratedW": 141.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.74
+    },
+    {
+      "day": 32,
+      "powerGeneratedW": 140.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.76
+    },
+    {
+      "day": 33,
+      "powerGeneratedW": 139.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.78
+    },
+    {
+      "day": 34,
+      "powerGeneratedW": 147.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.79
+    },
+    {
+      "day": 35,
+      "powerGeneratedW": 135.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.81
+    },
+    {
+      "day": 36,
+      "powerGeneratedW": 148.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.82
+    },
+    {
+      "day": 37,
+      "powerGeneratedW": 139.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.84
+    },
+    {
+      "day": 38,
+      "powerGeneratedW": 138.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.86
+    },
+    {
+      "day": 39,
+      "powerGeneratedW": 138.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.87
+    },
+    {
+      "day": 40,
+      "powerGeneratedW": 141.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.89
+    },
+    {
+      "day": 41,
+      "powerGeneratedW": 135.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.91
+    },
+    {
+      "day": 42,
+      "powerGeneratedW": 145.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.92
+    },
+    {
+      "day": 43,
+      "powerGeneratedW": 147.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.94
+    },
+    {
+      "day": 44,
+      "powerGeneratedW": 144.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.96
+    },
+    {
+      "day": 45,
+      "powerGeneratedW": 141.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.97
+    },
+    {
+      "day": 46,
+      "powerGeneratedW": 147.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 37.99
+    },
+    {
+      "day": 47,
+      "powerGeneratedW": 146.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.01
+    },
+    {
+      "day": 48,
+      "powerGeneratedW": 139.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.02
+    },
+    {
+      "day": 49,
+      "powerGeneratedW": 140.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.04
+    },
+    {
+      "day": 50,
+      "powerGeneratedW": 143.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.05
+    },
+    {
+      "day": 51,
+      "powerGeneratedW": 146.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.07
+    },
+    {
+      "day": 52,
+      "powerGeneratedW": 137.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.09
+    },
+    {
+      "day": 53,
+      "powerGeneratedW": 145.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.1
+    },
+    {
+      "day": 54,
+      "powerGeneratedW": 143.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.12
+    },
+    {
+      "day": 55,
+      "powerGeneratedW": 139.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.14
+    },
+    {
+      "day": 56,
+      "powerGeneratedW": 150.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.15
+    },
+    {
+      "day": 57,
+      "powerGeneratedW": 150.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.17
+    },
+    {
+      "day": 58,
+      "powerGeneratedW": 149.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.19
+    },
+    {
+      "day": 59,
+      "powerGeneratedW": 141.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.2
+    },
+    {
+      "day": 60,
+      "powerGeneratedW": 147.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.22
+    },
+    {
+      "day": 61,
+      "powerGeneratedW": 146.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.23
+    },
+    {
+      "day": 62,
+      "powerGeneratedW": 146.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.25
+    },
+    {
+      "day": 63,
+      "powerGeneratedW": 140.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.27
+    },
+    {
+      "day": 64,
+      "powerGeneratedW": 140.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.28
+    },
+    {
+      "day": 65,
+      "powerGeneratedW": 142,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.3
+    },
+    {
+      "day": 66,
+      "powerGeneratedW": 141.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.32
+    },
+    {
+      "day": 67,
+      "powerGeneratedW": 146.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.33
+    },
+    {
+      "day": 68,
+      "powerGeneratedW": 140.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.35
+    },
+    {
+      "day": 69,
+      "powerGeneratedW": 149.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.37
+    },
+    {
+      "day": 70,
+      "powerGeneratedW": 139.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.38
+    },
+    {
+      "day": 71,
+      "powerGeneratedW": 138.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.4
+    },
+    {
+      "day": 72,
+      "powerGeneratedW": 150.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.42
+    },
+    {
+      "day": 73,
+      "powerGeneratedW": 146.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.43
+    },
+    {
+      "day": 74,
+      "powerGeneratedW": 142.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.45
+    },
+    {
+      "day": 75,
+      "powerGeneratedW": 138.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.46
+    },
+    {
+      "day": 76,
+      "powerGeneratedW": 139.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.48
+    },
+    {
+      "day": 77,
+      "powerGeneratedW": 140.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.5
+    },
+    {
+      "day": 78,
+      "powerGeneratedW": 146.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.51
+    },
+    {
+      "day": 79,
+      "powerGeneratedW": 152,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.53
+    },
+    {
+      "day": 80,
+      "powerGeneratedW": 140.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.55
+    },
+    {
+      "day": 81,
+      "powerGeneratedW": 148.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.56
+    },
+    {
+      "day": 82,
+      "powerGeneratedW": 153.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.58
+    },
+    {
+      "day": 83,
+      "powerGeneratedW": 139.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.6
+    },
+    {
+      "day": 84,
+      "powerGeneratedW": 145.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.61
+    },
+    {
+      "day": 85,
+      "powerGeneratedW": 152.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.63
+    },
+    {
+      "day": 86,
+      "powerGeneratedW": 150.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.65
+    },
+    {
+      "day": 87,
+      "powerGeneratedW": 142.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.66
+    },
+    {
+      "day": 88,
+      "powerGeneratedW": 151.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.68
+    },
+    {
+      "day": 89,
+      "powerGeneratedW": 145,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.69
+    },
+    {
+      "day": 90,
+      "powerGeneratedW": 149.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.71
+    },
+    {
+      "day": 91,
+      "powerGeneratedW": 153.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.73
+    },
+    {
+      "day": 92,
+      "powerGeneratedW": 155,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.74
+    },
+    {
+      "day": 93,
+      "powerGeneratedW": 146.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.76
+    },
+    {
+      "day": 94,
+      "powerGeneratedW": 143.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.78
+    },
+    {
+      "day": 95,
+      "powerGeneratedW": 128.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.79
+    },
+    {
+      "day": 96,
+      "powerGeneratedW": 131.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.81
+    },
+    {
+      "day": 97,
+      "powerGeneratedW": 124.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.83
+    },
+    {
+      "day": 98,
+      "powerGeneratedW": 147.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.84
+    },
+    {
+      "day": 99,
+      "powerGeneratedW": 153.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.86
+    },
+    {
+      "day": 100,
+      "powerGeneratedW": 143.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.88
+    },
+    {
+      "day": 101,
+      "powerGeneratedW": 143.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.89
+    },
+    {
+      "day": 102,
+      "powerGeneratedW": 148.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.91
+    },
+    {
+      "day": 103,
+      "powerGeneratedW": 155.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.92
+    },
+    {
+      "day": 104,
+      "powerGeneratedW": 150.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.94
+    },
+    {
+      "day": 105,
+      "powerGeneratedW": 152.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.96
+    },
+    {
+      "day": 106,
+      "powerGeneratedW": 156.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.97
+    },
+    {
+      "day": 107,
+      "powerGeneratedW": 143.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 38.99
+    },
+    {
+      "day": 108,
+      "powerGeneratedW": 146.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.01
+    },
+    {
+      "day": 109,
+      "powerGeneratedW": 145,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.02
+    },
+    {
+      "day": 110,
+      "powerGeneratedW": 144.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.04
+    },
+    {
+      "day": 111,
+      "powerGeneratedW": 143.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.06
+    },
+    {
+      "day": 112,
+      "powerGeneratedW": 143.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.07
+    },
+    {
+      "day": 113,
+      "powerGeneratedW": 157.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.09
+    },
+    {
+      "day": 114,
+      "powerGeneratedW": 144.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.11
+    },
+    {
+      "day": 115,
+      "powerGeneratedW": 150,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.12
+    },
+    {
+      "day": 116,
+      "powerGeneratedW": 147.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.14
+    },
+    {
+      "day": 117,
+      "powerGeneratedW": 151.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.15
+    },
+    {
+      "day": 118,
+      "powerGeneratedW": 144.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.17
+    },
+    {
+      "day": 119,
+      "powerGeneratedW": 155.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.19
+    },
+    {
+      "day": 120,
+      "powerGeneratedW": 153,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.2
+    },
+    {
+      "day": 121,
+      "powerGeneratedW": 149.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.22
+    },
+    {
+      "day": 122,
+      "powerGeneratedW": 150.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.24
+    },
+    {
+      "day": 123,
+      "powerGeneratedW": 144,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.25
+    },
+    {
+      "day": 124,
+      "powerGeneratedW": 151.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.27
+    },
+    {
+      "day": 125,
+      "powerGeneratedW": 145.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.29
+    },
+    {
+      "day": 126,
+      "powerGeneratedW": 150,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.3
+    },
+    {
+      "day": 127,
+      "powerGeneratedW": 158.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.32
+    },
+    {
+      "day": 128,
+      "powerGeneratedW": 152.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.34
+    },
+    {
+      "day": 129,
+      "powerGeneratedW": 159.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.35
+    },
+    {
+      "day": 130,
+      "powerGeneratedW": 153.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.37
+    },
+    {
+      "day": 131,
+      "powerGeneratedW": 158.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.38
+    },
+    {
+      "day": 132,
+      "powerGeneratedW": 153.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.4
+    },
+    {
+      "day": 133,
+      "powerGeneratedW": 156.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.42
+    },
+    {
+      "day": 134,
+      "powerGeneratedW": 145.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.43
+    },
+    {
+      "day": 135,
+      "powerGeneratedW": 148.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.45
+    },
+    {
+      "day": 136,
+      "powerGeneratedW": 148.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.47
+    },
+    {
+      "day": 137,
+      "powerGeneratedW": 148.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.48
+    },
+    {
+      "day": 138,
+      "powerGeneratedW": 155.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.5
+    },
+    {
+      "day": 139,
+      "powerGeneratedW": 156.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.52
+    },
+    {
+      "day": 140,
+      "powerGeneratedW": 152.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.53
+    },
+    {
+      "day": 141,
+      "powerGeneratedW": 156.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.55
+    },
+    {
+      "day": 142,
+      "powerGeneratedW": 157.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.57
+    },
+    {
+      "day": 143,
+      "powerGeneratedW": 149.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.58
+    },
+    {
+      "day": 144,
+      "powerGeneratedW": 149.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.6
+    },
+    {
+      "day": 145,
+      "powerGeneratedW": 155.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.61
+    },
+    {
+      "day": 146,
+      "powerGeneratedW": 148.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.63
+    },
+    {
+      "day": 147,
+      "powerGeneratedW": 148.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.65
+    },
+    {
+      "day": 148,
+      "powerGeneratedW": 148,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.66
+    },
+    {
+      "day": 149,
+      "powerGeneratedW": 156.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.68
+    },
+    {
+      "day": 150,
+      "powerGeneratedW": 158.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 2.028,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 14.604,
+      "costSpentUsdM": 39.7
+    },
+    {
+      "day": 151,
+      "powerGeneratedW": 148.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 2.028,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 13.208,
+      "costSpentUsdM": 39.71
+    },
+    {
+      "day": 152,
+      "powerGeneratedW": 154.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 13.839,
+      "costSpentUsdM": 39.73
+    },
+    {
+      "day": 153,
+      "powerGeneratedW": 151.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 14.471,
+      "costSpentUsdM": 39.75
+    },
+    {
+      "day": 154,
+      "powerGeneratedW": 152.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 15.103,
+      "costSpentUsdM": 39.76
+    },
+    {
+      "day": 155,
+      "powerGeneratedW": 160.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 15.735,
+      "costSpentUsdM": 39.78
+    },
+    {
+      "day": 156,
+      "powerGeneratedW": 150,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.8
+    },
+    {
+      "day": 157,
+      "powerGeneratedW": 155.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.81
+    },
+    {
+      "day": 158,
+      "powerGeneratedW": 151.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.83
+    },
+    {
+      "day": 159,
+      "powerGeneratedW": 152.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.84
+    },
+    {
+      "day": 160,
+      "powerGeneratedW": 149.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.86
+    },
+    {
+      "day": 161,
+      "powerGeneratedW": 161.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.88
+    },
+    {
+      "day": 162,
+      "powerGeneratedW": 157.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.89
+    },
+    {
+      "day": 163,
+      "powerGeneratedW": 150.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.91
+    },
+    {
+      "day": 164,
+      "powerGeneratedW": 153.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.93
+    },
+    {
+      "day": 165,
+      "powerGeneratedW": 156.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.94
+    },
+    {
+      "day": 166,
+      "powerGeneratedW": 159.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.96
+    },
+    {
+      "day": 167,
+      "powerGeneratedW": 148.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.98
+    },
+    {
+      "day": 168,
+      "powerGeneratedW": 147.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 39.99
+    },
+    {
+      "day": 169,
+      "powerGeneratedW": 157.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.01
+    },
+    {
+      "day": 170,
+      "powerGeneratedW": 149.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.03
+    },
+    {
+      "day": 171,
+      "powerGeneratedW": 160.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.04
+    },
+    {
+      "day": 172,
+      "powerGeneratedW": 155.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.06
+    },
+    {
+      "day": 173,
+      "powerGeneratedW": 159.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.07
+    },
+    {
+      "day": 174,
+      "powerGeneratedW": 159.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.09
+    },
+    {
+      "day": 175,
+      "powerGeneratedW": 156.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.11
+    },
+    {
+      "day": 176,
+      "powerGeneratedW": 157.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.12
+    },
+    {
+      "day": 177,
+      "powerGeneratedW": 154.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.14
+    },
+    {
+      "day": 178,
+      "powerGeneratedW": 150.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.16
+    },
+    {
+      "day": 179,
+      "powerGeneratedW": 158.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.17
+    },
+    {
+      "day": 180,
+      "powerGeneratedW": 150,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.19
+    },
+    {
+      "day": 181,
+      "powerGeneratedW": 161.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.21
+    },
+    {
+      "day": 182,
+      "powerGeneratedW": 147.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.22
+    },
+    {
+      "day": 183,
+      "powerGeneratedW": 155.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.24
+    },
+    {
+      "day": 184,
+      "powerGeneratedW": 161.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.26
+    },
+    {
+      "day": 185,
+      "powerGeneratedW": 160.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.27
+    },
+    {
+      "day": 186,
+      "powerGeneratedW": 150.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.29
+    },
+    {
+      "day": 187,
+      "powerGeneratedW": 151.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.3
+    },
+    {
+      "day": 188,
+      "powerGeneratedW": 147.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.32
+    },
+    {
+      "day": 189,
+      "powerGeneratedW": 149.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.34
+    },
+    {
+      "day": 190,
+      "powerGeneratedW": 159.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.35
+    },
+    {
+      "day": 191,
+      "powerGeneratedW": 147.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.37
+    },
+    {
+      "day": 192,
+      "powerGeneratedW": 150,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.39
+    },
+    {
+      "day": 193,
+      "powerGeneratedW": 147.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.4
+    },
+    {
+      "day": 194,
+      "powerGeneratedW": 159.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.42
+    },
+    {
+      "day": 195,
+      "powerGeneratedW": 147.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.44
+    },
+    {
+      "day": 196,
+      "powerGeneratedW": 152.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.45
+    },
+    {
+      "day": 197,
+      "powerGeneratedW": 148.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.47
+    },
+    {
+      "day": 198,
+      "powerGeneratedW": 150.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.49
+    },
+    {
+      "day": 199,
+      "powerGeneratedW": 145.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.5
+    },
+    {
+      "day": 200,
+      "powerGeneratedW": 123.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.52
+    },
+    {
+      "day": 201,
+      "powerGeneratedW": 129.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.53
+    },
+    {
+      "day": 202,
+      "powerGeneratedW": 125.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.55
+    },
+    {
+      "day": 203,
+      "powerGeneratedW": 159.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.57
+    },
+    {
+      "day": 204,
+      "powerGeneratedW": 155.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.58
+    },
+    {
+      "day": 205,
+      "powerGeneratedW": 151,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.6
+    },
+    {
+      "day": 206,
+      "powerGeneratedW": 152.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.62
+    },
+    {
+      "day": 207,
+      "powerGeneratedW": 155.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.63
+    },
+    {
+      "day": 208,
+      "powerGeneratedW": 145.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.65
+    },
+    {
+      "day": 209,
+      "powerGeneratedW": 145.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.67
+    },
+    {
+      "day": 210,
+      "powerGeneratedW": 151.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.68
+    },
+    {
+      "day": 211,
+      "powerGeneratedW": 144.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.7
+    },
+    {
+      "day": 212,
+      "powerGeneratedW": 151.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.72
+    },
+    {
+      "day": 213,
+      "powerGeneratedW": 157.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.73
+    },
+    {
+      "day": 214,
+      "powerGeneratedW": 156.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.75
+    },
+    {
+      "day": 215,
+      "powerGeneratedW": 157.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.76
+    },
+    {
+      "day": 216,
+      "powerGeneratedW": 150.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.78
+    },
+    {
+      "day": 217,
+      "powerGeneratedW": 153.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.8
+    },
+    {
+      "day": 218,
+      "powerGeneratedW": 153.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.81
+    },
+    {
+      "day": 219,
+      "powerGeneratedW": 145.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.83
+    },
+    {
+      "day": 220,
+      "powerGeneratedW": 157.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.85
+    },
+    {
+      "day": 221,
+      "powerGeneratedW": 153.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.86
+    },
+    {
+      "day": 222,
+      "powerGeneratedW": 158.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.88
+    },
+    {
+      "day": 223,
+      "powerGeneratedW": 154.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.9
+    },
+    {
+      "day": 224,
+      "powerGeneratedW": 153.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.91
+    },
+    {
+      "day": 225,
+      "powerGeneratedW": 146.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.93
+    },
+    {
+      "day": 226,
+      "powerGeneratedW": 152.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.95
+    },
+    {
+      "day": 227,
+      "powerGeneratedW": 150.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.96
+    },
+    {
+      "day": 228,
+      "powerGeneratedW": 157.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.98
+    },
+    {
+      "day": 229,
+      "powerGeneratedW": 154.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 40.99
+    },
+    {
+      "day": 230,
+      "powerGeneratedW": 145.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.01
+    },
+    {
+      "day": 231,
+      "powerGeneratedW": 154.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.03
+    },
+    {
+      "day": 232,
+      "powerGeneratedW": 150,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.04
+    },
+    {
+      "day": 233,
+      "powerGeneratedW": 155.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.06
+    },
+    {
+      "day": 234,
+      "powerGeneratedW": 149,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.08
+    },
+    {
+      "day": 235,
+      "powerGeneratedW": 151.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.09
+    },
+    {
+      "day": 236,
+      "powerGeneratedW": 148.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.11
+    },
+    {
+      "day": 237,
+      "powerGeneratedW": 143.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.13
+    },
+    {
+      "day": 238,
+      "powerGeneratedW": 153.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.14
+    },
+    {
+      "day": 239,
+      "powerGeneratedW": 143.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.16
+    },
+    {
+      "day": 240,
+      "powerGeneratedW": 143.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.18
+    },
+    {
+      "day": 241,
+      "powerGeneratedW": 154.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.19
+    },
+    {
+      "day": 242,
+      "powerGeneratedW": 150.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.21
+    },
+    {
+      "day": 243,
+      "powerGeneratedW": 154,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.22
+    },
+    {
+      "day": 244,
+      "powerGeneratedW": 150.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.24
+    },
+    {
+      "day": 245,
+      "powerGeneratedW": 148.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.26
+    },
+    {
+      "day": 246,
+      "powerGeneratedW": 147.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.27
+    },
+    {
+      "day": 247,
+      "powerGeneratedW": 144.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.29
+    },
+    {
+      "day": 248,
+      "powerGeneratedW": 144.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.31
+    },
+    {
+      "day": 249,
+      "powerGeneratedW": 146.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.32
+    },
+    {
+      "day": 250,
+      "powerGeneratedW": 143.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.34
+    },
+    {
+      "day": 251,
+      "powerGeneratedW": 145,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.36
+    },
+    {
+      "day": 252,
+      "powerGeneratedW": 145,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.37
+    },
+    {
+      "day": 253,
+      "powerGeneratedW": 150,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.39
+    },
+    {
+      "day": 254,
+      "powerGeneratedW": 145.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.41
+    },
+    {
+      "day": 255,
+      "powerGeneratedW": 154.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.42
+    },
+    {
+      "day": 256,
+      "powerGeneratedW": 142.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.44
+    },
+    {
+      "day": 257,
+      "powerGeneratedW": 150.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.45
+    },
+    {
+      "day": 258,
+      "powerGeneratedW": 152.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.47
+    },
+    {
+      "day": 259,
+      "powerGeneratedW": 141,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.49
+    },
+    {
+      "day": 260,
+      "powerGeneratedW": 145.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.5
+    },
+    {
+      "day": 261,
+      "powerGeneratedW": 144.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.52
+    },
+    {
+      "day": 262,
+      "powerGeneratedW": 153.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.54
+    },
+    {
+      "day": 263,
+      "powerGeneratedW": 142.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.55
+    },
+    {
+      "day": 264,
+      "powerGeneratedW": 144.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.57
+    },
+    {
+      "day": 265,
+      "powerGeneratedW": 150,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.59
+    },
+    {
+      "day": 266,
+      "powerGeneratedW": 146.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.6
+    },
+    {
+      "day": 267,
+      "powerGeneratedW": 145.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.62
+    },
+    {
+      "day": 268,
+      "powerGeneratedW": 145,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.64
+    },
+    {
+      "day": 269,
+      "powerGeneratedW": 153.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.65
+    },
+    {
+      "day": 270,
+      "powerGeneratedW": 151.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.67
+    },
+    {
+      "day": 271,
+      "powerGeneratedW": 149.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.68
+    },
+    {
+      "day": 272,
+      "powerGeneratedW": 140.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.7
+    },
+    {
+      "day": 273,
+      "powerGeneratedW": 139.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.72
+    },
+    {
+      "day": 274,
+      "powerGeneratedW": 150.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.73
+    },
+    {
+      "day": 275,
+      "powerGeneratedW": 149.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.75
+    },
+    {
+      "day": 276,
+      "powerGeneratedW": 146.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.77
+    },
+    {
+      "day": 277,
+      "powerGeneratedW": 146.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.78
+    },
+    {
+      "day": 278,
+      "powerGeneratedW": 150.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.8
+    },
+    {
+      "day": 279,
+      "powerGeneratedW": 151.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.82
+    },
+    {
+      "day": 280,
+      "powerGeneratedW": 148.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.83
+    },
+    {
+      "day": 281,
+      "powerGeneratedW": 140.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.85
+    },
+    {
+      "day": 282,
+      "powerGeneratedW": 150.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.87
+    },
+    {
+      "day": 283,
+      "powerGeneratedW": 140.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.88
+    },
+    {
+      "day": 284,
+      "powerGeneratedW": 138.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.9
+    },
+    {
+      "day": 285,
+      "powerGeneratedW": 138.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.91
+    },
+    {
+      "day": 286,
+      "powerGeneratedW": 149.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.93
+    },
+    {
+      "day": 287,
+      "powerGeneratedW": 146.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.95
+    },
+    {
+      "day": 288,
+      "powerGeneratedW": 150,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.96
+    },
+    {
+      "day": 289,
+      "powerGeneratedW": 138.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 41.98
+    },
+    {
+      "day": 290,
+      "powerGeneratedW": 136.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42
+    },
+    {
+      "day": 291,
+      "powerGeneratedW": 149,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.01
+    },
+    {
+      "day": 292,
+      "powerGeneratedW": 149.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.03
+    },
+    {
+      "day": 293,
+      "powerGeneratedW": 149.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.05
+    },
+    {
+      "day": 294,
+      "powerGeneratedW": 137.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.06
+    },
+    {
+      "day": 295,
+      "powerGeneratedW": 143.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.08
+    },
+    {
+      "day": 296,
+      "powerGeneratedW": 139.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.1
+    },
+    {
+      "day": 297,
+      "powerGeneratedW": 138.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.11
+    },
+    {
+      "day": 298,
+      "powerGeneratedW": 141.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.13
+    },
+    {
+      "day": 299,
+      "powerGeneratedW": 138.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.14
+    },
+    {
+      "day": 300,
+      "powerGeneratedW": 121.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.16
+    },
+    {
+      "day": 301,
+      "powerGeneratedW": 120,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.18
+    },
+    {
+      "day": 302,
+      "powerGeneratedW": 122.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.19
+    },
+    {
+      "day": 303,
+      "powerGeneratedW": 144.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.21
+    },
+    {
+      "day": 304,
+      "powerGeneratedW": 136,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.23
+    },
+    {
+      "day": 305,
+      "powerGeneratedW": 147.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.24
+    },
+    {
+      "day": 306,
+      "powerGeneratedW": 141.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.26
+    },
+    {
+      "day": 307,
+      "powerGeneratedW": 142.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.28
+    },
+    {
+      "day": 308,
+      "powerGeneratedW": 145.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.29
+    },
+    {
+      "day": 309,
+      "powerGeneratedW": 141.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.31
+    },
+    {
+      "day": 310,
+      "powerGeneratedW": 146.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.32
+    },
+    {
+      "day": 311,
+      "powerGeneratedW": 141.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.34
+    },
+    {
+      "day": 312,
+      "powerGeneratedW": 144.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.36
+    },
+    {
+      "day": 313,
+      "powerGeneratedW": 137.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.37
+    },
+    {
+      "day": 314,
+      "powerGeneratedW": 136.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.39
+    },
+    {
+      "day": 315,
+      "powerGeneratedW": 137.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.41
+    },
+    {
+      "day": 316,
+      "powerGeneratedW": 141.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.42
+    },
+    {
+      "day": 317,
+      "powerGeneratedW": 145,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.44
+    },
+    {
+      "day": 318,
+      "powerGeneratedW": 136.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.46
+    },
+    {
+      "day": 319,
+      "powerGeneratedW": 137,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.47
+    },
+    {
+      "day": 320,
+      "powerGeneratedW": 135.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.49
+    },
+    {
+      "day": 321,
+      "powerGeneratedW": 143.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.51
+    },
+    {
+      "day": 322,
+      "powerGeneratedW": 140.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.52
+    },
+    {
+      "day": 323,
+      "powerGeneratedW": 137.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.54
+    },
+    {
+      "day": 324,
+      "powerGeneratedW": 142.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.55
+    },
+    {
+      "day": 325,
+      "powerGeneratedW": 145.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.57
+    },
+    {
+      "day": 326,
+      "powerGeneratedW": 145.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.59
+    },
+    {
+      "day": 327,
+      "powerGeneratedW": 144.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.6
+    },
+    {
+      "day": 328,
+      "powerGeneratedW": 136.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.62
+    },
+    {
+      "day": 329,
+      "powerGeneratedW": 145.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.64
+    },
+    {
+      "day": 330,
+      "powerGeneratedW": 136.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.65
+    },
+    {
+      "day": 331,
+      "powerGeneratedW": 142,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.67
+    },
+    {
+      "day": 332,
+      "powerGeneratedW": 138.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.69
+    },
+    {
+      "day": 333,
+      "powerGeneratedW": 135.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.7
+    },
+    {
+      "day": 334,
+      "powerGeneratedW": 137.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.72
+    },
+    {
+      "day": 335,
+      "powerGeneratedW": 143.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.74
+    },
+    {
+      "day": 336,
+      "powerGeneratedW": 143.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.75
+    },
+    {
+      "day": 337,
+      "powerGeneratedW": 137.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.77
+    },
+    {
+      "day": 338,
+      "powerGeneratedW": 140.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.78
+    },
+    {
+      "day": 339,
+      "powerGeneratedW": 145.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.8
+    },
+    {
+      "day": 340,
+      "powerGeneratedW": 133.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.82
+    },
+    {
+      "day": 341,
+      "powerGeneratedW": 139.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.83
+    },
+    {
+      "day": 342,
+      "powerGeneratedW": 139.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.85
+    },
+    {
+      "day": 343,
+      "powerGeneratedW": 133.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.87
+    },
+    {
+      "day": 344,
+      "powerGeneratedW": 139.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.88
+    },
+    {
+      "day": 345,
+      "powerGeneratedW": 139.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.9
+    },
+    {
+      "day": 346,
+      "powerGeneratedW": 139.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.92
+    },
+    {
+      "day": 347,
+      "powerGeneratedW": 135,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.93
+    },
+    {
+      "day": 348,
+      "powerGeneratedW": 133.3,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.95
+    },
+    {
+      "day": 349,
+      "powerGeneratedW": 138.5,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.97
+    },
+    {
+      "day": 350,
+      "powerGeneratedW": 139.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 42.98
+    },
+    {
+      "day": 351,
+      "powerGeneratedW": 144.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 43
+    },
+    {
+      "day": 352,
+      "powerGeneratedW": 145.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 43.01
+    },
+    {
+      "day": 353,
+      "powerGeneratedW": 138.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 43.03
+    },
+    {
+      "day": 354,
+      "powerGeneratedW": 142.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 43.05
+    },
+    {
+      "day": 355,
+      "powerGeneratedW": 144.2,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 43.06
+    },
+    {
+      "day": 356,
+      "powerGeneratedW": 134,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 43.08
+    },
+    {
+      "day": 357,
+      "powerGeneratedW": 135.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 43.1
+    },
+    {
+      "day": 358,
+      "powerGeneratedW": 144,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 43.11
+    },
+    {
+      "day": 359,
+      "powerGeneratedW": 133.1,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 43.13
+    },
+    {
+      "day": 360,
+      "powerGeneratedW": 139.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 43.15
+    },
+    {
+      "day": 361,
+      "powerGeneratedW": 136.8,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 43.16
+    },
+    {
+      "day": 362,
+      "powerGeneratedW": 135.9,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 43.18
+    },
+    {
+      "day": 363,
+      "powerGeneratedW": 141.7,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 43.2
+    },
+    {
+      "day": 364,
+      "powerGeneratedW": 138.4,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 43.21
+    },
+    {
+      "day": 365,
+      "powerGeneratedW": 142.6,
+      "loadW": 98.5,
+      "batterySocWh": 240,
+      "dataGeneratedGb": 4.056,
+      "dataDownlinkedGb": 3.424,
+      "bufferGb": 16,
+      "costSpentUsdM": 43.23
+    }
+  ],
+  "events": [
+    {
+      "id": "buffer_full-25",
+      "day": 25,
+      "type": "buffer_full",
+      "role": "comms",
+      "severity": "warning",
+      "titleKey": "event.bufferFull"
+    },
+    {
+      "id": "cme_hit-95",
+      "day": 95,
+      "type": "cme_hit",
+      "role": "systems",
+      "severity": "critical",
+      "titleKey": "event.cmeHit"
+    },
+    {
+      "id": "flare_x-150",
+      "day": 150,
+      "type": "flare_x",
+      "role": "science",
+      "severity": "warning",
+      "titleKey": "event.flareX"
+    },
+    {
+      "id": "cme_hit-200",
+      "day": 200,
+      "type": "cme_hit",
+      "role": "systems",
+      "severity": "critical",
+      "titleKey": "event.cmeHit"
+    },
+    {
+      "id": "cme_hit-300",
+      "day": 300,
+      "type": "cme_hit",
+      "role": "systems",
+      "severity": "critical",
+      "titleKey": "event.cmeHit"
+    }
+  ],
+  "decisions": [],
+  "requirements": [
+    {
+      "id": "R1",
+      "fraction": 1,
+      "met": true,
+      "detail": "X-ray flare detection"
+    },
+    {
+      "id": "R2",
+      "fraction": 1,
+      "met": true,
+      "detail": "Auroral imaging"
+    },
+    {
+      "id": "R3",
+      "fraction": 1,
+      "met": true,
+      "detail": "Ionosphere over Colombia"
+    },
+    {
+      "id": "R4",
+      "fraction": 1,
+      "met": true,
+      "detail": "Storm survival"
+    },
+    {
+      "id": "R5",
+      "fraction": 1,
+      "met": true,
+      "detail": "Data delivery"
+    },
+    {
+      "id": "R6",
+      "fraction": 1,
+      "met": true,
+      "detail": "Mission lifetime"
+    }
+  ],
+  "budgets": {
+    "massKg": 196.535,
+    "massCapacityKg": 250,
+    "powerMarginW": 48.15467840783711,
+    "energyMarginWh": 181.40554738599621,
+    "dataGbPerDay": 4.056,
+    "downlinkGbPerDay": 3.424206360363889,
+    "costUsdM": 43.228400788436275,
+    "budgetUsdM": 50,
+    "lifetimeDays": 365,
+    "reliability": 0.64898775
+  },
+  "score": {
+    "missionSuccess": 300,
+    "science": 201,
+    "efficiency": 266,
+    "robustness": 58,
+    "teamwork": 0,
+    "total": 825,
+    "grade": "A"
+  },
+  "verdict": "success",
+  "assumptions": [
+    "Event dates are placeholders until the NASA DONKI cache lands.",
+    "Battery, data and cost are integrated at daily resolution.",
+    "Link capacity assumes a 10 deg elevation pass at maximum slant range.",
+    "Instruments generate data at their nominal rate while alive.",
+    "Decision effects are game values documented in docs/GAME_DESIGN.md.",
+    "Storm sensor present."
+  ]
+}

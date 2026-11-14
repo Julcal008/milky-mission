@@ -59,6 +59,21 @@ export function scoreMission(
 mass and power margins, anomaly handling and player count. `SimulationResult` includes
 `budgets: BudgetSnapshot` so the report does not re-run validation.
 
+## Report API
+
+```ts
+export function buildMissionReport(
+  result: SimulationResult,
+  scenario: ScenarioSpec,
+  validation?: ValidationResult,
+): MissionReport
+```
+
+`MissionReport` exposes `steps` (events with the chosen `optionId`), `highlights`,
+`suggestions` (i18n keys derived from validation issues), `weakestComponent`,
+`decisionCount`, `handledCritical` and `criticalEvents`. The UI resolves the keys;
+the engine never stores prose.
+
 ## 2.1 UI integration (Track B)
 
 The UI never imports engine formulas. It uses the mission store:

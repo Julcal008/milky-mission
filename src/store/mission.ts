@@ -11,6 +11,8 @@ import { baselineConfig } from '@/engine/__fixtures__/baseline'
 import { catalogFixture } from '@/engine/__fixtures__/catalog-fixture'
 import { scenarioFixtures } from '@/engine/__fixtures__/scenario-fixture'
 import type { DecisionChoice } from '@/engine/decisions'
+import { buildMissionReport } from '@/engine/report'
+import type { MissionReport } from '@/engine/report'
 import { simulateMission } from '@/engine/simulator'
 import type { MissionConfig, SimulationResult, ValidationResult } from '@/engine/types'
 import { validateMission } from '@/engine/validate'
@@ -21,6 +23,7 @@ interface MissionState {
   players: number
   decisions: DecisionChoice[]
   simulation: SimulationResult | null
+  report: MissionReport | null
   setConfig: (patch: Partial<MissionConfig>) => void
   setPlayers: (players: number) => void
   setDecision: (eventId: string, optionId: string) => void
@@ -38,29 +41,40 @@ export const useMissionStore = create<MissionState>((set, get) => ({
   players: 1,
   decisions: [],
   simulation: null,
+  report: null,
 
   setConfig: (patch) => {
     const config = { ...get().config, ...patch }
-    set({ config, validation: validate(config), simulation: null, decisions: [] })
+    set({
+      config,
+      validation: validate(config),
+      simulation: null,
+      report: null,
+      decisions: [],
+    })
   },
 
   setPlayers: (players) => set({ players: Math.min(4, Math.max(1, Math.round(players))) }),
 
   setDecision: (eventId, optionId) => {
     const others = get().decisions.filter((choice) => choice.eventId !== eventId)
-    set({ decisions: [...others, { eventId, optionId }], simulation: null })
+    set({
+      decisions: [...others, { eventId, optionId }],
+      simulation: null,
+      report: null,
+    })
   },
 
   simulate: () => {
     const { config, players, decisions } = get()
-    const simulation = simulateMission(
-      config,
-      scenarioFixtures[config.scenarioId],
-      catalogFixture,
-      players,
-      decisions,
-    )
-    set({ simulation })
+    const scenario = scenarioFixtures[config.scenarioId]
+    const validation = validate(config)
+    const simulation = simulateMission(config, scenario, catalogFixture, players, decisions)
+    set({
+      validation,
+      simulation,
+      report: buildMissionReport(simulation, scenario, validation),
+    })
     return simulation
   },
 
@@ -71,5 +85,6 @@ export const useMissionStore = create<MissionState>((set, get) => ({
       players: 1,
       decisions: [],
       simulation: null,
+      report: null,
     }),
 }))

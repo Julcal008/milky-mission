@@ -1,0 +1,70 @@
+{
+  "verdict": "success",
+  "grade": "A",
+  "total": 825,
+  "steps": [
+    {
+      "day": 25,
+      "kind": "event",
+      "severity": "warning",
+      "role": "comms",
+      "titleKey": "event.bufferFull"
+    },
+    {
+      "day": 95,
+      "kind": "event",
+      "severity": "critical",
+      "role": "systems",
+      "titleKey": "event.cmeHit"
+    },
+    {
+      "day": 150,
+      "kind": "event",
+      "severity": "warning",
+      "role": "science",
+      "titleKey": "event.flareX"
+    },
+    {
+      "day": 200,
+      "kind": "event",
+      "severity": "critical",
+      "role": "systems",
+      "titleKey": "event.cmeHit"
+    },
+    {
+      "day": 300,
+      "kind": "event",
+      "severity": "critical",
+      "role": "systems",
+      "titleKey": "event.cmeHit"
+    }
+  ],
+  "highlights": [
+    {
+      "day": 95,
+      "kind": "event",
+      "severity": "critical",
+      "role": "systems",
+      "titleKey": "event.cmeHit"
+    },
+    {
+      "day": 200,
+      "kind": "event",
+      "severity": "critical",
+      "role": "systems",
+      "titleKey": "event.cmeHit"
+    },
+    {
+      "day": 300,
+      "kind": "event",
+      "severity": "critical",
+      "role": "systems",
+      "titleKey": "event.cmeHit"
+    }
+  ],
+  "suggestions": [],
+  "weakestComponent": "robustness",
+  "decisionCount": 0,
+  "handledCritical": 0,
+  "criticalEvents": 3
+}
