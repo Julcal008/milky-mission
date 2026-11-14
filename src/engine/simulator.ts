@@ -5,8 +5,9 @@
  * Inputs:  mission configuration, scenario, catalogs
  * Outputs: day states, events, requirement results, budgets, score and verdict
  * Invariants: same config + seed -> identical result; days.length === scenario.durationDays
- * Assumptions: daily resolution; event dates are placeholders until the DONKI cache
- *              lands; battery and data are integrated at day granularity.
+ * Assumptions: daily resolution; event days are derived from the cached NASA DONKI
+ *              window (May 2024); optical data is modulated by NASA POWER monthly cloud
+ *              climatology; battery and data are integrated at day granularity.
  */
 import { getInstruments, getOrbit, getStorage } from './catalog'
 import { computeCostBreakdown } from './cost'
@@ -15,6 +16,7 @@ import { computePowerBreakdown } from './power'
 import { DECISION_OPTIONS } from './decisions'
 import type { DecisionChoice, DecisionOption } from './decisions'
 import { spaceWeatherDaysFor } from '../data/nasa/donki'
+import { CLIMATOLOGY_MONTHS, POWER_SITES, cloudUsableFraction } from '../data/nasa/power'
 import { trlFailureProbability } from './reliability'
 import { revisitHours } from './orbit'
 import { createRng } from './prng'
@@ -248,12 +250,18 @@ export function simulateMission(
       }
     }
 
-    // Data generation and delivery.
+    // Data generation and delivery. Optical Earth imagers lose data to cloud,
+    // using NASA POWER monthly climatology for the scenario site. Mission day 1
+    // is mapped to May, the month of the DONKI reference window.
     const aliveInstruments = instruments.filter((instrument) => !failedOn.has(instrument.id))
-    const baseGenerated = aliveInstruments.reduce(
-      (sum, instrument) => sum + instrument.dataGbPerDay,
-      0,
-    )
+    const monthIndex = Math.floor((((day - 1) / scenario.durationDays) * 12 + 4) % 12)
+    const powerSiteId = scenario.id === 'andes-flood-watch' ? 'magdalena' : 'neiva'
+    const cloudPct = POWER_SITES[powerSiteId].cloudAmountPct[CLIMATOLOGY_MONTHS[monthIndex]]
+    const cloudFactor = cloudUsableFraction(cloudPct)
+    const baseGenerated = aliveInstruments.reduce((sum, instrument) => {
+      const cloudSensitive = instrument.id === 'msi' || instrument.id === 'hri'
+      return sum + instrument.dataGbPerDay * (cloudSensitive ? cloudFactor : 1)
+    }, 0)
     const dutyFactor = (flareActive ? 0.5 : 1) * (deficit ? 0.5 : 1) * decisionDataFactor
     const generatedGb = baseGenerated * dutyFactor
     const downlinkGb = groundOutage ? 0 : link.downlinkGbPerDay
@@ -383,6 +391,7 @@ export function simulateMission(
     verdict,
     assumptions: [
       'Event dates are derived from the cached NASA DONKI window (May 2024).',
+      'Optical data is reduced by NASA POWER monthly cloud climatology.',
       'Battery, data and cost are integrated at daily resolution.',
       'Link capacity assumes a 10 deg elevation pass at maximum slant range.',
       'Instruments generate data at their nominal rate while alive.',

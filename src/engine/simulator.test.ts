@@ -101,4 +101,21 @@ describe('simulateMission', () => {
     )
     expect(result.verdict).toBe('failure')
   })
+
+  it('reduces optical data under cloud cover but leaves SAR untouched (validity)', () => {
+    const optical = simulateMission(
+      { ...baselineConfig, instrumentIds: ['msi'] },
+      storm,
+      catalogFixture,
+    )
+    const sar = simulateMission(
+      { ...baselineConfig, instrumentIds: ['sar'] },
+      storm,
+      catalogFixture,
+    )
+
+    // MSI would generate 6 Gb/day with a clear sky; cloud cover must reduce it.
+    expect(optical.days[0].dataGeneratedGb).toBeLessThan(6)
+    expect(optical.days[0].dataGeneratedGb).toBeLessThan(sar.days[0].dataGeneratedGb)
+  })
 })
