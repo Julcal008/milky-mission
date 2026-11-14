@@ -331,7 +331,7 @@ export function simulateMission(
 
     const coverage =
       supported.length > 0
-        ? supported.reduce((sum, value) => sum + value, 0) / supported.length
+        ? 0.35 + 0.65 * (supported.reduce((sum, value) => sum + value, 0) / supported.length)
         : 0.6
     const alive = aliveFraction.get(instrument.id) ?? 1
     return sum + instrument.scienceValue * deliveredFraction * coverage * alive
