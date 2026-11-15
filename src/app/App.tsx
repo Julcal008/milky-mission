@@ -18,6 +18,8 @@ import { Styleguide } from '@/app/Styleguide'
 import { useI18n, useUiStore } from '@/store/ui'
 import { cx } from '@/ui/cx'
 import { LogoMark } from '@/ui/LogoMark'
+import { FieldGuide } from '@/ui/menu/FieldGuide'
+import { GuideButton } from '@/ui/menu/GuideButton'
 
 export function App() {
   const [route, setRoute] = useState(() => routeFromHash(window.location.hash))
@@ -118,6 +120,7 @@ export function App() {
             >
               Aa
             </button>
+            <GuideButton />
           </div>
         </div>
       </header>
@@ -154,6 +157,8 @@ export function App() {
           </span>
         </div>
       </footer>
+
+      <FieldGuide />
     </div>
   )
 }

@@ -205,6 +205,20 @@ never an automatic switch.
   the scenario and player count to the mission store, then opens the design screen.
 - No fictional materials or roles here: design choices happen on the board.
 
+### Field guide
+
+- Global right-side drawer opened from the header “?” button and from the Brief card.
+- Tabs: Basics, Components, Risks, Glossary, Model. Search filters the active tab.
+- Components show category guidance (what / how to use / risks) plus the real catalog
+  entries with stats and provenance (read-only `ComponentMeta`).
+- Risks map validation codes to “what it means” and “how to fix it”; severity uses text
+  badges, never color alone.
+- The drawer traps focus, closes with Esc, locks body scroll and returns focus to the
+  opener. Reduced motion is respected.
+- Content: interface copy in `src/i18n/menu.*`; stats and provenance from
+  `src/data/catalogs`. Per-item prose can move to Track C later.
+- This extends the frozen UI scope with a glossary; the integrator approves it in the PR.
+
 ---
 
 ## 5. Logo
@@ -268,6 +282,8 @@ next event instead of animating.
 | `src/app/Home.tsx` | Start screen (solarpunk) |
 | `src/ui/menu/MenuBackground.tsx` | Animated menu backdrop |
 | `src/ui/menu/MenuPanel.tsx` | 3xl menu panel |
+| `src/ui/menu/FieldGuide.tsx` | Field guide drawer |
+| `src/ui/menu/GuideButton.tsx` | Field guide trigger |
 | `src/app/Brief.tsx` | Real scenario menu |
 | `src/app/Styleguide.tsx` | Live reference (route `#/styleguide`) |
 
