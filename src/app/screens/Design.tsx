@@ -24,6 +24,7 @@ import { useMissionStore } from '@/store/mission'
 import { useI18n } from '@/store/ui'
 import { Badge } from '@/ui/Badge'
 import { Button } from '@/ui/Button'
+import { ComponentMeta } from '@/ui/game/ComponentMeta'
 import { Select } from '@/ui/game/Select'
 import { Panel } from '@/ui/Panel'
 import { ResourceBar } from '@/ui/ResourceBar'
@@ -39,6 +40,16 @@ export function DesignScreen() {
   const scenario = scenarioFixtures[config.scenarioId]
   const copy = scenarioContent[lang][config.scenarioId]
   const budgets = validation.budgets
+
+  const orbit = catalogs.orbits.find((item) => item.id === config.orbitId)
+  const launcher = catalogs.launchers.find((item) => item.id === config.launcherId)
+  const bus = catalogs.buses.find((item) => item.id === config.busId)
+  const propulsion = catalogs.propulsion.find((item) => item.id === config.propulsionId)
+  const array = catalogs.arrays.find((item) => item.id === config.arrayId)
+  const battery = catalogs.batteries.find((item) => item.id === config.batteryId)
+  const comms = catalogs.comms.find((item) => item.id === config.commsId)
+  const network = catalogs.groundNetworks.find((item) => item.id === config.groundNetworkId)
+  const storage = catalogs.storage.find((item) => item.id === config.storageId)
 
   const update = (patch: Partial<MissionConfig>) => setConfig(patch)
 
@@ -106,6 +117,7 @@ export function DesignScreen() {
                 </option>
               ))}
             </Select>
+            {orbit ? <ComponentMeta kind="orbit" item={orbit} /> : null}
             <Select
               label={t.game.design.launcher}
               value={config.launcherId}
@@ -117,6 +129,7 @@ export function DesignScreen() {
                 </option>
               ))}
             </Select>
+            {launcher ? <ComponentMeta kind="launcher" item={launcher} /> : null}
           </Panel>
 
           <Panel className="space-y-4 p-5">
@@ -132,6 +145,7 @@ export function DesignScreen() {
                 </option>
               ))}
             </Select>
+            {bus ? <ComponentMeta kind="bus" item={bus} /> : null}
             <Select
               label={t.game.design.propulsion}
               value={config.propulsionId}
@@ -143,6 +157,7 @@ export function DesignScreen() {
                 </option>
               ))}
             </Select>
+            {propulsion ? <ComponentMeta kind="propulsion" item={propulsion} /> : null}
           </Panel>
 
           <Panel className="space-y-4 p-5">
@@ -158,6 +173,7 @@ export function DesignScreen() {
                 </option>
               ))}
             </Select>
+            {array ? <ComponentMeta kind="array" item={array} /> : null}
             <Select
               label={t.game.design.area}
               value={String(config.arrayAreaM2)}
@@ -180,6 +196,7 @@ export function DesignScreen() {
                 </option>
               ))}
             </Select>
+            {battery ? <ComponentMeta kind="battery" item={battery} /> : null}
           </Panel>
 
           <Panel className="space-y-4 p-5">
@@ -195,6 +212,7 @@ export function DesignScreen() {
                 </option>
               ))}
             </Select>
+            {comms ? <ComponentMeta kind="comms" item={comms} /> : null}
             <Select
               label={t.game.design.groundNetwork}
               value={config.groundNetworkId}
@@ -208,6 +226,7 @@ export function DesignScreen() {
                 </option>
               ))}
             </Select>
+            {network ? <ComponentMeta kind="network" item={network} /> : null}
             <Select
               label={t.game.design.storage}
               value={config.storageId}
@@ -219,6 +238,7 @@ export function DesignScreen() {
                 </option>
               ))}
             </Select>
+            {storage ? <ComponentMeta kind="storage" item={storage} /> : null}
           </Panel>
         </div>
 
@@ -270,10 +290,7 @@ export function DesignScreen() {
                       ×
                     </button>
                   </div>
-                  <span className="num text-[11px] text-ink-3">
-                    {instrument.massKg} kg · {instrument.powerW} W · {instrument.dataGbPerDay} Gb/d
-                    · TRL {instrument.trl}
-                  </span>
+                  <ComponentMeta kind="instrument" item={instrument} />
                 </div>
               )
             })}

@@ -4,12 +4,17 @@
  * suggestions. No physics here.
  */
 import { useEffect, useRef, useState } from 'react'
+import { catalogs } from '@/data/catalogs'
 import { decisionOptionsFor } from '@/engine/decisions'
 import type { ReportStep } from '@/engine/report'
+import { scenarioFixtures } from '@/engine/__fixtures__/scenario-fixture'
+import { REQUIREMENT_TAGS } from '@/engine/validate'
 import { useMissionStore } from '@/store/mission'
 import { useI18n } from '@/store/ui'
 import { Badge } from '@/ui/Badge'
 import { Button } from '@/ui/Button'
+import { format } from '@/ui/game/format'
+import { ModelPanel } from '@/ui/game/ModelPanel'
 import { Panel } from '@/ui/Panel'
 import { ResourceBar } from '@/ui/ResourceBar'
 
@@ -68,6 +73,81 @@ export function ReportScreen() {
   const teamMode = simulation.score.teamwork > 0
   const efficiencyMax = teamMode ? 200 : 300
 
+  const budgets = simulation.budgets
+  const duration = scenarioFixtures[config.scenarioId].durationDays
+  const delivered =
+    budgets.dataGbPerDay > 0 ? Math.min(1, budgets.downlinkGbPerDay / budgets.dataGbPerDay) : 1
+  const installed = new Set(config.instrumentIds)
+  const supports = (tag: string) =>
+    catalogs.instruments.some(
+      (instrument) => installed.has(instrument.id) && instrument.supports.includes(tag),
+    )
+  const orbit = catalogs.orbits.find((item) => item.id === config.orbitId)
+  const diagnosisCopy = t.ops.report.diagnosis as Record<string, string>
+
+  type DiagnosisCause = { key: string; params: Record<string, string | number> }
+
+  const causes: DiagnosisCause[] = chosen
+    .filter((requirement) => requirement.fraction < 0.99)
+    .map((requirement): DiagnosisCause => {
+      const tags = REQUIREMENT_TAGS[config.scenarioId]?.[requirement.id] ?? []
+      if (tags.length > 0 && !tags.some((tag) => supports(tag))) {
+        return { key: 'noCapability', params: {} }
+      }
+      if (
+        config.scenarioId === 'storm-watch' &&
+        requirement.id === 'R2' &&
+        (orbit?.inclinationDeg ?? 0) < 80
+      ) {
+        return {
+          key: 'lowInclination',
+          params: { inclination: orbit?.inclinationDeg ?? 0 },
+        }
+      }
+      if (config.scenarioId === 'storm-watch' && requirement.id === 'R4' && !supports('storm')) {
+        return { key: 'noStormSensor', params: {} }
+      }
+      if (
+        config.scenarioId === 'andes-flood-watch' &&
+        requirement.id === 'R2' &&
+        !supports('allweather')
+      ) {
+        return { key: 'noAllWeather', params: {} }
+      }
+      if (
+        config.scenarioId === 'andes-flood-watch' &&
+        requirement.id === 'R3' &&
+        !supports('highres')
+      ) {
+        return { key: 'noResolution', params: {} }
+      }
+      const lifetimeId = config.scenarioId === 'storm-watch' ? 'R6' : 'R5'
+      if (requirement.id === lifetimeId && budgets.lifetimeDays < duration) {
+        return {
+          key: 'shortLife',
+          params: { lifetime: budgets.lifetimeDays, required: duration },
+        }
+      }
+      const dataRequirement =
+        (config.scenarioId === 'storm-watch' &&
+          ['R1', 'R2', 'R3', 'R5'].includes(requirement.id)) ||
+        (config.scenarioId === 'andes-flood-watch' && requirement.id === 'R4')
+      const threshold = requirement.id === 'R1' ? 0.7 : 0.6
+      if (dataRequirement && delivered < threshold) {
+        return {
+          key: 'lowData',
+          params: {
+            delivered: Math.round(delivered * 100),
+            required: Math.round(threshold * 100),
+          },
+        }
+      }
+      if (budgets.powerMarginW < 0) {
+        return { key: 'lowPower', params: { margin: budgets.powerMarginW.toFixed(1) } }
+      }
+      return { key: 'partial', params: { fraction: Math.round(requirement.fraction * 100) } }
+    })
+
   const stepLabel = (step: ReportStep): string => {
     if (step.titleKey.startsWith('event.instFail.')) {
       return `${eventCopy.instFail}: ${step.titleKey.split('.').pop()}`
@@ -81,6 +161,21 @@ export function ReportScreen() {
     const option = decisionOptionsFor(type).find((item) => item.id === step.optionId)
     return option ? (decisionCopy[option.labelKey] ?? step.optionId) : step.optionId
   }
+
+  const seenTypes = new Set<string>()
+  const causalSteps = report.steps.filter((step) => {
+    if (step.optionId) {
+      return true
+    }
+    const type = eventTypeFromTitle(step.titleKey)
+    if (seenTypes.has(type)) {
+      return false
+    }
+    seenTypes.add(type)
+    return true
+  })
+  const visibleSteps = causalSteps.slice(0, 8)
+  const hiddenSteps = report.steps.length - visibleSteps.length
 
   const share = async () => {
     const url = `${window.location.origin}${window.location.pathname}?m=${shareCode()}#/report`
@@ -208,9 +303,31 @@ export function ReportScreen() {
       </div>
 
       <Panel className="space-y-3 p-5">
+        <h2 className="label-caps text-ink-2">{t.ops.report.diagnosis.title}</h2>
+        {causes.length === 0 ? (
+          <p className="text-[12px] text-ink-3">{t.ops.report.diagnosis.allMet}</p>
+        ) : (
+          <ul className="space-y-2">
+            {causes.map((cause, index) => (
+              <li
+                key={`${cause.key}-${index}`}
+                className="flex items-start gap-2 text-[12px] text-ink-2"
+              >
+                <span
+                  aria-hidden="true"
+                  className="mt-1.5 size-1.5 shrink-0 rounded-full bg-danger"
+                />
+                <span>{format(diagnosisCopy[cause.key] ?? cause.key, cause.params)}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </Panel>
+
+      <Panel className="space-y-3 p-5">
         <h2 className="label-caps text-ink-2">{t.ops.report.causalChain}</h2>
         <ol className="space-y-2">
-          {report.steps.map((step) => {
+          {visibleSteps.map((step) => {
             const decision = decisionLabel(step)
             return (
               <li
@@ -238,6 +355,9 @@ export function ReportScreen() {
             )
           })}
         </ol>
+        {hiddenSteps > 0 ? (
+          <p className="text-[11px] text-ink-3">+ {hiddenSteps} more events in the full log</p>
+        ) : null}
       </Panel>
 
       <Panel className="space-y-3 p-5">
@@ -260,6 +380,8 @@ export function ReportScreen() {
           </ul>
         )}
       </Panel>
+
+      <ModelPanel />
 
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
         <div className="flex gap-2">

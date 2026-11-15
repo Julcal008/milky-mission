@@ -36,6 +36,48 @@ export const gameEs = {
     simulate: 'Simular misión',
     back: 'Volver al diseño',
   },
+  meta: {
+    tags: {
+      heavy: 'Pesado',
+      powerHungry: 'Consume potencia',
+      dataHeavy: 'Muchos datos',
+      expensive: 'Costoso',
+      flightRisk: 'Riesgo de vuelo',
+      highScience: 'Alta ciencia',
+      longLife: 'Vida larga',
+      shortLife: 'Vida corta',
+      highBandwidth: 'Alto ancho de banda',
+      ttac: 'Solo TT&C',
+      efficient: 'Eficiente',
+      oversized: 'Sobredimensionado',
+    },
+    orbit:
+      'Órbita a {altitude} km y {inclination}°. Arrastre {drag} m/s por año; radiación {dose} krad por año.',
+    launcher: '{capacity} kg a SSO 500 km por ${cost}M. {fixed}',
+    fixedYes: 'Solo órbita fija.',
+    fixedNo: 'Puede apuntar a otras órbitas.',
+    bus: '{mass} kg secos, {payload} kg de carga, {power} W disponibles. Confiabilidad {reliability} % por año.',
+    propulsion: '{mass} kg secos más {propellant} kg de propelente; Isp {isp} s.',
+    array: '{power} W/m² al inicio de vida; {degradation} % de degradación por año.',
+    battery: '{capacity} Wh, {mass} kg, profundidad de descarga máxima {dod} %.',
+    comms: 'Hasta {rate} Mbps, {power} W RF, antena de {gain} dBi.',
+    network: '{stations} estación(es), ×{multiplier} pases por día.',
+    storage: '{capacity} GB, {mass} kg.',
+    instrument: '{mass} kg, {power} W, {data} Gb/día, ciencia {science}, TRL {trl}.',
+    source: 'Fuente: {source} · {confidence}',
+  },
+  model: {
+    title: 'Modelo, datos y supuestos',
+    mass: 'Masa = suma de componentes + 15 % de margen; propelente por la ecuación del cohete (Isp).',
+    power:
+      'Potencia = área × W/m² × 0.9 empaquetado × 0.75 incidencia × degradación × fracción de sol.',
+    link: 'Enlace = pases × 480 s × tasa efectiva × 0.65 utilización × 0.9 eficiencia.',
+    data: 'Los instrumentos ópticos pierden datos por la nubosidad mensual de NASA POWER.',
+    events: 'Los eventos de clima espacial usan la ventana cacheada de NASA DONKI (mayo 2024).',
+    limits: 'Simplificaciones: paso diario, sombra cilíndrica, pase con elevación de 10°.',
+    sources:
+      'Fuentes: NASA DONKI, NASA POWER y referencias de smallsats de NASA. Auditoría completa en docs/DATA_PROVENANCE.md.',
+  },
   decisions: {
     'decision.cme.shelter.label': 'Protege la carga',
     'decision.cme.shelter.description':
