@@ -14,6 +14,7 @@ import { syncShareUrl } from '@/app/share-url'
 import { Badge } from '@/ui/Badge'
 import { Button } from '@/ui/Button'
 import { DecisionModal } from '@/ui/game/DecisionModal'
+import { RoleDock } from '@/ui/game/RoleDock'
 import { format } from '@/ui/game/format'
 import {
   advancePlaybackDay,
@@ -21,6 +22,9 @@ import {
   PLAYBACK_TICK_MS,
   type PlaybackSpeed,
 } from '@/ui/game/playback'
+import { turnCopyEn } from '@/ui/game/turn-copy.en'
+import { turnCopyEs } from '@/ui/game/turn-copy.es'
+import { assignmentsForPlayers, roleOwnerSeat } from '@/ui/game/turns'
 import { Panel } from '@/ui/Panel'
 
 function severityTone(severity: GameEvent['severity']) {
@@ -51,21 +55,30 @@ const EVENT_ICON: Record<string, string> = {
 }
 
 export function SimulateScreen() {
-  const { t } = useI18n()
+  const { t, lang } = useI18n()
   const config = useMissionStore((state) => state.config)
   const simulation = useMissionStore((state) => state.simulation)
   const decisions = useMissionStore((state) => state.decisions)
+  const players = useMissionStore((state) => state.players)
   const simulate = useMissionStore((state) => state.simulate)
   const applyDecision = useMissionStore((state) => state.applyDecision)
   const restartSimulation = useMissionStore((state) => state.restartSimulation)
+  const turnCopy = lang === 'es' ? turnCopyEs : turnCopyEn
 
   const [currentDay, setCurrentDay] = useState(1)
   const [playing, setPlaying] = useState(true)
   const [speed, setSpeed] = useState<PlaybackSpeed>(1)
   const [pendingEventId, setPendingEventId] = useState<string | null>(null)
   const [acknowledged, setAcknowledged] = useState<Set<string>>(() => new Set())
+  const [activeSeat, setActiveSeat] = useState(0)
   const autoStarted = useRef(false)
   const initialized = useRef(false)
+
+  useEffect(() => {
+    if (activeSeat >= players) {
+      setActiveSeat(0)
+    }
+  }, [activeSeat, players])
 
   useEffect(() => {
     if (!autoStarted.current && !simulation && config) {
@@ -83,6 +96,7 @@ export function SimulateScreen() {
     setPlaying(true)
     setPendingEventId(null)
     setAcknowledged(new Set())
+    setActiveSeat(0)
   }, [simulation])
 
   const duration = simulation?.days.length ?? 0
@@ -166,6 +180,7 @@ export function SimulateScreen() {
     setAcknowledged(new Set())
     setPendingEventId(null)
     setPlaying(true)
+    setActiveSeat(0)
     syncShareUrl(useMissionStore.getState().shareCode())
   }
 
@@ -207,6 +222,7 @@ export function SimulateScreen() {
     setAcknowledged(new Set())
     setPendingEventId(null)
     setPlaying(true)
+    setActiveSeat(0)
   }
 
   if (!config) {
@@ -243,6 +259,28 @@ export function SimulateScreen() {
 
   const events = simulation.events
   const pendingEvent = events.find((event) => event.id === pendingEventId) ?? null
+  const assignments = assignmentsForPlayers(players)
+  const playerLabel = (seat: number) => format(turnCopy.player, { n: seat + 1 })
+  const rolesLabel = (seat: number) =>
+    (assignments[seat]?.roles ?? []).map((role) => roleCopy[role] ?? role).join(' + ')
+  const activeTurnLabel = format(turnCopy.turn, {
+    player: playerLabel(activeSeat),
+    roles: rolesLabel(activeSeat),
+  })
+  const ownerSeat = pendingEvent ? roleOwnerSeat(pendingEvent.role, players) : 0
+  const locked = Boolean(pendingEvent) && players > 1 && activeSeat !== ownerSeat
+  const waitingLabel = format(turnCopy.waiting, { player: playerLabel(ownerSeat) })
+  const passLabel = format(turnCopy.pass, { player: playerLabel(ownerSeat) })
+  const turn =
+    players > 1
+      ? {
+          label: activeTurnLabel,
+          waiting: locked ? waitingLabel : undefined,
+          passLabel: locked ? passLabel : undefined,
+          locked,
+          onPass: locked ? () => setActiveSeat(ownerSeat) : undefined,
+        }
+      : undefined
   const pendingOptions = pendingEvent
     ? decisionOptionsFor(pendingEvent.challengeId ?? pendingEvent.type)
     : []
@@ -261,7 +299,7 @@ export function SimulateScreen() {
   const complete = currentDay >= duration
 
   const chooseDecision = (optionId: string) => {
-    if (!pendingEvent) {
+    if (!pendingEvent || locked) {
       return
     }
     applyDecision(pendingEvent.id, optionId)
@@ -271,7 +309,7 @@ export function SimulateScreen() {
   }
 
   const continueAlert = () => {
-    if (!pendingEvent) {
+    if (!pendingEvent || locked) {
       return
     }
     setAcknowledged((current) => new Set(current).add(pendingEvent.id))
@@ -312,6 +350,21 @@ export function SimulateScreen() {
             <span className="label-caps text-ink-3">{simulation.score.grade}</span>
           </div>
         </header>
+
+        <Panel className="space-y-3 p-4">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h2 className="label-caps text-ink-2">{turnCopy.handoff}</h2>
+            <span className="text-[11px] text-ink-2">
+              {players > 1 ? activeTurnLabel : turnCopy.solo}
+            </span>
+          </div>
+          <RoleDock
+            players={players}
+            activeSeat={activeSeat}
+            onSelect={setActiveSeat}
+            copy={turnCopy}
+          />
+        </Panel>
 
         <Panel className="space-y-4 p-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
@@ -564,6 +617,7 @@ export function SimulateScreen() {
             budgetUsdM: option.effect.budgetUsdM,
           }))}
           appliedOptionId={pendingDecision}
+          turn={turn}
           labels={{
             title: pendingOptions.length ? t.ops.simulate.decisionRequired : t.ops.simulate.alert,
             paused: t.ops.simulate.paused,

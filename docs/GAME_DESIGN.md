@@ -44,8 +44,9 @@ and makes the negotiation visible to judges.
 | **Science Lead** | Principal Investigator | Maximize science return and coverage | Force one observation cycle |
 | **Comms & Ops** | Mission Operations | Deliver data with no loss | Request one extra ground pass |
 
-Each role has **2 tokens per mission**. Tokens are spent on critical decisions; using
-all of them costs teamwork points, so hoarding and overspending are both bad.
+Each role has **2 tokens per mission** (roadmap). The current build implements explicit
+role handoff: the active player dock shows who owns each role, and the decision modal
+locks until control passes to the role that owns the event. Tokens are not yet active.
 
 ## 3. Mission flow
 
