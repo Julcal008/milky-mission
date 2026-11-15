@@ -3,7 +3,7 @@
  */
 import { describe, expect, it } from 'vitest'
 import { baselineConfig } from './__fixtures__/baseline'
-import { decodeMission, encodeMission } from './share'
+import { decodeMission, decodeSharedMission, encodeMission } from './share'
 
 describe('share codec', () => {
   it('round-trips the full mission configuration', () => {
@@ -22,6 +22,28 @@ describe('share codec', () => {
   it('preserves the seed so the mission replays identically', () => {
     const code = encodeMission({ ...baselineConfig, seed: 123456 })
     expect(decodeMission(code)?.seed).toBe(123456)
+  })
+
+  it('round-trips decisions and player count', () => {
+    const decisions = [
+      { eventId: 'event-1', optionId: 'shelter' },
+      { eventId: 'event-2', optionId: 'ride-it-out' },
+    ]
+    const code = encodeMission(baselineConfig, decisions, 4)
+    expect(decodeSharedMission(code)).toEqual({
+      config: baselineConfig,
+      decisions,
+      players: 4,
+    })
+  })
+
+  it('defaults older payloads to solo play with no decisions', () => {
+    const code = encodeMission(baselineConfig)
+    expect(decodeSharedMission(code)).toEqual({
+      config: baselineConfig,
+      decisions: [],
+      players: 1,
+    })
   })
 
   it('rejects garbage, empty and oversized codes', () => {

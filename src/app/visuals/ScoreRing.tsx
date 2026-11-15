@@ -1,4 +1,3 @@
-import { ENABLE_VISUAL_LAYER } from './config'
 import scoreRingAnimated from './svg/score-ring.svg?raw'
 import scoreRingStatic from './svg/score-ring-static.svg?raw'
 import { useReducedMotion } from './useReducedMotion'
@@ -35,10 +34,6 @@ export function ScoreRing({ total, grade, labels }: ScoreRingProps) {
       </p>
     </div>
   )
-
-  if (!ENABLE_VISUAL_LAYER) {
-    return plainScore
-  }
 
   const progress = Math.min(1, Math.max(0, total / 1000))
   const dash = (progress * 2 * Math.PI * 88).toFixed(1)

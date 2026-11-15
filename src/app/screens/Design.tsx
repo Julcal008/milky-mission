@@ -26,6 +26,7 @@ import { Badge } from '@/ui/Badge'
 import { Button } from '@/ui/Button'
 import { ComponentMeta } from '@/ui/game/ComponentMeta'
 import { AiBackdrop } from '@/app/visuals/AiBackdrop'
+import { syncShareUrl } from '@/app/share-url'
 import { Select } from '@/ui/game/Select'
 import { SpacecraftSchematic } from '@/ui/game/SpacecraftSchematic'
 import { Panel } from '@/ui/Panel'
@@ -72,7 +73,10 @@ export function DesignScreen() {
     (instrument) => !draft.instrumentIds.includes(instrument.id),
   )
 
-  const update = (patch: Parameters<typeof setDraft>[0]) => setDraft(patch)
+  const update = (patch: Parameters<typeof setDraft>[0]) => {
+    setDraft(patch)
+    syncShareUrl(useMissionStore.getState().shareCode())
+  }
 
   const addInstrument = (id: string) => {
     if (!id || draft.instrumentIds.length >= MAX_INSTRUMENTS) {
@@ -460,6 +464,7 @@ export function DesignScreen() {
               variant="ghost"
               onClick={() => {
                 reset()
+                syncShareUrl(null)
                 window.location.hash = '#/brief'
               }}
             >

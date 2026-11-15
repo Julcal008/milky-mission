@@ -2,6 +2,9 @@
  * Mission store behaviour: empty draft, scenario reset and completeness.
  */
 import { beforeEach, describe, expect, it } from 'vitest'
+import { baselineConfig } from '@/engine/__fixtures__/baseline'
+import { encodeMission } from '@/engine/share'
+import type { OrbitId } from '@/engine/types'
 import { useMissionStore } from './mission'
 
 describe('mission store', () => {
@@ -57,5 +60,20 @@ describe('mission store', () => {
     expect(state.config).not.toBeNull()
     expect(state.validation?.ok).toBe(true)
     expect(state.draft.instrumentIds.length).toBe(4)
+  })
+
+  it('rejects share codes with unknown catalog ids', () => {
+    const code = encodeMission({ ...baselineConfig, orbitId: 'bogus' as OrbitId })
+    expect(useMissionStore.getState().loadShareCode(code)).toBe(false)
+    expect(useMissionStore.getState().config).toBeNull()
+  })
+
+  it('restores decisions and players from a share code', () => {
+    const decisions = [{ eventId: 'event-1', optionId: 'shelter' }]
+    const code = encodeMission(baselineConfig, decisions, 3)
+    expect(useMissionStore.getState().loadShareCode(code)).toBe(true)
+    const state = useMissionStore.getState()
+    expect(state.decisions).toEqual(decisions)
+    expect(state.players).toBe(3)
   })
 })

@@ -35,6 +35,10 @@ export function App() {
     document.documentElement.dataset.density = density
   }, [density])
 
+  useEffect(() => {
+    document.documentElement.lang = lang
+  }, [lang])
+
   return (
     <div className="space-bg flex min-h-screen flex-col">
       <header className="sticky top-0 z-20 border-b border-border bg-bg/85 backdrop-blur">

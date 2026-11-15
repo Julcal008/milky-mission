@@ -12,7 +12,7 @@ import { scenarioFixtures } from '@/engine/__fixtures__/scenario-fixture'
 import type { DecisionChoice } from '@/engine/decisions'
 import { buildMissionReport } from '@/engine/report'
 import type { MissionReport } from '@/engine/report'
-import { decodeMission, encodeMission } from '@/engine/share'
+import { decodeSharedMission, encodeMission } from '@/engine/share'
 import { simulateMission } from '@/engine/simulator'
 import type {
   MissionConfig,
@@ -83,6 +83,32 @@ export function missingFields(draft: MissionDraft): MissingKey[] {
   if (draft.instrumentIds.length === 0) missing.push('instruments')
   if (draft.requirements.length !== 3) missing.push('requirements')
   return missing
+}
+
+function hasId(items: readonly { id: string }[], id: string): boolean {
+  return items.some((item) => item.id === id)
+}
+
+/**
+ * Shared links are untrusted input: every catalog and requirement ID must exist
+ * before the engine sees the config. Otherwise an edited link can crash the
+ * simulation with "Unknown instrument id".
+ */
+function isMissionConfigValid(config: MissionConfig): boolean {
+  const requirementIds = scenarioFixtures[config.scenarioId].requirements.map((item) => item.id)
+  return (
+    hasId(catalogs.orbits, config.orbitId) &&
+    hasId(catalogs.launchers, config.launcherId) &&
+    hasId(catalogs.buses, config.busId) &&
+    hasId(catalogs.propulsion, config.propulsionId) &&
+    hasId(catalogs.arrays, config.arrayId) &&
+    hasId(catalogs.batteries, config.batteryId) &&
+    hasId(catalogs.comms, config.commsId) &&
+    hasId(catalogs.groundNetworks, config.groundNetworkId) &&
+    hasId(catalogs.storage, config.storageId) &&
+    config.instrumentIds.every((id) => hasId(catalogs.instruments, id)) &&
+    config.requirements.every((id) => requirementIds.includes(id))
+  )
 }
 
 function buildConfig(draft: MissionDraft): MissionConfig | null {
@@ -195,23 +221,24 @@ export const useMissionStore = create<MissionState>((set, get) => ({
   },
 
   shareCode: () => {
-    const { config } = get()
-    return config ? encodeMission(config) : null
+    const { config, decisions, players } = get()
+    return config ? encodeMission(config, decisions, players) : null
   },
 
   loadShareCode: (code) => {
-    const config = decodeMission(code)
-    if (!config) {
+    const shared = decodeSharedMission(code)
+    if (!shared || !isMissionConfigValid(shared.config)) {
       return false
     }
-    const draft = draftFromConfig(config)
+    const draft = draftFromConfig(shared.config)
     const result = evaluate(draft)
     set({
       draft,
       ...result,
+      players: shared.players,
+      decisions: shared.decisions,
       simulation: null,
       report: null,
-      decisions: [],
     })
     return true
   },
