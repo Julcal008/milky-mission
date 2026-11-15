@@ -1,11 +1,18 @@
 /**
- * SHARE CODEC — encode a mission design into a URL-safe string.
+ * SHARE CODEC — encode a mission design and its runtime choices into a
+ * URL-safe string.
  * Owner: Track A.
  *
- * The code contains the full MissionConfig (including the seed), so a shared
- * mission reproduces exactly. It is versioned: bump `SHARE_VERSION` if the
- * config shape changes in a way old links cannot express.
+ * The code contains the full MissionConfig (including the seed) so a shared
+ * mission reproduces exactly. It also carries the decisions and player count
+ * when they are not the defaults. The extra fields are optional, so v1 links
+ * created before they existed still decode.
+ *
+ * Decoding is deliberately strict about shapes but does not know the catalogs;
+ * `loadShareCode` validates the IDs against the catalogs before the engine sees
+ * them.
  */
+import type { DecisionChoice } from './decisions'
 import type { MissionConfig, ScenarioId } from './types'
 
 export const SHARE_VERSION = 1
@@ -13,6 +20,14 @@ export const SHARE_VERSION = 1
 interface SharePayload {
   v: number
   c: MissionConfig
+  d?: DecisionChoice[]
+  p?: number
+}
+
+export interface SharedMission {
+  config: MissionConfig
+  decisions: DecisionChoice[]
+  players: number
 }
 
 const SCENARIOS: ScenarioId[] = ['storm-watch', 'andes-flood-watch']
@@ -37,12 +52,24 @@ function fromBase64Url(code: string): string {
   return new TextDecoder().decode(bytes)
 }
 
-export function encodeMission(config: MissionConfig): string {
+export function encodeMission(
+  config: MissionConfig,
+  decisions: DecisionChoice[] = [],
+  players = 1,
+): string {
   const payload: SharePayload = { v: SHARE_VERSION, c: config }
+  const validDecisions = decisions.filter(isDecision)
+  if (validDecisions.length > 0) {
+    payload.d = validDecisions
+  }
+  const safePlayers = Math.min(4, Math.max(1, Math.round(players)))
+  if (safePlayers !== 1) {
+    payload.p = safePlayers
+  }
   return toBase64Url(JSON.stringify(payload))
 }
 
-export function decodeMission(code: string): MissionConfig | null {
+export function decodeSharedMission(code: string): SharedMission | null {
   if (!code || code.length > 4096) {
     return null
   }
@@ -51,10 +78,28 @@ export function decodeMission(code: string): MissionConfig | null {
     if (!isSharePayload(parsed)) {
       return null
     }
-    return parsed.c
+    const decisions = Array.isArray(parsed.d) ? parsed.d.filter(isDecision) : []
+    const rawPlayers = typeof parsed.p === 'number' ? parsed.p : 1
+    const players = Number.isFinite(rawPlayers)
+      ? Math.min(4, Math.max(1, Math.round(rawPlayers)))
+      : 1
+    return { config: parsed.c, decisions, players }
   } catch {
     return null
   }
+}
+
+/** Backwards-compatible helper for callers that only need the design. */
+export function decodeMission(code: string): MissionConfig | null {
+  return decodeSharedMission(code)?.config ?? null
+}
+
+function isDecision(value: unknown): value is DecisionChoice {
+  if (typeof value !== 'object' || value === null) {
+    return false
+  }
+  const choice = value as Partial<DecisionChoice>
+  return typeof choice.eventId === 'string' && typeof choice.optionId === 'string'
 }
 
 function isSharePayload(value: unknown): value is SharePayload {
@@ -69,17 +114,22 @@ function isSharePayload(value: unknown): value is SharePayload {
   return (
     SCENARIOS.includes(config.scenarioId as ScenarioId) &&
     typeof config.seed === 'number' &&
+    Number.isFinite(config.seed) &&
     typeof config.orbitId === 'string' &&
     typeof config.launcherId === 'string' &&
     typeof config.busId === 'string' &&
     typeof config.propulsionId === 'string' &&
     typeof config.arrayId === 'string' &&
     typeof config.arrayAreaM2 === 'number' &&
+    Number.isFinite(config.arrayAreaM2) &&
+    config.arrayAreaM2 > 0 &&
     typeof config.batteryId === 'string' &&
     typeof config.commsId === 'string' &&
     typeof config.groundNetworkId === 'string' &&
     typeof config.storageId === 'string' &&
     Array.isArray(config.instrumentIds) &&
-    Array.isArray(config.requirements)
+    config.instrumentIds.every((id) => typeof id === 'string') &&
+    Array.isArray(config.requirements) &&
+    config.requirements.every((id) => typeof id === 'string')
   )
 }

@@ -12,6 +12,7 @@ import { AiBackdrop } from '@/app/visuals/AiBackdrop'
 import { visualUrl } from '@/app/visuals/assets'
 import { useMissionStore } from '@/store/mission'
 import { useI18n } from '@/store/ui'
+import { syncShareUrl } from '@/app/share-url'
 import { Badge } from '@/ui/Badge'
 import { Button } from '@/ui/Button'
 import { format } from '@/ui/game/format'
@@ -135,6 +136,7 @@ export function SimulateScreen() {
   const applyDecision = (event: GameEvent, optionId: string) => {
     setDecision(event.id, optionId)
     simulate()
+    syncShareUrl(useMissionStore.getState().shareCode())
   }
 
   return (

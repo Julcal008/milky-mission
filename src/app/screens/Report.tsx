@@ -204,12 +204,16 @@ export function ReportScreen() {
       return
     }
     const url = `${window.location.origin}${window.location.pathname}?m=${code}#/report`
+    let didCopy = false
     try {
       await navigator.clipboard.writeText(url)
+      didCopy = true
     } catch {
-      window.prompt(t.ops.report.copyPrompt, url)
+      didCopy = window.prompt(t.ops.report.copyPrompt, url) !== null
     }
-    setCopied(true)
+    if (didCopy) {
+      setCopied(true)
+    }
   }
 
   return (

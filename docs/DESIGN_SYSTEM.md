@@ -26,7 +26,7 @@ Implementation: [`src/styles/tokens.css`](../src/styles/tokens.css) and
 | `border-strong` | `#2F4263` | Hover borders, selected outlines |
 | `ink` | `#E9EEF8` | Primary text (≈15:1 on bg) |
 | `ink-2` | `#A7B3C9` | Secondary text (≈7:1) |
-| `ink-3` | `#6B7A93` | Metadata, placeholders (≈4.6:1) |
+| `ink-3` | `#7B8AA3` | Metadata, placeholders (≈5.3:1 on surface) |
 
 ### Brand
 

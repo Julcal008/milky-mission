@@ -9,6 +9,7 @@
 import { useState } from 'react'
 import { scenarioContent } from '@/content/scenarios'
 import { scenarioFixtures } from '@/engine/__fixtures__/scenario-fixture'
+import { syncShareUrl } from '@/app/share-url'
 import type { ScenarioId } from '@/engine/types'
 import { useMissionStore } from '@/store/mission'
 import { useI18n } from '@/store/ui'
@@ -32,11 +33,13 @@ export function Brief() {
     }
     startScenario(scenarioId)
     window.location.hash = '#/design'
+    syncShareUrl(useMissionStore.getState().shareCode())
   }
 
   function startExample() {
     loadExample()
     window.location.hash = '#/design'
+    syncShareUrl(useMissionStore.getState().shareCode())
   }
 
   return (
