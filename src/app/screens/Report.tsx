@@ -5,8 +5,10 @@
  */
 import { useEffect, useRef, useState } from 'react'
 import { MissionCard } from '@/app/visuals/generated/MissionCard'
+import { AiBackdrop } from '@/app/visuals/AiBackdrop'
 import { ReportFrame } from '@/app/visuals/ReportFrame'
 import { ScoreRing } from '@/app/visuals/ScoreRing'
+import { visualUrl } from '@/app/visuals/assets'
 import { scenarioContent } from '@/content/scenarios'
 import { catalogs } from '@/data/catalogs'
 import { decisionOptionsFor } from '@/engine/decisions'
@@ -212,239 +214,245 @@ export function ReportScreen() {
 
   return (
     <ReportFrame>
-      <div className="space-y-5">
-        <header className="flex flex-wrap items-end justify-between gap-4">
-          <div className="space-y-2">
-            <p className="label-caps text-ink-3">{config.scenarioId}</p>
-            <h1 className="font-display text-3xl font-semibold text-ink">{t.ops.report.title}</h1>
-            <p className="text-[13px] text-ink-2">{t.ops.report.lead}</p>
-          </div>
-          <div className="flex flex-col items-end gap-2">
-            <Badge
-              tone={
-                report.verdict === 'success'
-                  ? 'success'
-                  : report.verdict === 'partial'
-                    ? 'warning'
-                    : 'danger'
-              }
-            >
-              {t.ops.report[report.verdict]}
-            </Badge>
-            <ScoreRing
-              total={report.total}
-              grade={report.grade}
-              labels={{ total: t.ops.report.score, grade: t.ops.report.grade }}
-            />
-          </div>
-        </header>
-
-        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <Panel className="space-y-4 p-5">
-            <h2 className="label-caps text-ink-2">{t.ops.report.breakdown}</h2>
-            <ResourceBar
-              label={t.ops.report.components.mission}
-              value={simulation.score.missionSuccess}
-              max={300}
-              unit="pts"
-              tone="budget"
-              status={t.ops.report.components.mission}
-            />
-            <ResourceBar
-              label={t.ops.report.components.science}
-              value={simulation.score.science}
-              max={250}
-              unit="pts"
-              tone="data"
-              status={t.ops.report.components.science}
-            />
-            <ResourceBar
-              label={t.ops.report.components.efficiency}
-              value={simulation.score.efficiency}
-              max={efficiencyMax}
-              unit="pts"
-              tone="link"
-              status={t.ops.report.components.efficiency}
-            />
-            <ResourceBar
-              label={t.ops.report.components.robustness}
-              value={simulation.score.robustness}
-              max={150}
-              unit="pts"
-              tone="power"
-              status={t.ops.report.components.robustness}
-            />
-            {teamMode ? (
-              <ResourceBar
-                label={t.ops.report.components.teamwork}
-                value={simulation.score.teamwork}
-                max={100}
-                unit="pts"
-                tone="time"
-                status={t.ops.report.components.teamwork}
-              />
-            ) : null}
-            <div className="flex items-center justify-between gap-2 border-t border-border pt-3 text-[12px]">
-              <span className="text-ink-3">{t.ops.report.weakest}</span>
-              <span className="text-ink">{t.ops.report.components[report.weakestComponent]}</span>
+      <AiBackdrop file="report/hero-bg.webp" className="p-0">
+        <div className="space-y-5">
+          <header className="flex flex-wrap items-end justify-between gap-4">
+            <div className="space-y-2">
+              <p className="label-caps text-ink-3">{config.scenarioId}</p>
+              <h1 className="font-display text-3xl font-semibold text-ink">{t.ops.report.title}</h1>
+              <p className="text-[13px] text-ink-2">{t.ops.report.lead}</p>
             </div>
+            <div className="flex flex-col items-end gap-2">
+              <Badge
+                tone={
+                  report.verdict === 'success'
+                    ? 'success'
+                    : report.verdict === 'partial'
+                      ? 'warning'
+                      : 'danger'
+                }
+              >
+                {t.ops.report[report.verdict]}
+              </Badge>
+              <ScoreRing
+                total={report.total}
+                grade={report.grade}
+                labels={{ total: t.ops.report.score, grade: t.ops.report.grade }}
+              />
+            </div>
+          </header>
+
+          <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+            <Panel className="space-y-4 p-5">
+              <h2 className="label-caps text-ink-2">{t.ops.report.breakdown}</h2>
+              <ResourceBar
+                label={t.ops.report.components.mission}
+                value={simulation.score.missionSuccess}
+                max={300}
+                unit="pts"
+                tone="budget"
+                status={t.ops.report.components.mission}
+              />
+              <ResourceBar
+                label={t.ops.report.components.science}
+                value={simulation.score.science}
+                max={250}
+                unit="pts"
+                tone="data"
+                status={t.ops.report.components.science}
+              />
+              <ResourceBar
+                label={t.ops.report.components.efficiency}
+                value={simulation.score.efficiency}
+                max={efficiencyMax}
+                unit="pts"
+                tone="link"
+                status={t.ops.report.components.efficiency}
+              />
+              <ResourceBar
+                label={t.ops.report.components.robustness}
+                value={simulation.score.robustness}
+                max={150}
+                unit="pts"
+                tone="power"
+                status={t.ops.report.components.robustness}
+              />
+              {teamMode ? (
+                <ResourceBar
+                  label={t.ops.report.components.teamwork}
+                  value={simulation.score.teamwork}
+                  max={100}
+                  unit="pts"
+                  tone="time"
+                  status={t.ops.report.components.teamwork}
+                />
+              ) : null}
+              <div className="flex items-center justify-between gap-2 border-t border-border pt-3 text-[12px]">
+                <span className="text-ink-3">{t.ops.report.weakest}</span>
+                <span className="text-ink">{t.ops.report.components[report.weakestComponent]}</span>
+              </div>
+            </Panel>
+
+            <Panel className="space-y-3 p-5">
+              <h2 className="label-caps text-ink-2">{t.ops.report.requirements}</h2>
+              <ul className="space-y-2">
+                {chosen.map((requirement) => (
+                  <li
+                    key={requirement.id}
+                    className="flex items-start justify-between gap-3 rounded-sm border border-border bg-surface-2/30 p-2.5"
+                  >
+                    <div>
+                      <p className="text-[12px] font-medium text-ink">{requirement.detail}</p>
+                      <p className="num mt-0.5 text-[10px] text-ink-3">
+                        {(requirement.fraction * 100).toFixed(0)} %
+                      </p>
+                    </div>
+                    <Badge
+                      tone={
+                        requirement.fraction >= 0.99
+                          ? 'success'
+                          : requirement.fraction > 0
+                            ? 'warning'
+                            : 'danger'
+                      }
+                    >
+                      {requirement.fraction >= 0.99
+                        ? t.ops.report.requirementMet
+                        : requirement.fraction > 0
+                          ? t.ops.report.requirementPartial
+                          : t.ops.report.requirementFailed}
+                    </Badge>
+                  </li>
+                ))}
+              </ul>
+            </Panel>
+          </div>
+
+          <Panel className="space-y-3 p-5">
+            <h2 className="label-caps text-ink-2">{t.ops.report.diagnosis.title}</h2>
+            {causes.length === 0 ? (
+              <p className="text-[12px] text-ink-3">{t.ops.report.diagnosis.allMet}</p>
+            ) : (
+              <ul className="space-y-2">
+                {causes.map((cause, index) => (
+                  <li
+                    key={`${cause.key}-${index}`}
+                    className="flex items-start gap-2 text-[12px] text-ink-2"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="mt-1.5 size-1.5 shrink-0 rounded-full bg-danger"
+                    />
+                    <span>{format(diagnosisCopy[cause.key] ?? cause.key, cause.params)}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </Panel>
 
           <Panel className="space-y-3 p-5">
-            <h2 className="label-caps text-ink-2">{t.ops.report.requirements}</h2>
-            <ul className="space-y-2">
-              {chosen.map((requirement) => (
-                <li
-                  key={requirement.id}
-                  className="flex items-start justify-between gap-3 rounded-sm border border-border bg-surface-2/30 p-2.5"
-                >
-                  <div>
-                    <p className="text-[12px] font-medium text-ink">{requirement.detail}</p>
-                    <p className="num mt-0.5 text-[10px] text-ink-3">
-                      {(requirement.fraction * 100).toFixed(0)} %
-                    </p>
-                  </div>
-                  <Badge
-                    tone={
-                      requirement.fraction >= 0.99
-                        ? 'success'
-                        : requirement.fraction > 0
-                          ? 'warning'
-                          : 'danger'
-                    }
+            <h2 className="label-caps text-ink-2">{t.ops.report.causalChain}</h2>
+            <ol className="space-y-2">
+              {visibleSteps.map((step) => {
+                const decision = decisionLabel(step)
+                return (
+                  <li
+                    key={`${step.day}-${step.titleKey}`}
+                    className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-l-2 border-border pl-3"
                   >
-                    {requirement.fraction >= 0.99
-                      ? t.ops.report.requirementMet
-                      : requirement.fraction > 0
-                        ? t.ops.report.requirementPartial
-                        : t.ops.report.requirementFailed}
-                  </Badge>
-                </li>
-              ))}
-            </ul>
-          </Panel>
-        </div>
-
-        <Panel className="space-y-3 p-5">
-          <h2 className="label-caps text-ink-2">{t.ops.report.diagnosis.title}</h2>
-          {causes.length === 0 ? (
-            <p className="text-[12px] text-ink-3">{t.ops.report.diagnosis.allMet}</p>
-          ) : (
-            <ul className="space-y-2">
-              {causes.map((cause, index) => (
-                <li
-                  key={`${cause.key}-${index}`}
-                  className="flex items-start gap-2 text-[12px] text-ink-2"
-                >
-                  <span
-                    aria-hidden="true"
-                    className="mt-1.5 size-1.5 shrink-0 rounded-full bg-danger"
-                  />
-                  <span>{format(diagnosisCopy[cause.key] ?? cause.key, cause.params)}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </Panel>
-
-        <Panel className="space-y-3 p-5">
-          <h2 className="label-caps text-ink-2">{t.ops.report.causalChain}</h2>
-          <ol className="space-y-2">
-            {visibleSteps.map((step) => {
-              const decision = decisionLabel(step)
-              return (
-                <li
-                  key={`${step.day}-${step.titleKey}`}
-                  className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-l-2 border-border pl-3"
-                >
-                  <span className="num text-[11px] text-ink-3">
-                    {t.ops.simulate.day} {step.day}
-                  </span>
-                  <span className="text-[12px] text-ink">{stepLabel(step)}</span>
-                  <span className="text-[11px] text-ink-3">
-                    · {roleCopy[step.role] ?? step.role}
-                  </span>
-                  <Badge
-                    tone={
-                      step.severity === 'critical'
-                        ? 'danger'
-                        : step.severity === 'warning'
-                          ? 'warning'
-                          : 'info'
-                    }
-                  >
-                    {t.common.severity[step.severity]}
-                  </Badge>
-                  {decision ? <span className="text-[11px] text-jade">→ {decision}</span> : null}
-                </li>
-              )
-            })}
-          </ol>
-          {hiddenSteps > 0 ? (
-            <p className="text-[11px] text-ink-3">
-              {format(t.ops.report.moreEvents, { count: hiddenSteps })}
-            </p>
-          ) : null}
-        </Panel>
-
-        <Panel className="space-y-3 p-5">
-          <h2 className="label-caps text-ink-2">{t.ops.report.suggestions}</h2>
-          {report.suggestions.length === 0 ? (
-            <div className="space-y-1">
-              <p className="text-[12px] text-ink-2">{t.ops.report.noBlocking}</p>
+                    <span className="num text-[11px] text-ink-3">
+                      {t.ops.simulate.day} {step.day}
+                    </span>
+                    <span className="text-[12px] text-ink">{stepLabel(step)}</span>
+                    <span className="text-[11px] text-ink-3">
+                      · {roleCopy[step.role] ?? step.role}
+                    </span>
+                    <Badge
+                      tone={
+                        step.severity === 'critical'
+                          ? 'danger'
+                          : step.severity === 'warning'
+                            ? 'warning'
+                            : 'info'
+                      }
+                    >
+                      {t.common.severity[step.severity]}
+                    </Badge>
+                    {decision ? <span className="text-[11px] text-jade">→ {decision}</span> : null}
+                  </li>
+                )
+              })}
+            </ol>
+            {hiddenSteps > 0 ? (
               <p className="text-[11px] text-ink-3">
-                {t.ops.report.weakestHints[report.weakestComponent]}
+                {format(t.ops.report.moreEvents, { count: hiddenSteps })}
               </p>
+            ) : null}
+          </Panel>
+
+          <Panel className="space-y-3 p-5">
+            <h2 className="label-caps text-ink-2">{t.ops.report.suggestions}</h2>
+            {report.suggestions.length === 0 ? (
+              <div className="space-y-1">
+                <p className="text-[12px] text-ink-2">{t.ops.report.noBlocking}</p>
+                <p className="text-[11px] text-ink-3">
+                  {t.ops.report.weakestHints[report.weakestComponent]}
+                </p>
+              </div>
+            ) : (
+              <ul className="grid gap-2 sm:grid-cols-2">
+                {report.suggestions.map((suggestion) => (
+                  <li
+                    key={suggestion.code}
+                    className="flex items-start gap-2 text-[12px] text-ink-2"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="mt-1.5 size-1.5 shrink-0 rounded-full bg-ion"
+                    />
+                    <span>{suggestionCopy[suggestion.code] ?? suggestion.messageKey}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </Panel>
+
+          <section className="space-y-3">
+            <div>
+              <h2 className="label-caps text-ink-2">{t.ops.report.missionCard}</h2>
+              <p className="text-[12px] text-ink-3">{t.ops.report.missionCardLead}</p>
             </div>
-          ) : (
-            <ul className="grid gap-2 sm:grid-cols-2">
-              {report.suggestions.map((suggestion) => (
-                <li key={suggestion.code} className="flex items-start gap-2 text-[12px] text-ink-2">
-                  <span
-                    aria-hidden="true"
-                    className="mt-1.5 size-1.5 shrink-0 rounded-full bg-ion"
-                  />
-                  <span>{suggestionCopy[suggestion.code] ?? suggestion.messageKey}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </Panel>
+            <MissionCard
+              title={copy.title}
+              subtitle={copy.summary}
+              score={report.total}
+              grade={report.grade}
+              max={1000}
+              telemetryLabel={t.ops.report.missionCardTelemetry}
+              backgroundSrc={visualUrl('share/mission-card-bg.webp')}
+            />
+          </section>
 
-        <section className="space-y-3">
-          <div>
-            <h2 className="label-caps text-ink-2">{t.ops.report.missionCard}</h2>
-            <p className="text-[12px] text-ink-3">{t.ops.report.missionCardLead}</p>
-          </div>
-          <MissionCard
-            title={copy.title}
-            subtitle={copy.summary}
-            score={report.total}
-            grade={report.grade}
-            max={1000}
-            telemetryLabel={t.ops.report.missionCardTelemetry}
-          />
-        </section>
+          <ModelPanel />
 
-        <ModelPanel />
-
-        <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
-          <div className="flex flex-wrap gap-2">
-            <Button variant="secondary" onClick={() => (window.location.hash = '#/simulate')}>
-              {t.ops.report.back}
-            </Button>
-            <Button variant="ghost" onClick={() => (window.location.hash = '#/map')}>
-              {t.ops.map.open}
-            </Button>
-            <Button variant="ghost" onClick={() => (window.location.hash = '#/brief')}>
-              {t.ops.report.designAgain}
+          <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
+            <div className="flex flex-wrap gap-2">
+              <Button variant="secondary" onClick={() => (window.location.hash = '#/simulate')}>
+                {t.ops.report.back}
+              </Button>
+              <Button variant="ghost" onClick={() => (window.location.hash = '#/map')}>
+                {t.ops.map.open}
+              </Button>
+              <Button variant="ghost" onClick={() => (window.location.hash = '#/brief')}>
+                {t.ops.report.designAgain}
+              </Button>
+            </div>
+            <Button variant="primary" onClick={share}>
+              {copied ? t.ops.report.copied : t.ops.report.share}
             </Button>
           </div>
-          <Button variant="primary" onClick={share}>
-            {copied ? t.ops.report.copied : t.ops.report.share}
-          </Button>
         </div>
-      </div>
+      </AiBackdrop>
     </ReportFrame>
   )
 }

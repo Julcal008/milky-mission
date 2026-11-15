@@ -13,6 +13,7 @@ export const en = {
     badgePrototype: 'Prototype',
     comingSoon: 'In progress',
     readDocs: 'Read the docs',
+    aiArt: 'AI-generated illustration',
     severity: {
       error: 'Error',
       warning: 'Warning',

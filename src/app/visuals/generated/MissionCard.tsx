@@ -1,3 +1,5 @@
+import { AiArtBadge } from '@/app/visuals/AiArtBadge'
+
 export interface MissionCardProps {
   title: string
   subtitle: string
@@ -35,6 +37,9 @@ export function MissionCard({
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-55 transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
         />
+      ) : null}
+      {backgroundSrc ? (
+        <AiArtBadge className="absolute right-3 top-1/2 z-20 -translate-y-1/2" />
       ) : null}
 
       <div className="relative z-10 flex items-start justify-between gap-4">

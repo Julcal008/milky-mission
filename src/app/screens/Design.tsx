@@ -25,6 +25,7 @@ import { useI18n } from '@/store/ui'
 import { Badge } from '@/ui/Badge'
 import { Button } from '@/ui/Button'
 import { ComponentMeta } from '@/ui/game/ComponentMeta'
+import { AiBackdrop } from '@/app/visuals/AiBackdrop'
 import { Select } from '@/ui/game/Select'
 import { SpacecraftSchematic } from '@/ui/game/SpacecraftSchematic'
 import { Panel } from '@/ui/Panel'
@@ -107,18 +108,24 @@ export function DesignScreen() {
 
   return (
     <div className="space-y-6">
-      <header className="flex flex-wrap items-end justify-between gap-4">
-        <div className="space-y-2">
-          <p className="label-caps text-ink-3">{copy?.title ?? t.brief.eyebrow}</p>
-          <h1 className="font-display text-3xl font-semibold text-ink">{t.game.design.title}</h1>
-          <p className="max-w-3xl text-[13px] leading-relaxed text-ink-2">
-            {copy?.summary ?? t.game.design.lead}
-          </p>
-        </div>
-        <Badge tone={complete ? 'success' : 'warning'}>
-          {complete ? t.game.design.complete : t.game.design.incomplete}
-        </Badge>
-      </header>
+      <AiBackdrop
+        file="design/board-bg.webp"
+        className="rounded-lg border border-border"
+        opacity={0.6}
+      >
+        <header className="flex flex-wrap items-end justify-between gap-4 p-5">
+          <div className="space-y-2">
+            <p className="label-caps text-ink-3">{copy?.title ?? t.brief.eyebrow}</p>
+            <h1 className="font-display text-3xl font-semibold text-ink">{t.game.design.title}</h1>
+            <p className="max-w-3xl text-[13px] leading-relaxed text-ink-2">
+              {copy?.summary ?? t.game.design.lead}
+            </p>
+          </div>
+          <Badge tone={complete ? 'success' : 'warning'}>
+            {complete ? t.game.design.complete : t.game.design.incomplete}
+          </Badge>
+        </header>
+      </AiBackdrop>
 
       <Panel className="overflow-hidden p-2 sm:p-4">
         <SpacecraftSchematic draft={draft} />
