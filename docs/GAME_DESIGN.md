@@ -116,11 +116,15 @@ A mission with no primary requirement met is a **failure**, regardless of score.
 
 ## 6. Difficulty
 
-| Level | Budget | Events | Notes |
-|---|---|---|---|
-| Cadet | +30 % | −50 % | Full tooltips from the start |
-| Engineer | nominal | nominal | Contextual tooltips |
-| Flight Director | −15 % | +50 % | One hidden requirement revealed on day 90 |
+| Level | Events | Notes |
+|---|---|---|
+| Cadet | 3 | Fundamentals, fewer critical events |
+| Engineer | 5 | Full role mix, nominal balance |
+| Flight Director | 7 | More critical variants and advanced roles |
+
+Difficulty is stored in the mission config and share link. The event scheduler keeps
+the real NASA DONKI CME/flare days as anchors but selects role-specific challenge
+variants, so two missions with different seeds do not tell the same story.
 
 ## 7. Educational layer
 

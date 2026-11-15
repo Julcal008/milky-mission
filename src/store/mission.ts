@@ -15,6 +15,7 @@ import type { MissionReport } from '@/engine/report'
 import { decodeSharedMission, encodeMission } from '@/engine/share'
 import { simulateMission } from '@/engine/simulator'
 import type {
+  Difficulty,
   MissionConfig,
   MissionDraft,
   ScenarioId,
@@ -49,7 +50,7 @@ interface MissionState {
   report: MissionReport | null
 
   setDraft: (patch: Partial<MissionDraft>) => void
-  startScenario: (scenarioId: ScenarioId) => void
+  startScenario: (scenarioId: ScenarioId, difficulty?: Difficulty) => void
   setPlayers: (players: number) => void
   setDecision: (eventId: string, optionId: string) => void
   applyDecision: (eventId: string, optionId: string) => SimulationResult | null
@@ -57,12 +58,13 @@ interface MissionState {
   simulate: () => SimulationResult | null
   shareCode: () => string | null
   loadShareCode: (code: string) => boolean
-  loadExample: () => void
+  loadExample: (difficulty?: Difficulty) => void
   reset: () => void
 }
 
 function createEmptyDraft(): MissionDraft {
   return {
+    difficulty: 'engineer',
     seed: Math.floor(Math.random() * 1_000_000_000),
     instrumentIds: [],
     requirements: [],
@@ -119,6 +121,7 @@ function buildConfig(draft: MissionDraft): MissionConfig | null {
   }
   return {
     scenarioId: draft.scenarioId!,
+    difficulty: draft.difficulty ?? 'engineer',
     seed: draft.seed,
     orbitId: draft.orbitId!,
     launcherId: draft.launcherId!,
@@ -187,8 +190,8 @@ export const useMissionStore = create<MissionState>((set, get) => ({
 
   setPlayers: (players) => set({ players: Math.min(4, Math.max(1, Math.round(players))) }),
 
-  startScenario: (scenarioId) => {
-    const draft: MissionDraft = { ...createEmptyDraft(), scenarioId }
+  startScenario: (scenarioId, difficulty = 'engineer') => {
+    const draft: MissionDraft = { ...createEmptyDraft(), scenarioId, difficulty }
     const result = evaluate(draft)
     set({
       draft,
@@ -277,8 +280,8 @@ export const useMissionStore = create<MissionState>((set, get) => ({
     return true
   },
 
-  loadExample: () => {
-    const draft = draftFromConfig(baselineConfig)
+  loadExample: (difficulty = 'engineer') => {
+    const draft: MissionDraft = { ...draftFromConfig(baselineConfig), difficulty }
     const result = evaluate(draft)
     set({
       draft,

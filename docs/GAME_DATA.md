@@ -378,13 +378,13 @@ teamwork = 25 × roleObjectivesMet                              (max 100; solo �
 - Grade: S ≥900, A 800–899, B 700–799, C 600–699, D <600.
 - `verdict = failure` if no chosen requirement reaches 1.0.
 
-**Difficulty multipliers**
+**Difficulty decks**
 
-| Level | Budget | Event rate | Extra |
-|---|---|---|---|
-| Cadet | ×1.30 | ×0.50 | all tooltips open |
-| Engineer | ×1.00 | ×1.00 | contextual tooltips |
-| Flight Director | ×0.85 | ×1.50 | hidden requirement revealed on day 90 |
+| Level | Events | Extra |
+|---|---|---|
+| Cadet | 3 | Basics only; no Director slot |
+| Engineer | 5 | Full role mix |
+| Flight Director | 7 | Advanced variants and extra science/system challenge |
 
 ---
 

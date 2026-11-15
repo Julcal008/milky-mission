@@ -105,11 +105,10 @@ validation.budgets     // gauges read from here
 // Simulation screen
 const simulate = useMissionStore((state) => state.simulate)
 const simulation = simulate() // SimulationResult
-simulation.events.forEach((event) => decisionOptionsFor(event.type))
+simulation.events.forEach((event) => decisionOptionsFor(event.challengeId ?? event.type))
 
 // Player chooses an option for an event, then re-runs deterministically:
-useMissionStore.getState().setDecision(event.id, optionId)
-const updated = useMissionStore.getState().simulate()
+useMissionStore.getState().applyDecision(event.id, optionId)
 
 // Team mode
 useMissionStore.getState().setPlayers(4)
