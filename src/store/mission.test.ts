@@ -76,4 +76,27 @@ describe('mission store', () => {
     expect(state.decisions).toEqual(decisions)
     expect(state.players).toBe(3)
   })
+
+  it('applies a decision atomically and can restart the simulation', () => {
+    const store = useMissionStore.getState()
+    store.loadExample()
+    const first = store.simulate()
+    expect(first).not.toBeNull()
+    const cme = first?.events.find((event) => event.type === 'cme_hit')
+    expect(cme).toBeDefined()
+    if (!first || !cme) {
+      return
+    }
+
+    const improved = useMissionStore.getState().applyDecision(cme.id, 'shelter')
+    expect(improved).not.toBeNull()
+    expect(useMissionStore.getState().decisions).toHaveLength(1)
+    expect(useMissionStore.getState().simulation).not.toBeNull()
+    expect(improved?.score.total).toBeGreaterThanOrEqual(first.score.total)
+
+    const restarted = useMissionStore.getState().restartSimulation()
+    expect(restarted).not.toBeNull()
+    expect(useMissionStore.getState().decisions).toEqual([])
+    expect(useMissionStore.getState().simulation?.score.total).toBe(first.score.total)
+  })
 })

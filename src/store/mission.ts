@@ -52,6 +52,8 @@ interface MissionState {
   startScenario: (scenarioId: ScenarioId) => void
   setPlayers: (players: number) => void
   setDecision: (eventId: string, optionId: string) => void
+  applyDecision: (eventId: string, optionId: string) => SimulationResult | null
+  restartSimulation: () => SimulationResult | null
   simulate: () => SimulationResult | null
   shareCode: () => string | null
   loadShareCode: (code: string) => boolean
@@ -204,6 +206,38 @@ export const useMissionStore = create<MissionState>((set, get) => ({
       simulation: null,
       report: null,
     })
+  },
+
+  /**
+   * Apply a decision and recompute in one store update. The playback modal must
+   * not see a transient `simulation: null` between the decision and the re-run.
+   */
+  applyDecision: (eventId, optionId) => {
+    const { config, validation, players } = get()
+    if (!config || !validation) {
+      return null
+    }
+    const decisions = [
+      ...get().decisions.filter((choice) => choice.eventId !== eventId),
+      { eventId, optionId },
+    ]
+    const scenario = scenarioFixtures[config.scenarioId]
+    const simulation = simulateMission(config, scenario, catalogs, players, decisions)
+    const report = buildMissionReport(simulation, scenario, validation)
+    set({ decisions, simulation, report })
+    return simulation
+  },
+
+  restartSimulation: () => {
+    const { config, validation, players } = get()
+    if (!config || !validation) {
+      return null
+    }
+    const scenario = scenarioFixtures[config.scenarioId]
+    const simulation = simulateMission(config, scenario, catalogs, players, [])
+    const report = buildMissionReport(simulation, scenario, validation)
+    set({ decisions: [], simulation, report })
+    return simulation
   },
 
   simulate: () => {
