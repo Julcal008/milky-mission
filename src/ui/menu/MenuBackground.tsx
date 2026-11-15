@@ -180,15 +180,6 @@ export function MenuBackground() {
       >
         <use href="#menu-bg-sat" />
       </svg>
-      <svg
-        className="menu-bg__sat"
-        viewBox="0 0 120 80"
-        style={
-          { '--x': '80%', '--y': '20%', '--s': '96px', '--d': 0.7, '--dur': '19s' } as CSSProperties
-        }
-      >
-        <use href="#menu-bg-sat" />
-      </svg>
 
       <div className="menu-bg__earth">
         <span />
@@ -227,7 +218,14 @@ export function MenuBackground() {
             stroke="var(--color-coral)"
             strokeWidth="2"
           />
-          <circle cx="60" cy="40" r="7" fill="var(--color-jade)" stroke="var(--color-cream)" strokeWidth="2" />
+          <circle
+            cx="60"
+            cy="40"
+            r="7"
+            fill="var(--color-jade)"
+            stroke="var(--color-cream)"
+            strokeWidth="2"
+          />
           <path
             d="M60 24C48 6 70 -2 84 4 84 18 74 24 60 24Z"
             fill="var(--color-jade)"
