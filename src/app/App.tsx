@@ -41,7 +41,7 @@ export function App() {
 
   return (
     <div className="space-bg flex min-h-screen flex-col">
-      <header className="sticky top-0 z-20 border-b border-border bg-bg/85 backdrop-blur">
+      <header className="no-print sticky top-0 z-20 border-b border-border bg-bg/85 backdrop-blur">
         <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
           <a href="#/" className="group flex items-center gap-3" aria-label={t.brand.name}>
             <LogoMark />
@@ -142,7 +142,7 @@ export function App() {
         )}
       </main>
 
-      <footer className="border-t border-border">
+      <footer className="no-print border-t border-border">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-5 py-6 text-[11px] text-ink-3 sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <span>{t.footer.madeFor}</span>
           <span className="flex items-center gap-2">
