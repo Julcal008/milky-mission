@@ -62,7 +62,7 @@ export const menuEs = {
     },
     sourcesTitle: 'Construido con datos reales',
     sourcesBody:
-      'Los escenarios se alimentan de eventos de clima espacial de NASA DONKI, datos solares y de nubosidad de NASA POWER, e imágenes de NASA. Cada número del juego está etiquetado como oficial, derivado o estimado.',
+      'Los escenarios se alimentan de eventos de clima espacial de NASA DONKI y de datos de nubosidad e insolación estacional de NASA POWER. Cada número está etiquetado como oficial, derivado, estimado o de juego.',
   },
   footer: {
     docs: 'Documentación',

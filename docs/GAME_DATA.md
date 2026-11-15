@@ -433,11 +433,11 @@ data delivery, and loses points on robustness.
 
 | Source | Field | Used by | Conf. |
 |---|---|---|---|
-| NASA POWER `ALLSKY_SFC_SW_DWN` | monthly surface insolation, kWh/m²/day | ground context; not array sizing | O |
+| NASA POWER `ALLSKY_SFC_SW_DWN` | monthly surface insolation, kWh/m²/day | seasonal generation factor, normalized to annual mean | O |
 | NASA POWER `TOA_SW_DWN` | monthly top-of-atmosphere insolation, kWh/m²/day | seasonal validation | O |
 | NASA POWER `CLOUD_AMT` | monthly cloud amount, % | optical vs SAR trade-off | O |
 | NASA DONKI `FLR`, `CME`, `GST` | event dates and classes | simulation timeline | O |
-| NASA GIBS / Blue Marble | base imagery | map and scenario cards | O |
+| NASA GIBS / Blue Marble | — | not used in v1.1; evaluated and excluded | — |
 | NASA/JPL CNEOS | NEO close approaches | reserved (not in scope) | O |
 
 ---

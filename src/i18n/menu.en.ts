@@ -63,7 +63,7 @@ export const menuEn = {
     },
     sourcesTitle: 'Built on real data',
     sourcesBody:
-      'Scenarios are driven by NASA DONKI space-weather events, NASA POWER solar and cloud data, and NASA Earth imagery. Every number in the game is labelled official, derived or estimate.',
+      'Scenarios are driven by NASA DONKI space-weather events and NASA POWER cloud and seasonal insolation data. Every number in the game is labelled official, derived, estimate or game.',
   },
   footer: {
     docs: 'Documentation',

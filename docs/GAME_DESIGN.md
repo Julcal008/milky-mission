@@ -154,5 +154,5 @@ scenario, more than ten instruments.
 | **Impact** | Local scenario (Magdalena floods) and space-weather awareness; classroom-ready |
 | **Creativity** | Role tokens, negotiation under constraints, causal report, real-data scenarios |
 | **Validity** | Real physics, cited formulas, provenance labels, validity tests |
-| **Relevance** | DONKI, POWER and GIBS drive mechanics, not decoration |
+| **Relevance** | DONKI and POWER drive mechanics, not decoration |
 | **Presentation** | Single-screen demo, 75-second simulation, clear failure narrative |

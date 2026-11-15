@@ -96,4 +96,4 @@ The short version:
 
 ## License
 
-MIT — see [LICENSE](LICENSE). NASA data and imagery are used under their public-domain terms and credited in [docs/DATA_PROVENANCE.md](docs/DATA_PROVENANCE.md). This project is not affiliated with or endorsed by NASA.
+MIT — see [LICENSE](LICENSE). NASA data is used under its public-domain terms and credited in [docs/DATA_PROVENANCE.md](docs/DATA_PROVENANCE.md). This project is not affiliated with or endorsed by NASA.

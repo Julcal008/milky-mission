@@ -59,8 +59,8 @@ Owner: Track B. Keep this file in sync with the final project page.
 > battery state), link budget (FSPL, C/N₀, Eb/N₀), data delivery, cost and reliability.
 > The simulation is deterministic: a seed plus the mission configuration always produces
 > the same result, so missions can be shared by URL. NASA DONKI events drive the
-> timeline; NASA POWER data drive solar generation and the optical/SAR trade-off; NASA
-> imagery provides the map. No backend, no accounts, works offline.
+> timeline; NASA POWER cloud climatology drives the optical/SAR trade-off and its monthly
+> insolation modulates seasonal generation. No backend, no accounts, works offline.
 
 **Tools and languages:** TypeScript, React, Vite, Tailwind CSS, Zustand, Vitest,
 GitHub Actions, GitHub Pages.
@@ -75,14 +75,19 @@ GitHub Actions, GitHub Pages.
 **NASA resources:**
 > - **NASA DONKI (CCMC):** real flare, CME and geomagnetic-storm events (May 2024)
 >   generate the mission timeline and in-game anomalies.
-> - **NASA POWER:** monthly solar irradiance and cloud amount at the target region drive
->   array output and the optical-vs-SAR decision.
-> - **NASA GIBS / Blue Marble:** base imagery for the orbit and coverage map.
-> - **NASA/NOAA GOES-R documentation and NASA small-spacecraft references:** instrument
->   classes, subsystem characteristics and margin policy used to calibrate the catalogs.
+> - **NASA POWER:** monthly cloud amount drives the optical-vs-SAR decision; monthly
+>   surface insolation modulates seasonal array generation, normalized to the annual mean.
+> - **NASA/NOAA GOES-R Series Data Book, Rev A (2019):** reference values for the
+>   space-weather instrument classes (EXIS 30 kg / 40 W; SUVI 72 kg / 225 W peak). The
+>   game uses representative smallsat-scale instruments, not these full assemblies.
+> - **NASA small-spacecraft references:** used to calibrate representative subsystem
+>   values.
 >
 > Each value in the game is tagged with its source and confidence level in the in-app
-> "Show the math" panel and in `docs/DATA_PROVENANCE.md`.
+> "Model, data and assumptions" and "Why it failed" panels, and in
+> `docs/DATA_PROVENANCE.md`. Spacecraft, launch-vehicle and instrument values are
+> representative engineering estimates unless explicitly marked official; NASA DONKI and
+> NASA POWER are official datasets.
 
 ## 3. Demo — option A (7 slides)
 
@@ -92,7 +97,7 @@ GitHub Actions, GitHub Pages.
 4. **Live design** — add an instrument; mass, power, data and cost react.
 5. **Simulation** — the May 2024 storm arrives; a role must decide.
 6. **The report** — score, causal chain, what to change next time.
-7. **NASA data and impact** — DONKI, POWER, GIBS; classroom and local relevance.
+7. **NASA data and impact** — DONKI and POWER; classroom and local relevance.
 
 Every slide must be readable in a screenshot; no embedded video that requires network.
 
@@ -104,7 +109,7 @@ Every slide must be readable in a screenshot; no embedded video that requires ne
 | 0:30–1:15 | Problem: students learn pieces, not systems. Trade-offs stay abstract. |
 | 1:15–2:00 | Solution: one screen, four roles, three requirements, one budget. |
 | 2:00–3:30 | Live demo: add UV imager → mass warning → switch launcher → simulate → storm event → decision. |
-| 3:30–4:15 | NASA data: DONKI timeline, POWER irradiance, GIBS map; every number labelled. |
+| 3:30–4:15 | NASA data: DONKI timeline, POWER cloud and seasonal generation; every number labelled. |
 | 4:15–4:45 | Validity: formulas, tests, reference mission, deterministic results. |
 | 4:45–5:00 | Impact and next steps: classrooms, Neiva flood scenario, open source. |
 
