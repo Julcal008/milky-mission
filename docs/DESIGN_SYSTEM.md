@@ -185,13 +185,17 @@ never an automatic switch.
 - Above the wordmark: a small caps eyebrow with the event context
   (`NASA Space Apps Challenge 2026 · Neiva`).
 - Wordmark: Space Grotesk 700, cream → mauve → coral gradient, tight leading.
-- Decorations: one sun disc and two orbital arcs; nothing else.
+- Backdrop: ported solarpunk scene (deterministic starfield, moon, six planets, two
+  satellites and Earth). Decorative only: `aria-hidden`, `pointer-events-none`, and
+  animations disabled under reduced motion.
 - One primary action only; it opens the Brief screen (`#/brief`).
 
 ### Brief
 
 - Two scenario cards from `src/content/scenarios`: Storm Watch and Andes Flood Watch.
 - Cards stretch to equal height; the stat row sits on the card baseline.
+- Rounded menu pass: scenario cards and the bottom panel use `rounded-3xl`; the selected
+  badge is a pill; the player selector uses 40 px circles (`size-10 rounded-full`).
 - Selected card: jade border/tint plus a visible check and “Selected” label, never color
   alone.
 - Stats: budget, duration, launch window and requirement count from the scenario spec.
@@ -260,6 +264,8 @@ next event instead of animating.
 | `src/ui/Panel.tsx` | Card container |
 | `src/ui/ResourceBar.tsx` | Canonical resource display |
 | `src/app/Home.tsx` | Start screen (solarpunk) |
+| `src/ui/menu/MenuBackground.tsx` | Animated menu backdrop |
+| `src/ui/menu/MenuPanel.tsx` | 3xl menu panel |
 | `src/app/Brief.tsx` | Real scenario menu |
 | `src/app/Styleguide.tsx` | Live reference (route `#/styleguide`) |
 
