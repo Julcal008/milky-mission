@@ -42,6 +42,31 @@ export type InstrumentId =
 export const MAX_INSTRUMENTS = 4
 
 /* ------------------------------------------------------------------ */
+/* Draft (player input before the design is complete)                  */
+/* ------------------------------------------------------------------ */
+
+/**
+ * The UI edits a draft: every choice starts empty and the engine only runs
+ * once the draft can be turned into a complete MissionConfig.
+ */
+export interface MissionDraft {
+  scenarioId?: ScenarioId
+  seed: number
+  orbitId?: OrbitId
+  launcherId?: LauncherId
+  busId?: BusId
+  propulsionId?: PropulsionId
+  arrayId?: ArrayId
+  arrayAreaM2?: number
+  batteryId?: BatteryId
+  commsId?: CommsId
+  groundNetworkId?: GroundNetworkId
+  storageId?: StorageId
+  instrumentIds: InstrumentId[]
+  requirements: string[]
+}
+
+/* ------------------------------------------------------------------ */
 /* Mission configuration (player input)                                */
 /* ------------------------------------------------------------------ */
 

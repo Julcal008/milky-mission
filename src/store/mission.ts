@@ -2,55 +2,153 @@
  * Mission store — the only bridge between the UI and the engine.
  * Owner: Track A.
  *
- * The UI never computes physics: it reads `config`, `validation` and `simulation`
- * from here and dispatches patches or decisions. Running the simulation is an
- * explicit action so the player can design first and fly later.
+ * The store holds an incomplete `draft`. Every choice starts empty and the engine
+ * only runs when the draft can be turned into a complete `MissionConfig`.
  */
 import { create } from 'zustand'
+import { catalogs } from '@/data/catalogs'
 import { baselineConfig } from '@/engine/__fixtures__/baseline'
-import { catalogs as catalogFixture } from '@/data/catalogs'
 import { scenarioFixtures } from '@/engine/__fixtures__/scenario-fixture'
 import type { DecisionChoice } from '@/engine/decisions'
 import { buildMissionReport } from '@/engine/report'
 import type { MissionReport } from '@/engine/report'
 import { decodeMission, encodeMission } from '@/engine/share'
 import { simulateMission } from '@/engine/simulator'
-import type { MissionConfig, SimulationResult, ValidationResult } from '@/engine/types'
+import type {
+  MissionConfig,
+  MissionDraft,
+  SimulationResult,
+  ValidationResult,
+} from '@/engine/types'
 import { validateMission } from '@/engine/validate'
 
+export type MissingKey =
+  | 'scenario'
+  | 'orbit'
+  | 'launcher'
+  | 'bus'
+  | 'propulsion'
+  | 'array'
+  | 'area'
+  | 'battery'
+  | 'comms'
+  | 'network'
+  | 'storage'
+  | 'instruments'
+  | 'requirements'
+
 interface MissionState {
-  config: MissionConfig
-  validation: ValidationResult
+  draft: MissionDraft
+  config: MissionConfig | null
+  validation: ValidationResult | null
+  missing: MissingKey[]
   players: number
   decisions: DecisionChoice[]
   simulation: SimulationResult | null
   report: MissionReport | null
-  setConfig: (patch: Partial<MissionConfig>) => void
+
+  setDraft: (patch: Partial<MissionDraft>) => void
   setPlayers: (players: number) => void
   setDecision: (eventId: string, optionId: string) => void
-  simulate: () => SimulationResult
-  shareCode: () => string
+  simulate: () => SimulationResult | null
+  shareCode: () => string | null
   loadShareCode: (code: string) => boolean
+  loadExample: () => void
   reset: () => void
 }
 
-function validate(config: MissionConfig): ValidationResult {
-  return validateMission(config, scenarioFixtures[config.scenarioId], catalogFixture)
+function createEmptyDraft(): MissionDraft {
+  return {
+    seed: Math.floor(Math.random() * 1_000_000_000),
+    instrumentIds: [],
+    requirements: [],
+  }
 }
 
+export function missingFields(draft: MissionDraft): MissingKey[] {
+  const missing: MissingKey[] = []
+  if (!draft.scenarioId) missing.push('scenario')
+  if (!draft.orbitId) missing.push('orbit')
+  if (!draft.launcherId) missing.push('launcher')
+  if (!draft.busId) missing.push('bus')
+  if (!draft.propulsionId) missing.push('propulsion')
+  if (!draft.arrayId) missing.push('array')
+  if (!draft.arrayAreaM2) missing.push('area')
+  if (!draft.batteryId) missing.push('battery')
+  if (!draft.commsId) missing.push('comms')
+  if (!draft.groundNetworkId) missing.push('network')
+  if (!draft.storageId) missing.push('storage')
+  if (draft.instrumentIds.length === 0) missing.push('instruments')
+  if (draft.requirements.length !== 3) missing.push('requirements')
+  return missing
+}
+
+function buildConfig(draft: MissionDraft): MissionConfig | null {
+  if (missingFields(draft).length > 0) {
+    return null
+  }
+  return {
+    scenarioId: draft.scenarioId!,
+    seed: draft.seed,
+    orbitId: draft.orbitId!,
+    launcherId: draft.launcherId!,
+    busId: draft.busId!,
+    propulsionId: draft.propulsionId!,
+    arrayId: draft.arrayId!,
+    arrayAreaM2: draft.arrayAreaM2!,
+    batteryId: draft.batteryId!,
+    commsId: draft.commsId!,
+    groundNetworkId: draft.groundNetworkId!,
+    storageId: draft.storageId!,
+    instrumentIds: draft.instrumentIds,
+    requirements: draft.requirements,
+  }
+}
+
+function draftFromConfig(config: MissionConfig): MissionDraft {
+  return {
+    ...config,
+    instrumentIds: [...config.instrumentIds],
+    requirements: [...config.requirements],
+  }
+}
+
+function evaluate(draft: MissionDraft): {
+  config: MissionConfig | null
+  validation: ValidationResult | null
+  missing: MissingKey[]
+} {
+  const missing = missingFields(draft)
+  const config = buildConfig(draft)
+  const validation = config
+    ? validateMission(config, scenarioFixtures[config.scenarioId], catalogs)
+    : null
+  return { config, validation, missing }
+}
+
+const initialDraft = createEmptyDraft()
+const initial = evaluate(initialDraft)
+
 export const useMissionStore = create<MissionState>((set, get) => ({
-  config: baselineConfig,
-  validation: validate(baselineConfig),
+  draft: initialDraft,
+  config: initial.config,
+  validation: initial.validation,
+  missing: initial.missing,
   players: 1,
   decisions: [],
   simulation: null,
   report: null,
 
-  setConfig: (patch) => {
-    const config = { ...get().config, ...patch }
+  setDraft: (patch) => {
+    const current = get().draft
+    const next: MissionDraft = { ...current, ...patch }
+    if (patch.scenarioId && patch.scenarioId !== current.scenarioId) {
+      next.requirements = []
+    }
+    const result = evaluate(next)
     set({
-      config,
-      validation: validate(config),
+      draft: next,
+      ...result,
       simulation: null,
       report: null,
       decisions: [],
@@ -69,42 +167,63 @@ export const useMissionStore = create<MissionState>((set, get) => ({
   },
 
   simulate: () => {
-    const { config, players, decisions } = get()
+    const { config, validation, players, decisions } = get()
+    if (!config || !validation) {
+      return null
+    }
     const scenario = scenarioFixtures[config.scenarioId]
-    const validation = validate(config)
-    const simulation = simulateMission(config, scenario, catalogFixture, players, decisions)
+    const simulation = simulateMission(config, scenario, catalogs, players, decisions)
     set({
-      validation,
       simulation,
       report: buildMissionReport(simulation, scenario, validation),
     })
     return simulation
   },
 
-  reset: () =>
-    set({
-      config: baselineConfig,
-      validation: validate(baselineConfig),
-      players: 1,
-      decisions: [],
-      simulation: null,
-      report: null,
-    }),
-
-  shareCode: () => encodeMission(get().config),
+  shareCode: () => {
+    const { config } = get()
+    return config ? encodeMission(config) : null
+  },
 
   loadShareCode: (code) => {
     const config = decodeMission(code)
     if (!config) {
       return false
     }
+    const draft = draftFromConfig(config)
+    const result = evaluate(draft)
     set({
-      config,
-      validation: validate(config),
+      draft,
+      ...result,
       simulation: null,
       report: null,
       decisions: [],
     })
     return true
+  },
+
+  loadExample: () => {
+    const draft = draftFromConfig(baselineConfig)
+    const result = evaluate(draft)
+    set({
+      draft,
+      ...result,
+      simulation: null,
+      report: null,
+      decisions: [],
+    })
+  },
+
+  reset: () => {
+    const draft = createEmptyDraft()
+    const result = evaluate(draft)
+    set({
+      draft,
+      ...result,
+      players: 1,
+      decisions: [],
+      simulation: null,
+      report: null,
+    })
   },
 }))

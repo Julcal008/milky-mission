@@ -27,6 +27,15 @@ Owner: Track A. Every change here requires a PR and a matching update to
 
 No bare `number` for a physical quantity unless it is an index or a count.
 
+### 1.1 Draft vs complete configuration
+
+The UI edits a `MissionDraft` where every choice is optional. The mission store
+builds a complete `MissionConfig` only when the draft has a scenario, every
+component selected, at least one instrument and exactly three requirements.
+Engine functions always receive the complete `MissionConfig`; they never see a
+partial draft. `missingFields(draft)` in `src/store/mission.ts` is the single
+source of truth for what remains to be chosen.
+
 ## 2. Public API
 
 The engine exposes three pure functions. Everything else is internal.

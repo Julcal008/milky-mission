@@ -42,11 +42,25 @@ export function ReportScreen() {
   const autoStarted = useRef(false)
 
   useEffect(() => {
-    if (!autoStarted.current && !simulation) {
+    if (!autoStarted.current && !simulation && config) {
       autoStarted.current = true
       simulate()
     }
-  }, [simulation, simulate])
+  }, [simulation, simulate, config])
+
+  if (!config) {
+    return (
+      <div className="mx-auto max-w-3xl space-y-4">
+        <h1 className="font-display text-3xl font-semibold text-ink">{t.ops.report.title}</h1>
+        <Panel className="space-y-4 p-6">
+          <p className="text-[13px] text-ink-2">{t.ops.simulate.completeDesign}</p>
+          <Button variant="primary" onClick={() => (window.location.hash = '#/design')}>
+            {t.game.design.title}
+          </Button>
+        </Panel>
+      </div>
+    )
+  }
 
   const eventCopy = t.game.event as Record<string, string>
   const roleCopy = t.game.roles as Record<string, string>
@@ -178,7 +192,11 @@ export function ReportScreen() {
   const hiddenSteps = report.steps.length - visibleSteps.length
 
   const share = async () => {
-    const url = `${window.location.origin}${window.location.pathname}?m=${shareCode()}#/report`
+    const code = shareCode()
+    if (!code) {
+      return
+    }
+    const url = `${window.location.origin}${window.location.pathname}?m=${code}#/report`
     try {
       await navigator.clipboard.writeText(url)
     } catch {
