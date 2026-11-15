@@ -46,6 +46,11 @@ describe('share codec', () => {
     })
   })
 
+  it('round-trips the selected difficulty', () => {
+    const code = encodeMission({ ...baselineConfig, difficulty: 'flight-director' })
+    expect(decodeSharedMission(code)?.config.difficulty).toBe('flight-director')
+  })
+
   it('rejects garbage, empty and oversized codes', () => {
     expect(decodeMission('')).toBeNull()
     expect(decodeMission('not-a-mission')).toBeNull()

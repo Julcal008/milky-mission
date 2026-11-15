@@ -51,6 +51,7 @@ export const MAX_INSTRUMENTS = 4
  */
 export interface MissionDraft {
   scenarioId?: ScenarioId
+  difficulty?: Difficulty
   seed: number
   orbitId?: OrbitId
   launcherId?: LauncherId
@@ -72,6 +73,8 @@ export interface MissionDraft {
 
 export interface MissionConfig {
   scenarioId: ScenarioId
+  /** Difficulty selected in the brief; defaults to engineer for old links. */
+  difficulty?: Difficulty
   /** Deterministic simulation seed. Shared missions reproduce exactly. */
   seed: number
 
@@ -299,11 +302,15 @@ export interface GameEvent {
   id: string
   day: number
   type: string
+  /** Challenge definition used to build this event, if available. */
+  challengeId?: string
   /** Role that must make the decision. */
   role: RoleId
   severity: 'info' | 'warning' | 'critical'
   /** i18n key; UI resolves it to English/Spanish copy. */
   titleKey: string
+  /** Optional i18n key for the challenge description shown in the modal. */
+  descriptionKey?: string
 }
 
 export interface DecisionLog {

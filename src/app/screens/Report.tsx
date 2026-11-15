@@ -11,7 +11,7 @@ import { ScoreRing } from '@/app/visuals/ScoreRing'
 import { visualUrl } from '@/app/visuals/assets'
 import { scenarioContent } from '@/content/scenarios'
 import { catalogs } from '@/data/catalogs'
-import { decisionOptionsFor } from '@/engine/decisions'
+import { decisionOptionFor } from '@/engine/decisions'
 import type { ReportStep } from '@/engine/report'
 import { scenarioFixtures } from '@/engine/__fixtures__/scenario-fixture'
 import { REQUIREMENT_TAGS } from '@/engine/validate'
@@ -29,10 +29,24 @@ function eventTypeFromTitle(titleKey: string): string {
   const key = titleKey.replace('event.', '')
   const map: Record<string, string> = {
     cmeHit: 'cme_hit',
+    cmeLong: 'cme_hit',
+    cmeGlancing: 'cme_hit',
     flareX: 'flare_x',
+    flareX10: 'flare_x',
     powerDeficit: 'power_deficit',
     gsOutage: 'gs_outage',
     bufferFull: 'buffer_full',
+    thermal: 'thermal',
+    wheelFail: 'wheel_fail',
+    calibration: 'calibration',
+    dataGap: 'data_gap',
+    aurora: 'aurora',
+    rfInterference: 'rf',
+    antennaFault: 'antenna',
+    budgetReview: 'budget',
+    launchSlip: 'schedule',
+    partnerRequest: 'partner',
+    instFail: 'inst_fail',
   }
   return map[key] ?? ''
 }
@@ -88,6 +102,12 @@ export function ReportScreen() {
   }
 
   const copy = scenarioContent[lang][config.scenarioId]
+  const difficultyLabel =
+    config.difficulty === 'cadet'
+      ? t.brief.cadet
+      : config.difficulty === 'flight-director'
+        ? t.brief.flightDirector
+        : t.brief.engineer
   const chosen = simulation.requirements.filter((requirement) =>
     config.requirements.includes(requirement.id),
   )
@@ -178,8 +198,7 @@ export function ReportScreen() {
 
   const decisionLabel = (step: ReportStep): string | null => {
     if (!step.optionId) return null
-    const type = eventTypeFromTitle(step.titleKey)
-    const option = decisionOptionsFor(type).find((item) => item.id === step.optionId)
+    const option = decisionOptionFor(step.optionId)
     return option ? (decisionCopy[option.labelKey] ?? step.optionId) : step.optionId
   }
 
@@ -222,7 +241,9 @@ export function ReportScreen() {
         <div className="space-y-5">
           <header className="flex flex-wrap items-end justify-between gap-4">
             <div className="space-y-2">
-              <p className="label-caps text-ink-3">{config.scenarioId}</p>
+              <p className="label-caps text-ink-3">
+                {config.scenarioId} · {difficultyLabel}
+              </p>
               <h1 className="font-display text-3xl font-semibold text-ink">{t.ops.report.title}</h1>
               <p className="text-[13px] text-ink-2">{t.ops.report.lead}</p>
             </div>

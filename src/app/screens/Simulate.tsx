@@ -4,7 +4,7 @@
  * here: the engine produces the result and this screen renders it.
  */
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { decisionOptionsFor } from '@/engine/decisions'
+import { decisionOptionFor, decisionOptionsFor } from '@/engine/decisions'
 import type { GameEvent } from '@/engine/types'
 import { MaskIcon } from '@/app/visuals/MaskIcon'
 import { AiBackdrop } from '@/app/visuals/AiBackdrop'
@@ -40,6 +40,14 @@ const EVENT_ICON: Record<string, string> = {
   wheel_fail: 'icons/events/wheel-fail.svg',
   thermal: 'icons/events/thermal.svg',
   debris: 'icons/events/debris.svg',
+  calibration: 'icons/events/inst-fail.svg',
+  data_gap: 'icons/events/buffer-full.svg',
+  aurora: 'icons/events/flare.svg',
+  rf: 'icons/events/gs-outage.svg',
+  antenna: 'icons/events/gs-outage.svg',
+  budget: 'icons/events/budget-cut.svg',
+  schedule: 'icons/events/launch-delay.svg',
+  partner: 'icons/events/buffer-full.svg',
 }
 
 export function SimulateScreen() {
@@ -123,8 +131,15 @@ export function SimulateScreen() {
   }, [currentDay, simulation, pendingEventId, resolvedEventIds])
 
   const eventCopy = t.game.event as Record<string, string>
+  const challengeCopy = t.game.challenge as Record<string, string>
   const roleCopy = t.game.roles as Record<string, string>
   const decisionCopy = t.game.decisions as Record<string, string>
+  const difficultyLabel =
+    (config?.difficulty ?? 'engineer') === 'cadet'
+      ? t.brief.cadet
+      : config?.difficulty === 'flight-director'
+        ? t.brief.flightDirector
+        : t.brief.engineer
 
   const eventTitle = (event: GameEvent): string => {
     if (event.titleKey.startsWith('event.instFail.')) {
@@ -133,6 +148,16 @@ export function SimulateScreen() {
     }
     const key = event.titleKey.replace('event.', '')
     return eventCopy[key] ?? event.titleKey
+  }
+
+  const eventDescription = (event: GameEvent): string | undefined => {
+    if (!event.descriptionKey) {
+      return undefined
+    }
+    return (
+      challengeCopy[event.descriptionKey.replace('challenge.', '').replace('.description', '')] ??
+      undefined
+    )
   }
 
   const restart = () => {
@@ -218,7 +243,9 @@ export function SimulateScreen() {
 
   const events = simulation.events
   const pendingEvent = events.find((event) => event.id === pendingEventId) ?? null
-  const pendingOptions = pendingEvent ? decisionOptionsFor(pendingEvent.type) : []
+  const pendingOptions = pendingEvent
+    ? decisionOptionsFor(pendingEvent.challengeId ?? pendingEvent.type)
+    : []
   const pendingDecision = pendingEvent
     ? decisions.find((decision) => decision.eventId === pendingEvent.id)?.optionId
     : undefined
@@ -257,7 +284,9 @@ export function SimulateScreen() {
       <div className="space-y-5">
         <header className="flex flex-wrap items-end justify-between gap-4">
           <div className="space-y-2">
-            <p className="label-caps text-ink-3">{config.scenarioId}</p>
+            <p className="label-caps text-ink-3">
+              {config.scenarioId} · {difficultyLabel}
+            </p>
             <h1 className="font-display text-3xl font-semibold text-ink">{t.ops.simulate.title}</h1>
             <p className="text-[13px] text-ink-2">{t.ops.simulate.lead}</p>
           </div>
@@ -401,9 +430,7 @@ export function SimulateScreen() {
               {events.map((event) => {
                 const active = pendingEvent?.id === event.id
                 const choice = decisions.find((decision) => decision.eventId === event.id)
-                const chosen = choice
-                  ? decisionOptionsFor(event.type).find((option) => option.id === choice.optionId)
-                  : null
+                const chosen = choice ? decisionOptionFor(choice.optionId) : null
                 const chosenLabel = chosen ? (decisionCopy[chosen.labelKey] ?? chosen.id) : null
                 return (
                   <li key={event.id}>
@@ -488,9 +515,7 @@ export function SimulateScreen() {
                 <ul className="mt-2 space-y-1.5">
                   {decisions.map((choice) => {
                     const event = events.find((item) => item.id === choice.eventId)
-                    const option = event
-                      ? decisionOptionsFor(event.type).find((item) => item.id === choice.optionId)
-                      : null
+                    const option = decisionOptionFor(choice.optionId)
                     return (
                       <li
                         key={`${choice.eventId}-${choice.optionId}`}
@@ -527,6 +552,7 @@ export function SimulateScreen() {
         <DecisionModal
           dayLabel={`${t.ops.simulate.day} ${pendingEvent.day}`}
           eventTitle={eventTitle(pendingEvent)}
+          description={eventDescription(pendingEvent)}
           roleLabel={roleCopy[pendingEvent.role] ?? pendingEvent.role}
           severityLabel={t.common.severity[pendingEvent.severity]}
           tone={severityTone(pendingEvent.severity)}
@@ -535,6 +561,7 @@ export function SimulateScreen() {
             label: decisionCopy[option.labelKey] ?? option.id,
             description: decisionCopy[option.descriptionKey] ?? '',
             costUsdM: option.effect.costUsdM,
+            budgetUsdM: option.effect.budgetUsdM,
           }))}
           appliedOptionId={pendingDecision}
           labels={{

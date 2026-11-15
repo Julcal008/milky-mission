@@ -54,6 +54,14 @@ describe('mission store', () => {
     expect(useMissionStore.getState().players).toBe(4)
   })
 
+  it('stores the selected difficulty in the draft', () => {
+    useMissionStore.getState().startScenario('storm-watch', 'cadet')
+    expect(useMissionStore.getState().draft.difficulty).toBe('cadet')
+
+    useMissionStore.getState().loadExample('flight-director')
+    expect(useMissionStore.getState().config?.difficulty).toBe('flight-director')
+  })
+
   it('loads the reference example as a complete design', () => {
     useMissionStore.getState().loadExample()
     const state = useMissionStore.getState()

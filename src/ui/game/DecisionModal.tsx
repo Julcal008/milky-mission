@@ -18,11 +18,13 @@ export interface DecisionModalOption {
   label: string
   description: string
   costUsdM?: number
+  budgetUsdM?: number
 }
 
 export interface DecisionModalProps {
   dayLabel: string
   eventTitle: string
+  description?: string
   roleLabel: string
   severityLabel: string
   tone: 'danger' | 'warning' | 'info'
@@ -41,6 +43,7 @@ export interface DecisionModalProps {
 export function DecisionModal({
   dayLabel,
   eventTitle,
+  description,
   roleLabel,
   severityLabel,
   tone,
@@ -136,6 +139,9 @@ export function DecisionModal({
           </div>
 
           <p className="text-[15px] font-medium leading-snug text-ink">{eventTitle}</p>
+          {description ? (
+            <p className="text-[12px] leading-relaxed text-ink-2">{description}</p>
+          ) : null}
 
           {isAlert ? (
             <Button variant="primary" onClick={onContinue} className="w-full">
@@ -161,6 +167,11 @@ export function DecisionModal({
                       <span className="text-[13px] font-medium text-ink">{option.label}</span>
                       <span className="flex shrink-0 items-center gap-1">
                         {option.costUsdM ? <Badge tone="warning">${option.costUsdM}M</Badge> : null}
+                        {option.budgetUsdM ? (
+                          <Badge tone={option.budgetUsdM < 0 ? 'success' : 'warning'}>
+                            {option.budgetUsdM < 0 ? '+' : '−'}${Math.abs(option.budgetUsdM)}M
+                          </Badge>
+                        ) : null}
                         {applied ? <Badge tone="success">{labels.applied}</Badge> : null}
                       </span>
                     </span>

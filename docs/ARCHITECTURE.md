@@ -67,8 +67,8 @@ MissionConfig ──validate──▶ ValidationResult ──simulate──▶ S
 - Event order is stable: events are sorted by `(day, id)`.
 - No Date.now(), no locale-dependent formatting, no floating-point accumulation across
   runs. Rounding happens only at the presentation boundary.
-- The share link encodes the full config, seed, decisions and player count, so a shared
-  mission reproduces.
+- The share link encodes the full config (including difficulty), seed, decisions and
+  player count, so a shared mission reproduces.
 
 ## 4. Persistence and sharing
 

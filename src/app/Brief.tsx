@@ -10,7 +10,7 @@ import { useState } from 'react'
 import { scenarioContent } from '@/content/scenarios'
 import { scenarioFixtures } from '@/engine/__fixtures__/scenario-fixture'
 import { syncShareUrl } from '@/app/share-url'
-import type { ScenarioId } from '@/engine/types'
+import type { Difficulty, ScenarioId } from '@/engine/types'
 import { useMissionStore } from '@/store/mission'
 import { useI18n } from '@/store/ui'
 import { cx } from '@/ui/cx'
@@ -26,18 +26,19 @@ export function Brief() {
   const setPlayers = useMissionStore((state) => state.setPlayers)
   const loadExample = useMissionStore((state) => state.loadExample)
   const [scenarioId, setScenarioId] = useState<ScenarioId | null>(draft.scenarioId ?? null)
+  const [difficulty, setDifficulty] = useState<Difficulty>(draft.difficulty ?? 'engineer')
 
   function startMission() {
     if (!scenarioId) {
       return
     }
-    startScenario(scenarioId)
+    startScenario(scenarioId, difficulty)
     window.location.hash = '#/design'
     syncShareUrl(useMissionStore.getState().shareCode())
   }
 
   function startExample() {
-    loadExample()
+    loadExample(difficulty)
     window.location.hash = '#/design'
     syncShareUrl(useMissionStore.getState().shareCode())
   }
@@ -128,35 +129,73 @@ export function Brief() {
       </fieldset>
 
       <MenuPanel className="flex flex-col gap-5 p-5 sm:flex-row sm:items-end sm:justify-between">
-        <div className="space-y-2">
-          <p className="label-caps text-ink-3">{t.brief.players}</p>
-          <div
-            className="flex items-center gap-2"
-            role="group"
-            aria-label={t.brief.players}
-            aria-describedby="players-hint"
-          >
-            {[1, 2, 3, 4].map((count) => (
-              <button
-                key={count}
-                type="button"
-                onClick={() => setPlayers(count)}
-                aria-pressed={players === count}
-                aria-label={count === 1 ? t.brief.solo : `${count} ${t.brief.players}`}
-                className={cx(
-                  'grid size-10 place-items-center rounded-full border text-[13px] font-medium transition-colors',
-                  players === count
-                    ? 'border-cream bg-cream text-bg'
-                    : 'border-border bg-surface-2 text-ink-2 hover:text-ink',
-                )}
-              >
-                {count}
-              </button>
-            ))}
+        <div className="space-y-5">
+          <div className="space-y-2">
+            <p className="label-caps text-ink-3">{t.brief.difficulty}</p>
+            <div
+              className="flex flex-wrap items-center gap-2"
+              role="group"
+              aria-label={t.brief.difficulty}
+              aria-describedby="difficulty-hint"
+            >
+              {(
+                [
+                  ['cadet', t.brief.cadet],
+                  ['engineer', t.brief.engineer],
+                  ['flight-director', t.brief.flightDirector],
+                ] as const
+              ).map(([id, label]) => (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => setDifficulty(id)}
+                  aria-pressed={difficulty === id}
+                  className={cx(
+                    'rounded-full border px-3 py-1.5 text-[12px] font-medium transition-colors',
+                    difficulty === id
+                      ? 'border-cream bg-cream text-bg'
+                      : 'border-border bg-surface-2 text-ink-2 hover:text-ink',
+                  )}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            <p id="difficulty-hint" className="text-[11px] text-ink-3">
+              {t.brief.difficultyHint}
+            </p>
           </div>
-          <p id="players-hint" className="text-[11px] text-ink-3">
-            {t.brief.playersHint}
-          </p>
+
+          <div className="space-y-2">
+            <p className="label-caps text-ink-3">{t.brief.players}</p>
+            <div
+              className="flex items-center gap-2"
+              role="group"
+              aria-label={t.brief.players}
+              aria-describedby="players-hint"
+            >
+              {[1, 2, 3, 4].map((count) => (
+                <button
+                  key={count}
+                  type="button"
+                  onClick={() => setPlayers(count)}
+                  aria-pressed={players === count}
+                  aria-label={count === 1 ? t.brief.solo : `${count} ${t.brief.players}`}
+                  className={cx(
+                    'grid size-10 place-items-center rounded-full border text-[13px] font-medium transition-colors',
+                    players === count
+                      ? 'border-cream bg-cream text-bg'
+                      : 'border-border bg-surface-2 text-ink-2 hover:text-ink',
+                  )}
+                >
+                  {count}
+                </button>
+              ))}
+            </div>
+            <p id="players-hint" className="text-[11px] text-ink-3">
+              {t.brief.playersHint}
+            </p>
+          </div>
         </div>
 
         <div className="flex flex-col items-start gap-2 sm:items-end">

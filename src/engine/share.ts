@@ -13,7 +13,7 @@
  * them.
  */
 import type { DecisionChoice } from './decisions'
-import type { MissionConfig, ScenarioId } from './types'
+import type { Difficulty, MissionConfig, ScenarioId } from './types'
 
 export const SHARE_VERSION = 1
 
@@ -113,6 +113,8 @@ function isSharePayload(value: unknown): value is SharePayload {
   const config = payload.c as Partial<MissionConfig>
   return (
     SCENARIOS.includes(config.scenarioId as ScenarioId) &&
+    (config.difficulty === undefined ||
+      ['cadet', 'engineer', 'flight-director'].includes(config.difficulty as Difficulty)) &&
     typeof config.seed === 'number' &&
     Number.isFinite(config.seed) &&
     typeof config.orbitId === 'string' &&

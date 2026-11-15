@@ -10,14 +10,14 @@
  *              climatology; battery and data are integrated at day granularity.
  */
 import { getInstruments, getOrbit, getStorage } from './catalog'
+import { buildChallengeSchedule, hashDifficulty } from './challenge-scheduler'
+import { challengeById } from './challenges'
 import { computeCostBreakdown } from './cost'
 import { computeLinkBreakdown } from './link'
 import { computePowerBreakdown } from './power'
-import { DECISION_OPTIONS } from './decisions'
-import type { DecisionChoice, DecisionOption } from './decisions'
+import type { DecisionChoice } from './decisions'
 import { spaceWeatherDaysFor } from '../data/nasa/donki'
 import { CLIMATOLOGY_MONTHS, POWER_SITES, cloudUsableFraction } from '../data/nasa/power'
-import { trlFailureProbability } from './reliability'
 import { revisitHours } from './orbit'
 import { createRng } from './prng'
 import { scoreMission } from './score'
@@ -26,6 +26,7 @@ import type {
   Catalogs,
   DayState,
   DecisionLog,
+  Difficulty,
   GameEvent,
   InstrumentId,
   MissionConfig,
@@ -45,12 +46,6 @@ const INSTRUMENT_SWATH_KM: Partial<Record<InstrumentId, number>> = {
 
 const AGILE_INSTRUMENTS: InstrumentId[] = ['hri', 'sar']
 
-const GROUND_OUTAGE_ANNUAL = 0.24 // ~2 % per month
-
-function dailyProbability(annualProbability: number): number {
-  return 1 - (1 - annualProbability) ** (1 / DAYS_PER_YEAR)
-}
-
 export function simulateMission(
   config: MissionConfig,
   scenario: ScenarioSpec,
@@ -68,15 +63,26 @@ export function simulateMission(
 
   const rng = createRng(config.seed)
   const { cmeDays, flareDays } = spaceWeatherDaysFor(scenario.durationDays)
-  const groundOutageChance = dailyProbability(GROUND_OUTAGE_ANNUAL)
+  const difficulty: Difficulty = config.difficulty ?? 'engineer'
+  const schedule = buildChallengeSchedule(
+    config,
+    scenario,
+    cmeDays,
+    flareDays,
+    power.marginW,
+    createRng(config.seed ^ hashDifficulty(difficulty)),
+  )
+  const scheduledCmeDays = schedule
+    .filter((item) => item.challenge.type === 'cme_hit')
+    .map((item) => item.day)
+  const scheduledFlareDays = schedule
+    .filter((item) => item.challenge.type === 'flare_x')
+    .map((item) => item.day)
+  const scheduledOutageDays = new Set(
+    schedule.filter((item) => item.challenge.type === 'gs_outage').map((item) => item.day),
+  )
 
   const decisionMap = new Map(decisions.map((choice) => [choice.eventId, choice.optionId]))
-  const optionIndex = new Map<string, DecisionOption>()
-  for (const options of Object.values(DECISION_OPTIONS)) {
-    for (const option of options) {
-      optionIndex.set(`${option.eventType}:${option.id}`, option)
-    }
-  }
 
   interface ActiveEffect {
     startDay: number
@@ -95,7 +101,7 @@ export function simulateMission(
     if (!optionId) {
       return
     }
-    const option = optionIndex.get(`${event.type}:${optionId}`)
+    const option = challengeById(event.challengeId)?.options.find((item) => item.id === optionId)
     if (!option) {
       return
     }
@@ -113,9 +119,8 @@ export function simulateMission(
       scienceFactor *= option.effect.scienceFactor
     }
     const costUsdM = option.effect.costUsdM ?? 0
-    if (costUsdM > 0) {
-      decisionCostUsdM += costUsdM
-    }
+    const budgetUsdM = option.effect.budgetUsdM ?? 0
+    decisionCostUsdM += costUsdM + budgetUsdM
     decisionLogs.push({
       eventId: event.id,
       day: event.day,
@@ -125,7 +130,6 @@ export function simulateMission(
     })
   }
 
-  const failedOn = new Map<InstrumentId, number>()
   const aliveFraction = new Map<InstrumentId, number>()
   for (const instrument of instruments) {
     aliveFraction.set(instrument.id, 1)
@@ -139,43 +143,30 @@ export function simulateMission(
   let bufferGb = 0
   let totalGeneratedGb = 0
   let totalDeliveredGb = 0
-  let lastDeficitDay = -999
   let deficitDays = 0
-  let bufferFullLogged = false
 
   const fixedCostUsdM = cost.hardwareUsdM + cost.marginUsdM + cost.launchUsdM
   const opsPerDayUsdM = cost.operationsUsdM / scenario.durationDays
 
-  // Scripted space-weather events are created before the loop so decisions can
-  // affect the days they occur on.
-  for (const day of cmeDays) {
+  // The deck is built before the loop so decisions can affect their event days.
+  for (const item of schedule) {
     const event: GameEvent = {
-      id: `cme_hit-${day}`,
-      day,
-      type: 'cme_hit',
-      role: 'systems',
-      severity: 'critical',
-      titleKey: 'event.cmeHit',
-    }
-    events.push(event)
-    applyDecision(event)
-  }
-  for (const day of flareDays) {
-    const event: GameEvent = {
-      id: `flare_x-${day}`,
-      day,
-      type: 'flare_x',
-      role: 'science',
-      severity: 'warning',
-      titleKey: 'event.flareX',
+      id: `${item.challenge.type}-${item.day}`,
+      day: item.day,
+      type: item.challenge.type,
+      challengeId: item.challenge.id,
+      role: item.challenge.role,
+      severity: item.challenge.severity,
+      titleKey: item.challenge.titleKey,
+      descriptionKey: item.challenge.descriptionKey,
     }
     events.push(event)
     applyDecision(event)
   }
 
   for (let day = 1; day <= scenario.durationDays; day += 1) {
-    const cmeActive = cmeDays.some((start) => day >= start && day <= start + 2)
-    const flareActive = flareDays.some((start) => day >= start && day <= start + 1)
+    const cmeActive = scheduledCmeDays.some((start) => day >= start && day <= start + 2)
+    const flareActive = scheduledFlareDays.some((start) => day >= start && day <= start + 1)
 
     const dayEffects = activeEffects.filter(
       (effect) => day >= effect.startDay && day <= effect.endDay,
@@ -186,40 +177,7 @@ export function simulateMission(
     )
     const powerBonusW = dayEffects.reduce((sum, effect) => sum + effect.powerBonusW, 0)
 
-    // Component failures (instrument-level, TRL-driven).
-    for (const instrument of instruments) {
-      if (failedOn.has(instrument.id)) {
-        continue
-      }
-      if (rng.chance(dailyProbability(trlFailureProbability(instrument.trl)))) {
-        failedOn.set(instrument.id, day)
-        aliveFraction.set(instrument.id, (day - 1) / scenario.durationDays)
-        const event: GameEvent = {
-          id: `inst_fail-${instrument.id}-${day}`,
-          day,
-          type: 'inst_fail',
-          role: 'science',
-          severity: 'critical',
-          titleKey: `event.instFail.${instrument.id}`,
-        }
-        events.push(event)
-        applyDecision(event)
-      }
-    }
-
-    const groundOutage = rng.chance(groundOutageChance)
-    if (groundOutage) {
-      const event: GameEvent = {
-        id: `gs_outage-${day}`,
-        day,
-        type: 'gs_outage',
-        role: 'comms',
-        severity: 'warning',
-        titleKey: 'event.gsOutage',
-      }
-      events.push(event)
-      applyDecision(event)
-    }
+    const groundOutage = scheduledOutageDays.has(day)
 
     // POWER climatology for this mission month: cloud cover for optical data and
     // a seasonal insolation factor normalized to the annual mean.
@@ -249,23 +207,10 @@ export function simulateMission(
     if (batterySocWh <= 0) {
       deficit = true
       deficitDays += 1
-      if (day - lastDeficitDay > 30) {
-        lastDeficitDay = day
-        const event: GameEvent = {
-          id: `power_deficit-${day}`,
-          day,
-          type: 'power_deficit',
-          role: 'systems',
-          severity: 'critical',
-          titleKey: 'event.powerDeficit',
-        }
-        events.push(event)
-        applyDecision(event)
-      }
     }
 
     // Data generation and delivery. Optical Earth imagers lose data to cloud.
-    const aliveInstruments = instruments.filter((instrument) => !failedOn.has(instrument.id))
+    const aliveInstruments = instruments
     const baseGenerated = aliveInstruments.reduce((sum, instrument) => {
       const cloudSensitive = instrument.id === 'msi' || instrument.id === 'hri'
       return sum + instrument.dataGbPerDay * (cloudSensitive ? cloudFactor : 1)
@@ -278,20 +223,6 @@ export function simulateMission(
     bufferGb = Math.min(storage.capacityGb, bufferGb + generatedGb - deliveredGb)
     totalGeneratedGb += generatedGb
     totalDeliveredGb += deliveredGb
-
-    if (!bufferFullLogged && bufferGb >= storage.capacityGb * 0.95) {
-      bufferFullLogged = true
-      const event: GameEvent = {
-        id: `buffer_full-${day}`,
-        day,
-        type: 'buffer_full',
-        role: 'comms',
-        severity: 'warning',
-        titleKey: 'event.bufferFull',
-      }
-      events.push(event)
-      applyDecision(event)
-    }
 
     days.push({
       day,
@@ -399,6 +330,7 @@ export function simulateMission(
     verdict,
     assumptions: [
       'Event dates are derived from the cached NASA DONKI window (May 2024).',
+      'Challenge variants, roles and decision effects are game content; anchor dates are real DONKI data.',
       'Optical data is reduced by NASA POWER monthly cloud climatology.',
       'POWER monthly insolation modulates generation seasonally, normalized to the annual mean.',
       'Battery, data and cost are integrated at daily resolution.',

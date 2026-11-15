@@ -60,7 +60,10 @@ Owner: Track B. Keep this file in sync with the final project page.
 > The simulation is deterministic: a seed plus the mission configuration always produces
 > the same result, so missions can be shared by URL. NASA DONKI events drive the
 > timeline; NASA POWER cloud climatology drives the optical/SAR trade-off and its monthly
-> insolation modulates seasonal generation. No backend, no accounts, works offline.
+> insolation modulates seasonal generation. Role-specific challenge variants and
+> decision effects are game content; the NASA DONKI anchor dates remain real. Difficulty
+> (Cadet / Engineer / Flight Director) changes the number and severity of challenges.
+> No backend, no accounts, works offline.
 
 **Tools and languages:** TypeScript, React, Vite, Tailwind CSS, Zustand, Vitest,
 GitHub Actions, GitHub Pages.
