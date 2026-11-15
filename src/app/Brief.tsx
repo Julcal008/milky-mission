@@ -13,7 +13,7 @@ import type { ScenarioId } from '@/engine/types'
 import { useMissionStore } from '@/store/mission'
 import { useI18n } from '@/store/ui'
 import { cx } from '@/ui/cx'
-import { Panel } from '@/ui/Panel'
+import { MenuPanel } from '@/ui/menu/MenuPanel'
 
 const scenarioIds: ScenarioId[] = ['storm-watch', 'andes-flood-watch']
 
@@ -51,7 +51,7 @@ export function Brief() {
             <label
               key={id}
               className={cx(
-                'relative flex h-full cursor-pointer flex-col rounded-lg border p-5 transition-colors',
+                'relative flex h-full cursor-pointer flex-col rounded-3xl border p-5 transition-colors',
                 'focus-within:ring-2 focus-within:ring-cream focus-within:ring-offset-2 focus-within:ring-offset-bg',
                 selected
                   ? 'border-jade/60 bg-jade/10'
@@ -70,7 +70,7 @@ export function Brief() {
               <span className="flex items-start justify-between gap-3">
                 <span className="font-display text-xl font-semibold text-ink">{copy.title}</span>
                 {selected ? (
-                  <span className="inline-flex shrink-0 items-center gap-1 rounded-sm border border-jade/40 bg-jade/10 px-2 py-0.5 text-[11px] font-medium text-jade">
+                  <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-jade/40 bg-jade/10 px-2.5 py-0.5 text-[11px] font-medium text-jade">
                     <span aria-hidden="true">✓</span>
                     {t.brief.selected}
                   </span>
@@ -116,11 +116,11 @@ export function Brief() {
         })}
       </fieldset>
 
-      <Panel className="flex flex-col gap-5 p-5 sm:flex-row sm:items-end sm:justify-between">
+      <MenuPanel className="flex flex-col gap-5 p-5 sm:flex-row sm:items-end sm:justify-between">
         <div className="space-y-2">
           <p className="label-caps text-ink-3">{t.brief.players}</p>
           <div
-            className="flex items-center gap-1"
+            className="flex items-center gap-2"
             role="group"
             aria-label={t.brief.players}
             aria-describedby="players-hint"
@@ -131,14 +131,15 @@ export function Brief() {
                 type="button"
                 onClick={() => setPlayers(count)}
                 aria-pressed={players === count}
+                aria-label={count === 1 ? t.brief.solo : `${count} ${t.brief.players}`}
                 className={cx(
-                  'h-9 min-w-9 rounded-md border px-3 text-[13px] font-medium transition-colors',
+                  'grid size-10 place-items-center rounded-full border text-[13px] font-medium transition-colors',
                   players === count
                     ? 'border-cream bg-cream text-bg'
                     : 'border-border bg-surface-2 text-ink-2 hover:text-ink',
                 )}
               >
-                {count === 1 ? t.brief.solo : count}
+                {count}
               </button>
             ))}
           </div>
@@ -160,7 +161,7 @@ export function Brief() {
             {t.brief.start}
           </button>
         </div>
-      </Panel>
+      </MenuPanel>
     </div>
   )
 }

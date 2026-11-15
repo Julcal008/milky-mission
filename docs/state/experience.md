@@ -1,7 +1,7 @@
 # Track B — Experience & Visual · status
 
 **Owner:** @AngelicaHueje707-glitch
-**Updated:** 2026-11-14 18:45 (America/Bogota)
+**Updated:** 2026-11-14 19:30 (America/Bogota)
 
 ## Now
 
@@ -9,6 +9,8 @@
 - **Ported backdrop:** deterministic starfield, moon, six planets, two satellites and
   Earth in `src/ui/menu/MenuBackground.tsx` (palette-only, aria-hidden, reduced-motion
   aware, pointer parallax).
+- **Rounding pass:** scenario cards and bottom panel `rounded-3xl`, pill “Selected”
+  badge, and a 40 px circular player selector (`MenuPanel` in `src/ui/menu/`).
 - Palette tokens added additively (`jade`, `indigo`, `plum`, `mauve`, `coral`, `cream`);
   existing semantic tokens are unchanged.
 - **Menu polish:** event eyebrow above the wordmark, viewport-height hero, equal-height

@@ -194,6 +194,8 @@ never an automatic switch.
 
 - Two scenario cards from `src/content/scenarios`: Storm Watch and Andes Flood Watch.
 - Cards stretch to equal height; the stat row sits on the card baseline.
+- Rounded menu pass: scenario cards and the bottom panel use `rounded-3xl`; the selected
+  badge is a pill; the player selector uses 40 px circles (`size-10 rounded-full`).
 - Selected card: jade border/tint plus a visible check and “Selected” label, never color
   alone.
 - Stats: budget, duration, launch window and requirement count from the scenario spec.
@@ -263,6 +265,7 @@ next event instead of animating.
 | `src/ui/ResourceBar.tsx` | Canonical resource display |
 | `src/app/Home.tsx` | Start screen (solarpunk) |
 | `src/ui/menu/MenuBackground.tsx` | Animated menu backdrop |
+| `src/ui/menu/MenuPanel.tsx` | 3xl menu panel |
 | `src/app/Brief.tsx` | Real scenario menu |
 | `src/app/Styleguide.tsx` | Live reference (route `#/styleguide`) |
 
