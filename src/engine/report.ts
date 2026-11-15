@@ -15,11 +15,16 @@ import type {
 } from './types'
 
 export interface ReportStep {
+  eventId: string
   day: number
   kind: 'event'
   severity: 'info' | 'warning' | 'critical'
   role: RoleId
   titleKey: string
+  /** Concrete challenge variant, when available. */
+  challengeId?: string
+  /** i18n key for the challenge description. */
+  descriptionKey?: string
   /** Present when the player chose an option for this event. */
   optionId?: string
 }
@@ -69,11 +74,14 @@ export function buildMissionReport(
   )
 
   const steps: ReportStep[] = result.events.map((event) => ({
+    eventId: event.id,
     day: event.day,
     kind: 'event',
     severity: event.severity,
     role: event.role,
     titleKey: event.titleKey,
+    challengeId: event.challengeId,
+    descriptionKey: event.descriptionKey,
     optionId: optionByEvent.get(event.id),
   }))
 

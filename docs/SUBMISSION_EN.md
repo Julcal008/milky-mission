@@ -63,6 +63,8 @@ Owner: Track B. Keep this file in sync with the final project page.
 > insolation modulates seasonal generation. Role-specific challenge variants and
 > decision effects are game content; the NASA DONKI anchor dates remain real. Difficulty
 > (Cadet / Engineer / Flight Director) changes the number and severity of challenges.
+> The report is educational: it explains the score, each event and decision, alternative
+> options, a glossary and the boundary between real NASA data and game rules.
 > No backend, no accounts, works offline.
 
 **Tools and languages:** TypeScript, React, Vite, Tailwind CSS, Zustand, Vitest,

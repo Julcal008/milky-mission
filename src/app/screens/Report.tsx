@@ -1,18 +1,17 @@
 /**
  * Report screen — Owner: Track A (UI sprint).
- * Renders the derived MissionReport: score, requirements, causal chain and
- * suggestions. No physics here.
+ * Renders the derived MissionReport as an educational story. No physics here.
  */
 import { useEffect, useRef, useState } from 'react'
-import { MissionCard } from '@/app/visuals/generated/MissionCard'
 import { AiBackdrop } from '@/app/visuals/AiBackdrop'
+import { MissionCard } from '@/app/visuals/generated/MissionCard'
 import { ReportFrame } from '@/app/visuals/ReportFrame'
 import { ScoreRing } from '@/app/visuals/ScoreRing'
 import { visualUrl } from '@/app/visuals/assets'
+import { reportCopyEn } from '@/app/screens/report-copy.en'
+import { reportCopyEs } from '@/app/screens/report-copy.es'
 import { scenarioContent } from '@/content/scenarios'
 import { catalogs } from '@/data/catalogs'
-import { decisionOptionFor } from '@/engine/decisions'
-import type { ReportStep } from '@/engine/report'
 import { scenarioFixtures } from '@/engine/__fixtures__/scenario-fixture'
 import { REQUIREMENT_TAGS } from '@/engine/validate'
 import { useMissionStore } from '@/store/mission'
@@ -20,36 +19,12 @@ import { useI18n } from '@/store/ui'
 import { Badge } from '@/ui/Badge'
 import { Button } from '@/ui/Button'
 import { format } from '@/ui/game/format'
+import { Glossary } from '@/ui/game/Glossary'
+import { MissionStory } from '@/ui/game/MissionStory'
 import { ModelPanel } from '@/ui/game/ModelPanel'
+import { ScoreExplainer, type ScoreExplainerItem } from '@/ui/game/ScoreExplainer'
+import { StatBlock } from '@/app/visuals/generated/StatBlock'
 import { Panel } from '@/ui/Panel'
-import { ResourceBar } from '@/ui/ResourceBar'
-
-function eventTypeFromTitle(titleKey: string): string {
-  if (titleKey.startsWith('event.instFail.')) return 'inst_fail'
-  const key = titleKey.replace('event.', '')
-  const map: Record<string, string> = {
-    cmeHit: 'cme_hit',
-    cmeLong: 'cme_hit',
-    cmeGlancing: 'cme_hit',
-    flareX: 'flare_x',
-    flareX10: 'flare_x',
-    powerDeficit: 'power_deficit',
-    gsOutage: 'gs_outage',
-    bufferFull: 'buffer_full',
-    thermal: 'thermal',
-    wheelFail: 'wheel_fail',
-    calibration: 'calibration',
-    dataGap: 'data_gap',
-    aurora: 'aurora',
-    rfInterference: 'rf',
-    antennaFault: 'antenna',
-    budgetReview: 'budget',
-    launchSlip: 'schedule',
-    partnerRequest: 'partner',
-    instFail: 'inst_fail',
-  }
-  return map[key] ?? ''
-}
 
 export function ReportScreen() {
   const { t, lang } = useI18n()
@@ -82,11 +57,6 @@ export function ReportScreen() {
     )
   }
 
-  const eventCopy = t.game.event as Record<string, string>
-  const roleCopy = t.game.roles as Record<string, string>
-  const decisionCopy = t.game.decisions as Record<string, string>
-  const suggestionCopy = t.ops.report.suggest as Record<string, string>
-
   if (!report || !simulation) {
     return (
       <div className="mx-auto max-w-3xl space-y-4">
@@ -102,12 +72,15 @@ export function ReportScreen() {
   }
 
   const copy = scenarioContent[lang][config.scenarioId]
+  const edu = lang === 'es' ? reportCopyEs : reportCopyEn
   const difficultyLabel =
     config.difficulty === 'cadet'
       ? t.brief.cadet
       : config.difficulty === 'flight-director'
         ? t.brief.flightDirector
         : t.brief.engineer
+  const scenario = scenarioFixtures[config.scenarioId]
+  const duration = scenario.durationDays
   const chosen = simulation.requirements.filter((requirement) =>
     config.requirements.includes(requirement.id),
   )
@@ -115,16 +88,38 @@ export function ReportScreen() {
   const efficiencyMax = teamMode ? 200 : 300
 
   const budgets = simulation.budgets
-  const duration = scenarioFixtures[config.scenarioId].durationDays
   const delivered =
     budgets.dataGbPerDay > 0 ? Math.min(1, budgets.downlinkGbPerDay / budgets.dataGbPerDay) : 1
+  const deliveredPct = Math.round(delivered * 100)
+  const met = chosen.filter((requirement) => requirement.fraction >= 0.99).length
+  const massMarginPct =
+    budgets.massCapacityKg > 0
+      ? ((budgets.massCapacityKg - budgets.massKg) / budgets.massCapacityKg) * 100
+      : 0
+  const weakestLabel = t.ops.report.components[report.weakestComponent]
+  const weakestHint = t.ops.report.weakestHints[report.weakestComponent]
+  const orbit = catalogs.orbits.find((item) => item.id === config.orbitId)
+  const launcher = catalogs.launchers.find((item) => item.id === config.launcherId)
+  const bus = catalogs.buses.find((item) => item.id === config.busId)
+  const array = catalogs.arrays.find((item) => item.id === config.arrayId)
+  const battery = catalogs.batteries.find((item) => item.id === config.batteryId)
+  const comms = catalogs.comms.find((item) => item.id === config.commsId)
+  const network = catalogs.groundNetworks.find((item) => item.id === config.groundNetworkId)
+  const instruments = config.instrumentIds
+    .map((id) => catalogs.instruments.find((item) => item.id === id)?.name ?? id)
+    .join(', ')
+
   const installed = new Set(config.instrumentIds)
   const supports = (tag: string) =>
     catalogs.instruments.some(
       (instrument) => installed.has(instrument.id) && instrument.supports.includes(tag),
     )
-  const orbit = catalogs.orbits.find((item) => item.id === config.orbitId)
+  const requirementCopyFor = (id: string) =>
+    (copy as unknown as Record<string, { title: string; description: string } | undefined>)[
+      id.toLowerCase()
+    ]
   const diagnosisCopy = t.ops.report.diagnosis as Record<string, string>
+  const suggestionCopy = t.ops.report.suggest as Record<string, string>
 
   type DiagnosisCause = { key: string; params: Record<string, string | number> }
 
@@ -189,33 +184,145 @@ export function ReportScreen() {
       return { key: 'partial', params: { fraction: Math.round(requirement.fraction * 100) } }
     })
 
-  const stepLabel = (step: ReportStep): string => {
-    if (step.titleKey.startsWith('event.instFail.')) {
-      return `${eventCopy.instFail}: ${step.titleKey.split('.').pop()}`
-    }
-    return eventCopy[step.titleKey.replace('event.', '')] ?? step.titleKey
+  const summaryLines = [
+    format(edu.summary.design, {
+      mass: budgets.massKg.toFixed(1),
+      instruments: config.instrumentIds.length,
+      cost: budgets.costUsdM.toFixed(1),
+    }),
+    format(edu.summary.events, {
+      days: duration,
+      events: simulation.events.length,
+      handled: report.handledCritical,
+      critical: report.criticalEvents,
+    }),
+    format(edu.summary.result, {
+      grade: report.grade,
+      total: report.total,
+      weakest: weakestLabel,
+    }),
+  ]
+
+  const scoreItems: ScoreExplainerItem[] = [
+    {
+      key: 'mission',
+      label: t.ops.report.components.mission,
+      value: simulation.score.missionSuccess,
+      max: 300,
+      what: edu.score.components.mission.what,
+      result: format(edu.score.components.mission.result, {
+        met,
+        chosen: chosen.length,
+      }),
+      formula: edu.score.components.mission.formula,
+    },
+    {
+      key: 'science',
+      label: t.ops.report.components.science,
+      value: simulation.score.science,
+      max: 250,
+      what: edu.score.components.science.what,
+      result: format(edu.score.components.science.result, { delivered: deliveredPct }),
+      formula: edu.score.components.science.formula,
+    },
+    {
+      key: 'efficiency',
+      label: t.ops.report.components.efficiency,
+      value: simulation.score.efficiency,
+      max: efficiencyMax,
+      what: edu.score.components.efficiency.what,
+      result: format(edu.score.components.efficiency.result, {
+        mass: massMarginPct.toFixed(0),
+        power: budgets.powerMarginW.toFixed(1),
+        cost: budgets.costUsdM.toFixed(1),
+      }),
+      formula: edu.score.components.efficiency.formula,
+    },
+    {
+      key: 'robustness',
+      label: t.ops.report.components.robustness,
+      value: simulation.score.robustness,
+      max: 150,
+      what: edu.score.components.robustness.what,
+      result: format(edu.score.components.robustness.result, {
+        handled: report.handledCritical,
+        critical: report.criticalEvents,
+      }),
+      formula: edu.score.components.robustness.formula,
+    },
+  ]
+  if (teamMode) {
+    scoreItems.push({
+      key: 'teamwork',
+      label: t.ops.report.components.teamwork,
+      value: simulation.score.teamwork,
+      max: 100,
+      what: edu.score.components.teamwork.what,
+      result: format(edu.score.components.teamwork.result, {
+        value: simulation.score.teamwork,
+      }),
+      formula: edu.score.components.teamwork.formula,
+    })
   }
 
-  const decisionLabel = (step: ReportStep): string | null => {
-    if (!step.optionId) return null
-    const option = decisionOptionFor(step.optionId)
-    return option ? (decisionCopy[option.labelKey] ?? step.optionId) : step.optionId
-  }
+  const massTone = massMarginPct >= 20 ? 'success' : massMarginPct >= 0 ? 'warning' : 'danger'
+  const powerTone =
+    budgets.powerMarginW >= 0 ? (budgets.powerMarginW >= 15 ? 'success' : 'warning') : 'danger'
+  const budgetTone =
+    budgets.costUsdM <= scenario.budgetUsdM
+      ? budgets.costUsdM <= scenario.budgetUsdM * 0.9
+        ? 'success'
+        : 'warning'
+      : 'danger'
 
-  const seenTypes = new Set<string>()
-  const causalSteps = report.steps.filter((step) => {
-    if (step.optionId) {
-      return true
-    }
-    const type = eventTypeFromTitle(step.titleKey)
-    if (seenTypes.has(type)) {
-      return false
-    }
-    seenTypes.add(type)
-    return true
-  })
-  const visibleSteps = causalSteps.slice(0, 8)
-  const hiddenSteps = report.steps.length - visibleSteps.length
+  const snapshotRows = [
+    {
+      label: edu.snapshot.orbit,
+      value: orbit
+        ? `${orbit.name} · ${orbit.altitudeKm} km · ${orbit.inclinationDeg}°`
+        : config.orbitId,
+    },
+    {
+      label: edu.snapshot.launcher,
+      value: launcher ? `${launcher.name} · $${launcher.costUsdM}M` : config.launcherId,
+    },
+    { label: edu.snapshot.bus, value: bus?.name ?? config.busId },
+    {
+      label: edu.snapshot.powerSystem,
+      value: array
+        ? `${array.name} · ${config.arrayAreaM2} m² · ${battery?.name ?? config.batteryId}`
+        : config.arrayId,
+    },
+    {
+      label: edu.snapshot.comms,
+      value: `${comms?.name ?? config.commsId} · ${network?.name ?? config.groundNetworkId}`,
+    },
+    { label: edu.snapshot.payload, value: instruments },
+  ]
+
+  const lessons: string[] = []
+  if (report.criticalEvents > report.handledCritical) {
+    lessons.push(
+      format(edu.lessons.critical, {
+        count: report.criticalEvents - report.handledCritical,
+      }),
+    )
+  }
+  if (massMarginPct < 20) {
+    lessons.push(format(edu.lessons.mass, { margin: massMarginPct.toFixed(0) }))
+  }
+  if (budgets.powerMarginW < 0) {
+    lessons.push(format(edu.lessons.power, { margin: budgets.powerMarginW.toFixed(1) }))
+  }
+  if (deliveredPct < 70) {
+    lessons.push(format(edu.lessons.data, { delivered: deliveredPct }))
+  }
+  if (met < chosen.length) {
+    lessons.push(format(edu.lessons.requirements, { met, chosen: chosen.length }))
+  }
+  if (lessons.length === 0) {
+    lessons.push(edu.lessons.success)
+  }
 
   const share = async () => {
     const code = shareCode()
@@ -233,6 +340,13 @@ export function ReportScreen() {
     if (didCopy) {
       setCopied(true)
     }
+  }
+
+  const printReport = () => {
+    document.querySelectorAll('details').forEach((detail) => {
+      detail.open = true
+    })
+    window.print()
   }
 
   return (
@@ -267,67 +381,53 @@ export function ReportScreen() {
             </div>
           </header>
 
-          <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-            <Panel className="space-y-4 p-5">
-              <h2 className="label-caps text-ink-2">{t.ops.report.breakdown}</h2>
-              <ResourceBar
-                label={t.ops.report.components.mission}
-                value={simulation.score.missionSuccess}
-                max={300}
-                unit="pts"
-                tone="budget"
-                status={t.ops.report.components.mission}
-              />
-              <ResourceBar
-                label={t.ops.report.components.science}
-                value={simulation.score.science}
-                max={250}
-                unit="pts"
-                tone="data"
-                status={t.ops.report.components.science}
-              />
-              <ResourceBar
-                label={t.ops.report.components.efficiency}
-                value={simulation.score.efficiency}
-                max={efficiencyMax}
-                unit="pts"
-                tone="link"
-                status={t.ops.report.components.efficiency}
-              />
-              <ResourceBar
-                label={t.ops.report.components.robustness}
-                value={simulation.score.robustness}
-                max={150}
-                unit="pts"
-                tone="power"
-                status={t.ops.report.components.robustness}
-              />
-              {teamMode ? (
-                <ResourceBar
-                  label={t.ops.report.components.teamwork}
-                  value={simulation.score.teamwork}
-                  max={100}
-                  unit="pts"
-                  tone="time"
-                  status={t.ops.report.components.teamwork}
-                />
-              ) : null}
-              <div className="flex items-center justify-between gap-2 border-t border-border pt-3 text-[12px]">
-                <span className="text-ink-3">{t.ops.report.weakest}</span>
-                <span className="text-ink">{t.ops.report.components[report.weakestComponent]}</span>
-              </div>
-            </Panel>
+          <Panel className="space-y-3 border-l-2 border-l-cream/70 p-5">
+            <h2 className="label-caps text-ink-2">{edu.summary.title}</h2>
+            <p className="text-[12px] text-ink-3">{edu.summary.lead}</p>
+            <ul className="space-y-2">
+              {summaryLines.map((line, index) => (
+                <li key={index} className="flex items-start gap-2 text-[13px] leading-relaxed">
+                  <span
+                    aria-hidden="true"
+                    className="mt-1.5 size-1.5 shrink-0 rounded-full bg-cream"
+                  />
+                  <span className="text-ink-2">{line}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="text-[12px] leading-relaxed text-ink">
+              {format(edu.summary.learning, { lesson: weakestHint })}
+            </p>
+          </Panel>
 
-            <Panel className="space-y-3 p-5">
-              <h2 className="label-caps text-ink-2">{t.ops.report.requirements}</h2>
-              <ul className="space-y-2">
-                {chosen.map((requirement) => (
+          <ScoreExplainer
+            title={edu.score.title}
+            lead={edu.score.lead}
+            detailsLabel={edu.score.details}
+            pointsLabel={edu.score.points}
+            items={scoreItems}
+          />
+
+          <Panel className="space-y-3 p-5">
+            <h2 className="label-caps text-ink-2">{t.ops.report.requirements}</h2>
+            <p className="text-[12px] leading-relaxed text-ink-2">{edu.requirementsLead}</p>
+            <ul className="space-y-2">
+              {chosen.map((requirement) => {
+                const requirementCopy = requirementCopyFor(requirement.id)
+                return (
                   <li
                     key={requirement.id}
                     className="flex items-start justify-between gap-3 rounded-sm border border-border bg-surface-2/30 p-2.5"
                   >
                     <div>
-                      <p className="text-[12px] font-medium text-ink">{requirement.detail}</p>
+                      <p className="text-[12px] font-medium text-ink">
+                        {requirementCopy?.title ?? requirement.detail}
+                      </p>
+                      {requirementCopy?.description ? (
+                        <p className="mt-1 text-[10px] leading-relaxed text-ink-2">
+                          {requirementCopy.description}
+                        </p>
+                      ) : null}
                       <p className="num mt-0.5 text-[10px] text-ink-3">
                         {(requirement.fraction * 100).toFixed(0)} %
                       </p>
@@ -348,15 +448,76 @@ export function ReportScreen() {
                           : t.ops.report.requirementFailed}
                     </Badge>
                   </li>
-                ))}
-              </ul>
-            </Panel>
-          </div>
+                )
+              })}
+            </ul>
+          </Panel>
+
+          <Panel className="space-y-4 p-5">
+            <div className="space-y-1">
+              <h2 className="label-caps text-ink-2">{edu.snapshot.title}</h2>
+              <p className="text-[12px] leading-relaxed text-ink-2">{edu.snapshot.lead}</p>
+            </div>
+            <dl className="grid gap-2 sm:grid-cols-2">
+              {snapshotRows.map((row) => (
+                <div
+                  key={row.label}
+                  className="rounded-md border border-border bg-surface-2/30 p-2.5"
+                >
+                  <dt className="label-caps text-ink-3">{row.label}</dt>
+                  <dd className="mt-0.5 text-[12px] leading-relaxed text-ink">{row.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+              <StatBlock
+                label={edu.snapshot.mass}
+                value={`${budgets.massKg.toFixed(1)} / ${budgets.massCapacityKg.toFixed(0)} kg`}
+                hint={`${massMarginPct.toFixed(0)}%`}
+                tone={massTone}
+              />
+              <StatBlock
+                label={edu.snapshot.powerMargin}
+                value={`${budgets.powerMarginW.toFixed(1)} W`}
+                tone={powerTone}
+              />
+              <StatBlock
+                label={edu.snapshot.budget}
+                value={`$${budgets.costUsdM.toFixed(1)}M / $${scenario.budgetUsdM}M`}
+                tone={budgetTone}
+              />
+              <StatBlock
+                label={edu.snapshot.lifetime}
+                value={`${budgets.lifetimeDays} / ${duration}`}
+                tone={budgets.lifetimeDays >= duration ? 'success' : 'danger'}
+              />
+              <StatBlock
+                label={edu.snapshot.data}
+                value={`${deliveredPct}%`}
+                tone={deliveredPct >= 70 ? 'success' : deliveredPct > 0 ? 'warning' : 'danger'}
+              />
+            </div>
+            <details className="text-[11px] text-ink-3">
+              <summary className="cursor-pointer select-none hover:text-ink">
+                {edu.snapshot.whyTitle}
+              </summary>
+              <p className="mt-1 leading-relaxed">{edu.snapshot.why}</p>
+            </details>
+          </Panel>
 
           <Panel className="space-y-3 p-5">
-            <h2 className="label-caps text-ink-2">{t.ops.report.diagnosis.title}</h2>
+            <h2 className="label-caps text-ink-2">
+              {report.verdict === 'success'
+                ? edu.diagnosisSuccessTitle
+                : t.ops.report.diagnosis.title}
+            </h2>
+            <p className="text-[12px] leading-relaxed text-ink-2">{edu.diagnosisLead}</p>
             {causes.length === 0 ? (
-              <p className="text-[12px] text-ink-3">{t.ops.report.diagnosis.allMet}</p>
+              <p className="text-[12px] text-ink-3">
+                {report.verdict === 'success'
+                  ? edu.diagnosisSuccessLead
+                  : t.ops.report.diagnosis.allMet}
+              </p>
             ) : (
               <ul className="space-y-2">
                 {causes.map((cause, index) => (
@@ -375,44 +536,28 @@ export function ReportScreen() {
             )}
           </Panel>
 
+          <MissionStory steps={report.steps} copy={edu.story} />
+
           <Panel className="space-y-3 p-5">
-            <h2 className="label-caps text-ink-2">{t.ops.report.causalChain}</h2>
-            <ol className="space-y-2">
-              {visibleSteps.map((step) => {
-                const decision = decisionLabel(step)
-                return (
-                  <li
-                    key={`${step.day}-${step.titleKey}`}
-                    className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-l-2 border-border pl-3"
-                  >
-                    <span className="num text-[11px] text-ink-3">
-                      {t.ops.simulate.day} {step.day}
-                    </span>
-                    <span className="text-[12px] text-ink">{stepLabel(step)}</span>
-                    <span className="text-[11px] text-ink-3">
-                      · {roleCopy[step.role] ?? step.role}
-                    </span>
-                    <Badge
-                      tone={
-                        step.severity === 'critical'
-                          ? 'danger'
-                          : step.severity === 'warning'
-                            ? 'warning'
-                            : 'info'
-                      }
-                    >
-                      {t.common.severity[step.severity]}
-                    </Badge>
-                    {decision ? <span className="text-[11px] text-jade">→ {decision}</span> : null}
-                  </li>
-                )
-              })}
-            </ol>
-            {hiddenSteps > 0 ? (
-              <p className="text-[11px] text-ink-3">
-                {format(t.ops.report.moreEvents, { count: hiddenSteps })}
-              </p>
-            ) : null}
+            <div className="space-y-1">
+              <h2 className="label-caps text-ink-2">{edu.lessons.title}</h2>
+              <p className="text-[12px] leading-relaxed text-ink-2">{edu.lessons.lead}</p>
+            </div>
+            <ul className="space-y-2">
+              {lessons.slice(0, 3).map((lesson, index) => (
+                <li
+                  key={`${index}-${lesson}`}
+                  className="flex items-start gap-2 text-[12px] text-ink-2"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="mt-1.5 size-1.5 shrink-0 rounded-full bg-jade"
+                  />
+                  <span>{lesson}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="text-[11px] text-ink-3">{edu.lessons.next}</p>
           </Panel>
 
           <Panel className="space-y-3 p-5">
@@ -442,6 +587,28 @@ export function ReportScreen() {
             )}
           </Panel>
 
+          <Glossary copy={edu.glossary} />
+
+          <Panel className="space-y-3 p-5">
+            <h2 className="label-caps text-ink-2">{edu.data.title}</h2>
+            <p className="text-[12px] leading-relaxed text-ink-2">{edu.data.lead}</p>
+            <ul className="space-y-2 text-[12px] leading-relaxed text-ink-2">
+              <li>{edu.data.donki}</li>
+              <li>{edu.data.power}</li>
+              <li>{edu.data.hardware}</li>
+              <li>{edu.data.challenges}</li>
+            </ul>
+            <details className="text-[11px] text-ink-3">
+              <summary className="cursor-pointer select-none hover:text-ink">
+                {edu.data.model}
+              </summary>
+              <p className="mt-1">{edu.data.modelLead}</p>
+              <div className="mt-3">
+                <ModelPanel />
+              </div>
+            </details>
+          </Panel>
+
           <section className="space-y-3">
             <div>
               <h2 className="label-caps text-ink-2">{t.ops.report.missionCard}</h2>
@@ -458,9 +625,7 @@ export function ReportScreen() {
             />
           </section>
 
-          <ModelPanel />
-
-          <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
+          <div className="no-print flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
             <div className="flex flex-wrap gap-2">
               <Button variant="secondary" onClick={() => (window.location.hash = '#/simulate')}>
                 {t.ops.report.back}
@@ -470,6 +635,9 @@ export function ReportScreen() {
               </Button>
               <Button variant="ghost" onClick={() => (window.location.hash = '#/brief')}>
                 {t.ops.report.designAgain}
+              </Button>
+              <Button variant="ghost" onClick={printReport}>
+                {edu.print}
               </Button>
             </div>
             <Button variant="primary" onClick={share}>
