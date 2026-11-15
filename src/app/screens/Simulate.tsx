@@ -10,6 +10,7 @@ import { useMissionStore } from '@/store/mission'
 import { useI18n } from '@/store/ui'
 import { Badge } from '@/ui/Badge'
 import { Button } from '@/ui/Button'
+import { format } from '@/ui/game/format'
 import { Panel } from '@/ui/Panel'
 
 function severityTone(severity: GameEvent['severity']) {
@@ -132,7 +133,7 @@ export function SimulateScreen() {
                   : 'danger'
             }
           >
-            {simulation.verdict}
+            {t.ops.report[simulation.verdict]}
           </Badge>
           <span className="num text-2xl font-semibold text-ink">{simulation.score.total}</span>
           <span className="label-caps text-ink-3">{simulation.score.grade}</span>
@@ -143,7 +144,7 @@ export function SimulateScreen() {
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="label-caps text-ink-2">{t.ops.simulate.event}</h2>
           <span className="text-[11px] text-ink-3">
-            {events.length} events · {duration} days
+            {format(t.ops.simulate.counts, { events: events.length, days: duration })}
           </span>
         </div>
 
@@ -195,19 +196,19 @@ export function SimulateScreen() {
         {day ? (
           <div className="grid grid-cols-2 gap-3 text-[11px] sm:grid-cols-4">
             <span className="rounded-sm border border-border bg-surface-2/40 p-2">
-              <span className="label-caps block text-ink-3">Power</span>
+              <span className="label-caps block text-ink-3">{t.ops.simulate.stat.power}</span>
               <span className="num text-ink">{day.powerGeneratedW} W</span>
             </span>
             <span className="rounded-sm border border-border bg-surface-2/40 p-2">
-              <span className="label-caps block text-ink-3">Load</span>
+              <span className="label-caps block text-ink-3">{t.ops.simulate.stat.load}</span>
               <span className="num text-ink">{day.loadW} W</span>
             </span>
             <span className="rounded-sm border border-border bg-surface-2/40 p-2">
-              <span className="label-caps block text-ink-3">Battery</span>
+              <span className="label-caps block text-ink-3">{t.ops.simulate.stat.battery}</span>
               <span className="num text-ink">{day.batterySocWh} Wh</span>
             </span>
             <span className="rounded-sm border border-border bg-surface-2/40 p-2">
-              <span className="label-caps block text-ink-3">Buffer</span>
+              <span className="label-caps block text-ink-3">{t.ops.simulate.stat.buffer}</span>
               <span className="num text-ink">{day.bufferGb} Gb</span>
             </span>
           </div>
@@ -243,7 +244,9 @@ export function SimulateScreen() {
                         {roleCopy[event.role] ?? event.role}
                       </span>
                     </span>
-                    <Badge tone={severityTone(event.severity)}>{event.severity}</Badge>
+                    <Badge tone={severityTone(event.severity)}>
+                      {t.common.severity[event.severity]}
+                    </Badge>
                   </button>
                 </li>
               )
@@ -285,7 +288,7 @@ export function SimulateScreen() {
                           {option.effect.costUsdM ? (
                             <Badge tone="warning">${option.effect.costUsdM}M</Badge>
                           ) : null}
-                          {applied ? <Badge tone="success">applied</Badge> : null}
+                          {applied ? <Badge tone="success">{t.ops.simulate.applied}</Badge> : null}
                         </span>
                       </span>
                       <span className="mt-1 block text-[11px] leading-relaxed text-ink-3">
@@ -296,13 +299,11 @@ export function SimulateScreen() {
                 })}
               </div>
               {appliedOption ? (
-                <p className="text-[11px] text-ink-3">
-                  The mission was re-simulated with this decision.
-                </p>
+                <p className="text-[11px] text-ink-3">{t.ops.simulate.resimulated}</p>
               ) : null}
             </>
           ) : (
-            <p className="text-[12px] text-ink-3">No events in this mission.</p>
+            <p className="text-[12px] text-ink-3">{t.ops.simulate.noEvents}</p>
           )}
         </Panel>
       </div>

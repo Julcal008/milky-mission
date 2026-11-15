@@ -17,6 +17,7 @@ import { simulateMission } from '@/engine/simulator'
 import type {
   MissionConfig,
   MissionDraft,
+  ScenarioId,
   SimulationResult,
   ValidationResult,
 } from '@/engine/types'
@@ -48,6 +49,7 @@ interface MissionState {
   report: MissionReport | null
 
   setDraft: (patch: Partial<MissionDraft>) => void
+  startScenario: (scenarioId: ScenarioId) => void
   setPlayers: (players: number) => void
   setDecision: (eventId: string, optionId: string) => void
   simulate: () => SimulationResult | null
@@ -156,6 +158,18 @@ export const useMissionStore = create<MissionState>((set, get) => ({
   },
 
   setPlayers: (players) => set({ players: Math.min(4, Math.max(1, Math.round(players))) }),
+
+  startScenario: (scenarioId) => {
+    const draft: MissionDraft = { ...createEmptyDraft(), scenarioId }
+    const result = evaluate(draft)
+    set({
+      draft,
+      ...result,
+      decisions: [],
+      simulation: null,
+      report: null,
+    })
+  },
 
   setDecision: (eventId, optionId) => {
     const others = get().decisions.filter((choice) => choice.eventId !== eventId)

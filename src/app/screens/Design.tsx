@@ -451,13 +451,17 @@ export function DesignScreen() {
             <div className="flex items-center justify-between gap-2">
               <h2 className="label-caps text-ink-2">{t.game.review.budgets}</h2>
               <Badge tone={!validation ? 'warning' : validation.ok ? 'success' : 'danger'}>
-                {!validation ? t.game.design.incomplete : validation.ok ? 'OK' : 'Issues'}
+                {!validation
+                  ? t.game.design.incomplete
+                  : validation.ok
+                    ? t.game.review.ok
+                    : t.game.review.issues}
               </Badge>
             </div>
             {budgets ? (
               <>
                 <ResourceBar
-                  label="Mass"
+                  label={t.game.design.gauges.mass}
                   value={budgets.massKg}
                   max={budgets.massCapacityKg || 1}
                   unit="kg"
@@ -468,7 +472,7 @@ export function DesignScreen() {
                   }
                 />
                 <ResourceBar
-                  label="Power"
+                  label={t.game.design.gauges.power}
                   value={Math.max(0, budgets.powerMarginW)}
                   max={100}
                   unit="W"
@@ -483,7 +487,7 @@ export function DesignScreen() {
                   }
                 />
                 <ResourceBar
-                  label="Budget"
+                  label={t.game.design.gauges.budget}
                   value={budgets.costUsdM}
                   max={budgets.budgetUsdM}
                   unit="$M"
@@ -492,7 +496,7 @@ export function DesignScreen() {
                   statusTone={budgets.costUsdM > budgets.budgetUsdM ? 'danger' : 'success'}
                 />
                 <ResourceBar
-                  label="Data"
+                  label={t.game.design.gauges.data}
                   value={budgets.downlinkGbPerDay}
                   max={Math.max(budgets.dataGbPerDay, 0.001)}
                   unit="Gb/day"
@@ -501,7 +505,7 @@ export function DesignScreen() {
                   statusTone={deliveredPct < 70 ? 'warning' : 'success'}
                 />
                 <ResourceBar
-                  label="Mission time"
+                  label={t.game.design.gauges.time}
                   value={budgets.lifetimeDays}
                   max={scenario?.durationDays ?? 365}
                   unit="days"
@@ -514,11 +518,11 @@ export function DesignScreen() {
               </>
             ) : (
               <>
-                <EmptyGauge label="Mass" />
-                <EmptyGauge label="Power" />
-                <EmptyGauge label="Budget" />
-                <EmptyGauge label="Data" />
-                <EmptyGauge label="Mission time" />
+                <EmptyGauge label={t.game.design.gauges.mass} />
+                <EmptyGauge label={t.game.design.gauges.power} />
+                <EmptyGauge label={t.game.design.gauges.budget} />
+                <EmptyGauge label={t.game.design.gauges.data} />
+                <EmptyGauge label={t.game.design.gauges.time} />
               </>
             )}
           </Panel>
@@ -556,7 +560,7 @@ export function DesignScreen() {
                             : 'info'
                       }
                     >
-                      {issue.severity}
+                      {t.common.severity[issue.severity]}
                     </Badge>
                     <span className="text-[12px] leading-relaxed text-ink-2">
                       {validationCopy[issue.code] ?? issue.code}

@@ -21,7 +21,7 @@ export function Brief() {
   const { t, lang } = useI18n()
   const draft = useMissionStore((state) => state.draft)
   const players = useMissionStore((state) => state.players)
-  const setDraft = useMissionStore((state) => state.setDraft)
+  const startScenario = useMissionStore((state) => state.startScenario)
   const setPlayers = useMissionStore((state) => state.setPlayers)
   const loadExample = useMissionStore((state) => state.loadExample)
   const [scenarioId, setScenarioId] = useState<ScenarioId | null>(draft.scenarioId ?? null)
@@ -30,7 +30,7 @@ export function Brief() {
     if (!scenarioId) {
       return
     }
-    setDraft({ scenarioId })
+    startScenario(scenarioId)
     window.location.hash = '#/design'
   }
 

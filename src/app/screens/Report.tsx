@@ -200,7 +200,7 @@ export function ReportScreen() {
     try {
       await navigator.clipboard.writeText(url)
     } catch {
-      window.prompt('Copy this link', url)
+      window.prompt(t.ops.report.copyPrompt, url)
     }
     setCopied(true)
   }
@@ -309,10 +309,10 @@ export function ReportScreen() {
                   }
                 >
                   {requirement.fraction >= 0.99
-                    ? 'met'
+                    ? t.ops.report.requirementMet
                     : requirement.fraction > 0
-                      ? 'partial'
-                      : 'failed'}
+                      ? t.ops.report.requirementPartial
+                      : t.ops.report.requirementFailed}
                 </Badge>
               </li>
             ))}
@@ -366,7 +366,7 @@ export function ReportScreen() {
                         : 'info'
                   }
                 >
-                  {step.severity}
+                  {t.common.severity[step.severity]}
                 </Badge>
                 {decision ? <span className="text-[11px] text-jade">→ {decision}</span> : null}
               </li>
@@ -374,7 +374,9 @@ export function ReportScreen() {
           })}
         </ol>
         {hiddenSteps > 0 ? (
-          <p className="text-[11px] text-ink-3">+ {hiddenSteps} more events in the full log</p>
+          <p className="text-[11px] text-ink-3">
+            {format(t.ops.report.moreEvents, { count: hiddenSteps })}
+          </p>
         ) : null}
       </Panel>
 

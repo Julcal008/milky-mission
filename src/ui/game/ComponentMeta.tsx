@@ -55,7 +55,6 @@ export function ComponentMeta({ kind, item }: { kind: MetaKind; item: MetaItem }
 
   let line = ''
   let source = ''
-  let confidence = ''
 
   switch (kind) {
     case 'orbit': {
@@ -69,7 +68,6 @@ export function ComponentMeta({ kind, item }: { kind: MetaKind; item: MetaItem }
         dose: orbit.radiationKradYear,
       })
       source = orbit.source
-      confidence = orbit.confidence
       break
     }
     case 'launcher': {
@@ -81,7 +79,6 @@ export function ComponentMeta({ kind, item }: { kind: MetaKind; item: MetaItem }
         fixed: launcher.fixedOrbit ? meta.fixedYes : meta.fixedNo,
       })
       source = launcher.source
-      confidence = launcher.confidence
       break
     }
     case 'bus': {
@@ -93,7 +90,6 @@ export function ComponentMeta({ kind, item }: { kind: MetaKind; item: MetaItem }
         reliability: Math.round(bus.reliabilityPerYear * 100),
       })
       source = bus.source
-      confidence = bus.confidence
       break
     }
     case 'propulsion': {
@@ -104,7 +100,6 @@ export function ComponentMeta({ kind, item }: { kind: MetaKind; item: MetaItem }
         isp: propulsion.ispS,
       })
       source = propulsion.source
-      confidence = propulsion.confidence
       break
     }
     case 'array': {
@@ -115,7 +110,6 @@ export function ComponentMeta({ kind, item }: { kind: MetaKind; item: MetaItem }
         degradation: Math.round(array.degradationPerYear * 100),
       })
       source = array.source
-      confidence = array.confidence
       break
     }
     case 'battery': {
@@ -126,7 +120,6 @@ export function ComponentMeta({ kind, item }: { kind: MetaKind; item: MetaItem }
         dod: Math.round(battery.maxDoD * 100),
       })
       source = battery.source
-      confidence = battery.confidence
       break
     }
     case 'comms': {
@@ -139,7 +132,6 @@ export function ComponentMeta({ kind, item }: { kind: MetaKind; item: MetaItem }
         gain: comms.antennaGainDbi,
       })
       source = comms.source
-      confidence = comms.confidence
       break
     }
     case 'network': {
@@ -149,14 +141,12 @@ export function ComponentMeta({ kind, item }: { kind: MetaKind; item: MetaItem }
         multiplier: network.passesMultiplier,
       })
       source = network.source
-      confidence = network.confidence
       break
     }
     case 'storage': {
       const storage = item as StorageSpec
       line = format(meta.storage, { capacity: storage.capacityGb, mass: storage.massKg })
       source = storage.source
-      confidence = storage.confidence
       break
     }
     case 'instrument': {
@@ -171,10 +161,11 @@ export function ComponentMeta({ kind, item }: { kind: MetaKind; item: MetaItem }
         trl: instrument.trl,
       })
       source = instrument.source
-      confidence = instrument.confidence
       break
     }
   }
+
+  const confidenceLabel = t.game.meta.confidence[item.confidence]
 
   return (
     <div className="rounded-md border border-border/70 bg-surface-2/30 p-3">
@@ -188,7 +179,9 @@ export function ComponentMeta({ kind, item }: { kind: MetaKind; item: MetaItem }
         </div>
       ) : null}
       <p className="text-[11px] leading-relaxed text-ink-2">{line}</p>
-      <p className="mt-1 text-[10px] text-ink-3">{format(meta.source, { source, confidence })}</p>
+      <p className="mt-1 text-[10px] text-ink-3">
+        {format(meta.source, { source, confidence: confidenceLabel })}
+      </p>
     </div>
   )
 }
