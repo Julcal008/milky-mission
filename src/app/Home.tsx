@@ -32,9 +32,9 @@ export function Home() {
           <p className="label-caps mb-3 text-left text-ink-3 landscape:text-right">
             {t.start.eyebrow}
           </p>
-          <h1 className="sun-title text-left font-display text-[clamp(3rem,14vw,5rem)] font-bold uppercase leading-[0.82] tracking-[-0.03em] landscape:text-right landscape:text-[clamp(2.5rem,9vw,7.5rem)] lg:text-[clamp(4rem,9vw,8rem)]">
-            <span className="block">Milky</span>
-            <span className="block">Mission</span>
+          <h1 className="sun-title text-left text-[clamp(3rem,14vw,5rem)] landscape:text-right landscape:text-[clamp(2.5rem,9vw,7.5rem)] lg:text-[clamp(4rem,9vw,8rem)]">
+            <span className="block">MILKY</span>
+            <span className="block">MISSION</span>
           </h1>
         </div>
       </div>
