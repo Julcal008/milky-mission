@@ -184,7 +184,8 @@ never an automatic switch.
 - Portrait: wordmark, primary action and tagline stack automatically.
 - Above the wordmark: a small caps eyebrow with the event context
   (`NASA Space Apps Challenge 2026 · Neiva`).
-- Wordmark: Space Grotesk 700, cream → mauve → coral gradient, tight leading.
+- Wordmark: Fredoka 700, moving pink → yellow → cyan → violet gradient (8 s), soft
+  blue glow. Reduced motion stops the shine.
 - Backdrop: ported solarpunk scene (deterministic starfield, moon, six planets, two
   satellites and Earth). Decorative only: `aria-hidden`, `pointer-events-none`, and
   animations disabled under reduced motion.
@@ -259,6 +260,7 @@ next event instead of animating.
 |---|---|
 | `src/styles/tokens.css` | `@theme` tokens; single source of color, type, radius |
 | `src/styles/global.css` | Imports, base styles, utilities, reduced motion |
+| `src/styles/fonts/fredoka-latin.woff2` | Fredoka wordmark font (OFL) |
 | `src/ui/Button.tsx` | Variants and sizes |
 | `src/ui/Badge.tsx` | Status tones |
 | `src/ui/Panel.tsx` | Card container |
