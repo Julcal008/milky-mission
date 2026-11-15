@@ -1,11 +1,14 @@
 # Track B — Experience & Visual · status
 
 **Owner:** @AngelicaHueje707-glitch
-**Updated:** 2026-11-14 18:10 (America/Bogota)
+**Updated:** 2026-11-14 18:45 (America/Bogota)
 
 ## Now
 
-- Start screen at `#/` with solarpunk treatment and the six-color palette.
+- Start screen at `#/` with the solarpunk treatment and the six-color palette.
+- **Ported backdrop:** deterministic starfield, moon, six planets, two satellites and
+  Earth in `src/ui/menu/MenuBackground.tsx` (palette-only, aria-hidden, reduced-motion
+  aware, pointer parallax).
 - Palette tokens added additively (`jade`, `indigo`, `plum`, `mauve`, `coral`, `cream`);
   existing semantic tokens are unchanged.
 - **Menu polish:** event eyebrow above the wordmark, viewport-height hero, equal-height
@@ -35,7 +38,7 @@
 
 ## Editing now (lock)
 
-- `src/app/{Home,Brief}.tsx`, `src/i18n/menu.*`, `docs/DESIGN_SYSTEM.md`.
+- `src/app/Home.tsx`, `src/ui/menu/*`, `src/styles/global.css`, `docs/DESIGN_SYSTEM.md`.
 
 ## Notes
 

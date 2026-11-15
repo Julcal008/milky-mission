@@ -3,50 +3,19 @@
  * Owner: Track B (Experience).
  *
  * One primary action: start. The wordmark sits on the right in landscape and
- * stacks above the action in portrait. Decorations are limited to one sun and
- * two orbital arcs so the screen never competes with the call to action.
+ * stacks above the action in portrait. The animated backdrop is decorative only.
  */
 import { useI18n } from '@/store/ui'
+import { MenuBackground } from '@/ui/menu/MenuBackground'
 
 export function Home() {
   const { t } = useI18n()
 
   return (
-    <section className="solar-bg relative isolate flex min-h-[65svh] items-center overflow-hidden sm:min-h-[calc(100svh_-_15rem)]">
-      <div
-        aria-hidden="true"
-        className="solar-sun absolute right-1/2 top-1/2 size-[24rem] -translate-y-1/2 translate-x-1/2 rounded-full landscape:right-[-6%] landscape:size-[34rem] landscape:translate-x-0 lg:size-[40rem]"
-      />
+    <section className="relative isolate flex min-h-[65svh] items-center overflow-hidden sm:min-h-[calc(100svh_-_15rem)]">
+      <MenuBackground />
 
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 800 800"
-        className="pointer-events-none absolute right-1/2 top-1/2 h-[30rem] w-[30rem] -translate-y-1/2 translate-x-1/2 opacity-60 landscape:right-[-4%] landscape:h-[38rem] landscape:w-[38rem] landscape:translate-x-0 lg:h-[44rem] lg:w-[44rem]"
-      >
-        <circle
-          cx="400"
-          cy="400"
-          r="250"
-          fill="none"
-          stroke="var(--color-jade)"
-          strokeOpacity="0.35"
-          strokeWidth="1"
-          strokeDasharray="2 10"
-        />
-        <circle
-          cx="400"
-          cy="400"
-          r="330"
-          fill="none"
-          stroke="var(--color-indigo)"
-          strokeOpacity="0.45"
-          strokeWidth="1"
-          strokeDasharray="1 14"
-        />
-        <circle cx="650" cy="400" r="4" fill="var(--color-cream)" />
-      </svg>
-
-      <div className="relative grid w-full items-center gap-10 landscape:grid-cols-[minmax(0,0.9fr)_minmax(0,1.4fr)] landscape:gap-8 lg:gap-16">
+      <div className="relative z-10 grid w-full items-center gap-10 landscape:grid-cols-[minmax(0,0.9fr)_minmax(0,1.4fr)] landscape:gap-8 lg:gap-16">
         <div className="order-2 flex w-full flex-col items-start gap-4 landscape:order-1 landscape:max-w-sm">
           <a
             href="#/brief"
