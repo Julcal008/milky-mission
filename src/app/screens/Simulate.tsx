@@ -1,21 +1,26 @@
 /**
  * Simulate screen — Owner: Track A (UI sprint).
- * Timeline, events, decisions and re-simulation. No physics here: the engine
- * produces the result and this screen renders it.
+ * Timeline, auto-play, event modals, decisions and re-simulation. No physics
+ * here: the engine produces the result and this screen renders it.
  */
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { decisionOptionsFor } from '@/engine/decisions'
 import type { GameEvent } from '@/engine/types'
 import { MaskIcon } from '@/app/visuals/MaskIcon'
-import { AiArtBadge } from '@/app/visuals/AiArtBadge'
 import { AiBackdrop } from '@/app/visuals/AiBackdrop'
-import { visualUrl } from '@/app/visuals/assets'
 import { useMissionStore } from '@/store/mission'
 import { useI18n } from '@/store/ui'
 import { syncShareUrl } from '@/app/share-url'
 import { Badge } from '@/ui/Badge'
 import { Button } from '@/ui/Button'
+import { DecisionModal } from '@/ui/game/DecisionModal'
 import { format } from '@/ui/game/format'
+import {
+  advancePlaybackDay,
+  PLAYBACK_SPEEDS,
+  PLAYBACK_TICK_MS,
+  type PlaybackSpeed,
+} from '@/ui/game/playback'
 import { Panel } from '@/ui/Panel'
 
 function severityTone(severity: GameEvent['severity']) {
@@ -43,11 +48,16 @@ export function SimulateScreen() {
   const simulation = useMissionStore((state) => state.simulation)
   const decisions = useMissionStore((state) => state.decisions)
   const simulate = useMissionStore((state) => state.simulate)
-  const setDecision = useMissionStore((state) => state.setDecision)
+  const applyDecision = useMissionStore((state) => state.applyDecision)
+  const restartSimulation = useMissionStore((state) => state.restartSimulation)
 
-  const [selectedEventId, setSelectedEventId] = useState<string | null>(null)
-  const [selectedDay, setSelectedDay] = useState(1)
+  const [currentDay, setCurrentDay] = useState(1)
+  const [playing, setPlaying] = useState(true)
+  const [speed, setSpeed] = useState<PlaybackSpeed>(1)
+  const [pendingEventId, setPendingEventId] = useState<string | null>(null)
+  const [acknowledged, setAcknowledged] = useState<Set<string>>(() => new Set())
   const autoStarted = useRef(false)
+  const initialized = useRef(false)
 
   useEffect(() => {
     if (!autoStarted.current && !simulation && config) {
@@ -57,15 +67,60 @@ export function SimulateScreen() {
   }, [simulation, simulate, config])
 
   useEffect(() => {
-    if (!simulation || selectedEventId) {
+    if (!simulation || initialized.current) {
       return
     }
-    const first =
-      simulation.events.find((event) => event.severity === 'critical') ?? simulation.events[0]
-    if (first) {
-      setSelectedDay(first.day)
+    initialized.current = true
+    setCurrentDay(1)
+    setPlaying(true)
+    setPendingEventId(null)
+    setAcknowledged(new Set())
+  }, [simulation])
+
+  const duration = simulation?.days.length ?? 0
+  const resolvedEventIds = useMemo(
+    () => new Set([...decisions.map((choice) => choice.eventId), ...acknowledged]),
+    [decisions, acknowledged],
+  )
+  const unresolvedEventDays = useMemo(
+    () =>
+      simulation
+        ? simulation.events
+            .filter((event) => !resolvedEventIds.has(event.id))
+            .map((event) => event.day)
+            .sort((a, b) => a - b)
+        : [],
+    [simulation, resolvedEventIds],
+  )
+
+  useEffect(() => {
+    if (!simulation || !playing || pendingEventId) {
+      return
     }
-  }, [simulation, selectedEventId])
+    const timer = window.setInterval(() => {
+      setCurrentDay((day) => advancePlaybackDay(day, speed, duration, unresolvedEventDays))
+    }, PLAYBACK_TICK_MS)
+    return () => window.clearInterval(timer)
+  }, [simulation, playing, pendingEventId, speed, duration, unresolvedEventDays])
+
+  useEffect(() => {
+    if (duration > 0 && currentDay >= duration) {
+      setPlaying(false)
+    }
+  }, [currentDay, duration])
+
+  useEffect(() => {
+    if (!simulation || pendingEventId) {
+      return
+    }
+    const event = simulation.events.find(
+      (item) => item.day === currentDay && !resolvedEventIds.has(item.id),
+    )
+    if (event) {
+      setPendingEventId(event.id)
+      setPlaying(false)
+    }
+  }, [currentDay, simulation, pendingEventId, resolvedEventIds])
 
   const eventCopy = t.game.event as Record<string, string>
   const roleCopy = t.game.roles as Record<string, string>
@@ -80,10 +135,53 @@ export function SimulateScreen() {
     return eventCopy[key] ?? event.titleKey
   }
 
+  const restart = () => {
+    restartSimulation()
+    setCurrentDay(1)
+    setAcknowledged(new Set())
+    setPendingEventId(null)
+    setPlaying(true)
+    syncShareUrl(useMissionStore.getState().shareCode())
+  }
+
+  const togglePlay = () => {
+    if (!simulation) {
+      return
+    }
+    if (currentDay >= duration) {
+      restart()
+      return
+    }
+    if (!playing) {
+      const atCurrentDay = simulation.events.find(
+        (event) => event.day === currentDay && !resolvedEventIds.has(event.id),
+      )
+      if (atCurrentDay) {
+        setPendingEventId(atCurrentDay.id)
+        setPlaying(false)
+        return
+      }
+    }
+    setPlaying((value) => !value)
+  }
+
+  const seek = (day: number) => {
+    setPlaying(false)
+    setCurrentDay(Math.min(Math.max(day, 1), duration || 1))
+  }
+
+  const openEvent = (event: GameEvent) => {
+    setPlaying(false)
+    setCurrentDay(event.day)
+    setPendingEventId(event.id)
+  }
+
   const runMission = () => {
     simulate()
-    setSelectedEventId(null)
-    setSelectedDay(1)
+    setCurrentDay(1)
+    setAcknowledged(new Set())
+    setPendingEventId(null)
+    setPlaying(true)
   }
 
   if (!config) {
@@ -119,24 +217,39 @@ export function SimulateScreen() {
   }
 
   const events = simulation.events
-  const defaultEvent = events.find((event) => event.severity === 'critical') ?? events[0] ?? null
-  const selectedEvent = events.find((event) => event.id === selectedEventId) ?? defaultEvent
-  const options = selectedEvent ? decisionOptionsFor(selectedEvent.type) : []
-  const appliedOption = selectedEvent
-    ? decisions.find((decision) => decision.eventId === selectedEvent.id)?.optionId
+  const pendingEvent = events.find((event) => event.id === pendingEventId) ?? null
+  const pendingOptions = pendingEvent ? decisionOptionsFor(pendingEvent.type) : []
+  const pendingDecision = pendingEvent
+    ? decisions.find((decision) => decision.eventId === pendingEvent.id)?.optionId
     : undefined
-
-  const duration = simulation.days.length
-  const dayIndex = Math.min(Math.max(selectedDay, 1), duration)
+  const dayIndex = Math.min(Math.max(currentDay, 1), duration)
   const day = simulation.days[dayIndex - 1]
   const stormActive = events.some(
     (event) => event.type === 'cme_hit' && dayIndex >= event.day && dayIndex <= event.day + 2,
   )
+  const nextEvent =
+    events
+      .filter((event) => !resolvedEventIds.has(event.id) && event.day > dayIndex)
+      .sort((a, b) => a.day - b.day)[0] ?? null
+  const complete = currentDay >= duration
 
-  const applyDecision = (event: GameEvent, optionId: string) => {
-    setDecision(event.id, optionId)
-    simulate()
+  const chooseDecision = (optionId: string) => {
+    if (!pendingEvent) {
+      return
+    }
+    applyDecision(pendingEvent.id, optionId)
+    setPendingEventId(null)
+    setPlaying(true)
     syncShareUrl(useMissionStore.getState().shareCode())
+  }
+
+  const continueAlert = () => {
+    if (!pendingEvent) {
+      return
+    }
+    setAcknowledged((current) => new Set(current).add(pendingEvent.id))
+    setPendingEventId(null)
+    setPlaying(true)
   }
 
   return (
@@ -172,6 +285,42 @@ export function SimulateScreen() {
         </header>
 
         <Panel className="space-y-4 p-5">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap items-center gap-2">
+              <Button
+                size="sm"
+                variant={playing ? 'secondary' : 'primary'}
+                onClick={togglePlay}
+                aria-label={playing ? t.ops.simulate.pause : t.ops.simulate.play}
+              >
+                {playing ? t.ops.simulate.pause : t.ops.simulate.play}
+              </Button>
+              <div
+                role="group"
+                aria-label={t.ops.simulate.speedLabel}
+                className="flex items-center gap-1"
+              >
+                {PLAYBACK_SPEEDS.map((value) => (
+                  <Button
+                    key={value}
+                    size="sm"
+                    variant={speed === value ? 'primary' : 'ghost'}
+                    aria-pressed={speed === value}
+                    onClick={() => setSpeed(value)}
+                  >
+                    {value}×
+                  </Button>
+                ))}
+              </div>
+              <Button size="sm" variant="ghost" onClick={restart}>
+                {t.ops.simulate.restart}
+              </Button>
+            </div>
+            <span className="num text-[12px] text-ink-2">
+              {format(t.ops.simulate.dayProgress, { day: dayIndex, days: duration })}
+            </span>
+          </div>
+
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="label-caps text-ink-2">{t.ops.simulate.event}</h2>
             <span className="text-[11px] text-ink-3">
@@ -183,15 +332,13 @@ export function SimulateScreen() {
             <div className="absolute inset-x-0 top-3 h-1.5 rounded-full bg-surface-2" />
             {events.map((event) => {
               const left = duration > 1 ? ((event.day - 1) / (duration - 1)) * 100 : 0
-              const active = selectedEvent?.id === event.id
+              const active = pendingEvent?.id === event.id
+              const resolved = resolvedEventIds.has(event.id)
               return (
                 <button
                   key={event.id}
                   type="button"
-                  onClick={() => {
-                    setSelectedEventId(event.id)
-                    setSelectedDay(event.day)
-                  }}
+                  onClick={() => openEvent(event)}
                   title={`${t.ops.simulate.day} ${event.day}: ${eventTitle(event)}`}
                   aria-label={`${t.ops.simulate.day} ${event.day}: ${eventTitle(event)}`}
                   className={[
@@ -202,6 +349,7 @@ export function SimulateScreen() {
                         ? 'border-warning bg-warning'
                         : 'border-ion bg-ion',
                     active ? 'scale-150' : 'hover:scale-125',
+                    resolved ? 'opacity-50' : '',
                   ].join(' ')}
                   style={{ left: `${left}%` }}
                 />
@@ -215,7 +363,7 @@ export function SimulateScreen() {
               min={1}
               max={duration}
               value={dayIndex}
-              onChange={(event) => setSelectedDay(Number(event.target.value))}
+              onChange={(event) => seek(Number(event.target.value))}
               className="w-full accent-cream"
               aria-label={t.ops.simulate.day}
             />
@@ -251,15 +399,17 @@ export function SimulateScreen() {
             <h2 className="label-caps text-ink-2">{t.ops.simulate.event}</h2>
             <ul className="space-y-2">
               {events.map((event) => {
-                const active = selectedEvent?.id === event.id
+                const active = pendingEvent?.id === event.id
+                const choice = decisions.find((decision) => decision.eventId === event.id)
+                const chosen = choice
+                  ? decisionOptionsFor(event.type).find((option) => option.id === choice.optionId)
+                  : null
+                const chosenLabel = chosen ? (decisionCopy[chosen.labelKey] ?? chosen.id) : null
                 return (
                   <li key={event.id}>
                     <button
                       type="button"
-                      onClick={() => {
-                        setSelectedEventId(event.id)
-                        setSelectedDay(event.day)
-                      }}
+                      onClick={() => openEvent(event)}
                       className={[
                         'flex w-full items-start justify-between gap-3 rounded-md border p-3 text-left transition-colors',
                         active
@@ -280,6 +430,11 @@ export function SimulateScreen() {
                         <span className="block text-[11px] text-ink-3">
                           {roleCopy[event.role] ?? event.role}
                         </span>
+                        {chosenLabel ? (
+                          <span className="block text-[11px] text-jade">
+                            {t.ops.simulate.applied}: {chosenLabel}
+                          </span>
+                        ) : null}
                       </span>
                       <Badge tone={severityTone(event.severity)}>
                         {t.common.severity[event.severity]}
@@ -291,66 +446,68 @@ export function SimulateScreen() {
             </ul>
           </Panel>
 
-          <Panel className="relative overflow-hidden space-y-4 p-5">
-            <img
-              src={visualUrl('simulate/decision-modal-bg.webp')}
-              alt=""
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-20"
-            />
-            <AiArtBadge className="absolute right-3 top-3 z-20" />
-            <div className="relative z-10 space-y-4">
-              <h2 className="label-caps text-ink-2">{t.ops.simulate.decision}</h2>
-              {selectedEvent ? (
-                <>
-                  <div>
-                    <p className="text-[13px] font-medium text-ink">{eventTitle(selectedEvent)}</p>
-                    <p className="mt-1 text-[11px] text-ink-3">
-                      {roleCopy[selectedEvent.role] ?? selectedEvent.role} · {t.ops.simulate.day}{' '}
-                      {selectedEvent.day}
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    {options.map((option) => {
-                      const applied = appliedOption === option.id
-                      return (
-                        <button
-                          key={option.id}
-                          type="button"
-                          onClick={() => applyDecision(selectedEvent, option.id)}
-                          className={[
-                            'w-full rounded-md border p-3 text-left transition-colors',
-                            applied
-                              ? 'border-jade/60 bg-jade/10'
-                              : 'border-border bg-surface-2/30 hover:border-border-strong',
-                          ].join(' ')}
-                        >
-                          <span className="flex items-start justify-between gap-2">
-                            <span className="text-[12px] font-medium text-ink">
-                              {decisionCopy[option.labelKey] ?? option.id}
-                            </span>
-                            <span className="flex shrink-0 items-center gap-1">
-                              {option.effect.costUsdM ? (
-                                <Badge tone="warning">${option.effect.costUsdM}M</Badge>
-                              ) : null}
-                              {applied ? (
-                                <Badge tone="success">{t.ops.simulate.applied}</Badge>
-                              ) : null}
-                            </span>
-                          </span>
-                          <span className="mt-1 block text-[11px] leading-relaxed text-ink-3">
-                            {decisionCopy[option.descriptionKey] ?? ''}
-                          </span>
-                        </button>
-                      )
-                    })}
-                  </div>
-                  {appliedOption ? (
-                    <p className="text-[11px] text-ink-3">{t.ops.simulate.resimulated}</p>
-                  ) : null}
-                </>
+          <Panel className="space-y-4 p-5">
+            <div>
+              <h2 className="label-caps text-ink-2">{t.ops.simulate.playback}</h2>
+              <p className="mt-1 text-[12px] leading-relaxed text-ink-2">
+                {complete ? t.ops.simulate.completeLead : t.ops.simulate.autoLead}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="rounded-md border border-border bg-surface-2/40 p-3">
+                <span className="label-caps block text-ink-3">{t.ops.simulate.day}</span>
+                <span className="num text-xl text-ink">{dayIndex}</span>
+                <span className="text-[11px] text-ink-3"> / {duration}</span>
+              </div>
+              <div className="rounded-md border border-border bg-surface-2/40 p-3">
+                <span className="label-caps block text-ink-3">{t.ops.simulate.history}</span>
+                <span className="num text-xl text-ink">{decisions.length}</span>
+              </div>
+            </div>
+
+            <div className="rounded-md border border-border bg-surface-2/40 p-3">
+              <span className="label-caps block text-ink-3">{t.ops.simulate.nextStop}</span>
+              {complete ? (
+                <span className="mt-1 inline-flex items-center gap-2 text-[12px] text-success">
+                  <MaskIcon file="shared/icon-severity-success.svg" className="size-4" />
+                  {t.ops.simulate.complete}
+                </span>
+              ) : nextEvent ? (
+                <span className="mt-1 block text-[12px] text-ink">
+                  {t.ops.simulate.day} {nextEvent.day} · {eventTitle(nextEvent)}
+                </span>
               ) : (
-                <p className="text-[12px] text-ink-3">{t.ops.simulate.noEvents}</p>
+                <span className="mt-1 block text-[12px] text-ink-2">{t.ops.simulate.noEvents}</span>
+              )}
+            </div>
+
+            <div>
+              <span className="label-caps block text-ink-3">{t.ops.simulate.history}</span>
+              {decisions.length > 0 ? (
+                <ul className="mt-2 space-y-1.5">
+                  {decisions.map((choice) => {
+                    const event = events.find((item) => item.id === choice.eventId)
+                    const option = event
+                      ? decisionOptionsFor(event.type).find((item) => item.id === choice.optionId)
+                      : null
+                    return (
+                      <li
+                        key={`${choice.eventId}-${choice.optionId}`}
+                        className="flex items-start justify-between gap-2 text-[11px]"
+                      >
+                        <span className="text-ink-2">
+                          {event ? eventTitle(event) : choice.eventId}
+                        </span>
+                        <span className="text-jade">
+                          {option ? (decisionCopy[option.labelKey] ?? option.id) : choice.optionId}
+                        </span>
+                      </li>
+                    )
+                  })}
+                </ul>
+              ) : (
+                <p className="mt-1 text-[11px] text-ink-3">{t.ops.simulate.noDecisions}</p>
               )}
             </div>
           </Panel>
@@ -365,6 +522,31 @@ export function SimulateScreen() {
           </Button>
         </div>
       </div>
+
+      {pendingEvent ? (
+        <DecisionModal
+          dayLabel={`${t.ops.simulate.day} ${pendingEvent.day}`}
+          eventTitle={eventTitle(pendingEvent)}
+          roleLabel={roleCopy[pendingEvent.role] ?? pendingEvent.role}
+          severityLabel={t.common.severity[pendingEvent.severity]}
+          tone={severityTone(pendingEvent.severity)}
+          options={pendingOptions.map((option) => ({
+            id: option.id,
+            label: decisionCopy[option.labelKey] ?? option.id,
+            description: decisionCopy[option.descriptionKey] ?? '',
+            costUsdM: option.effect.costUsdM,
+          }))}
+          appliedOptionId={pendingDecision}
+          labels={{
+            title: pendingOptions.length ? t.ops.simulate.decisionRequired : t.ops.simulate.alert,
+            paused: t.ops.simulate.paused,
+            continueLabel: t.ops.simulate.continue,
+            applied: t.ops.simulate.applied,
+          }}
+          onChoose={chooseDecision}
+          onContinue={continueAlert}
+        />
+      ) : null}
     </AiBackdrop>
   )
 }
