@@ -13,6 +13,7 @@ export const es = {
     badgePrototype: 'Prototipo',
     comingSoon: 'En desarrollo',
     readDocs: 'Ver documentación',
+    aiArt: 'Ilustración generada por IA',
     severity: {
       error: 'Error',
       warning: 'Advertencia',

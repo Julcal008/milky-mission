@@ -67,10 +67,13 @@ GitHub Actions, GitHub Pages.
 
 **AI use declaration:**
 > We used AI coding assistants (OpenCode agents) to draft code, documentation and UI
-> copy under human review. All scientific data claims were reviewed by the team and are
-> labelled in the app as official, derived, estimate or game. We did not use
-> AI-generated imagery in the submission; any AI-generated asset would carry a visible
-> watermark and would not include NASA branding.
+> copy under human review. We also used **Gemini** to generate decorative background
+> illustrations for the game screens (space and operations ambience). Every AI-generated
+> image is marked in the interface with a visible **“AI-generated illustration”**
+> watermark. These images are decorative only: they do not represent NASA data, hardware,
+> mission results or endorsement, and contain no NASA logos, insignia or mission
+> identifiers. All scientific data claims were reviewed by the team and are labelled in
+> the app as official, derived, estimate or game.
 
 **NASA resources:**
 > - **NASA DONKI (CCMC):** real flare, CME and geomagnetic-storm events (May 2024)
