@@ -19,15 +19,23 @@ const scenarioIds: ScenarioId[] = ['storm-watch', 'andes-flood-watch']
 
 export function Brief() {
   const { t, lang } = useI18n()
-  const config = useMissionStore((state) => state.config)
+  const draft = useMissionStore((state) => state.draft)
   const players = useMissionStore((state) => state.players)
-  const setConfig = useMissionStore((state) => state.setConfig)
+  const setDraft = useMissionStore((state) => state.setDraft)
   const setPlayers = useMissionStore((state) => state.setPlayers)
-  const [scenarioId, setScenarioId] = useState<ScenarioId>(config.scenarioId)
+  const loadExample = useMissionStore((state) => state.loadExample)
+  const [scenarioId, setScenarioId] = useState<ScenarioId | null>(draft.scenarioId ?? null)
 
   function startMission() {
-    const requirements = scenarioFixtures[scenarioId].requirements.slice(0, 3).map((item) => item.id)
-    setConfig({ scenarioId, requirements })
+    if (!scenarioId) {
+      return
+    }
+    setDraft({ scenarioId })
+    window.location.hash = '#/design'
+  }
+
+  function startExample() {
+    loadExample()
     window.location.hash = '#/design'
   }
 
@@ -155,10 +163,18 @@ export function Brief() {
           <button
             type="button"
             onClick={startMission}
+            disabled={!scenarioId}
             aria-describedby="requirements-hint"
-            className="cta-glow inline-flex h-12 w-full items-center justify-center rounded-full bg-cream px-6 font-display text-sm font-semibold tracking-wide text-bg transition-colors duration-200 hover:bg-coral hover:text-on-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cream sm:w-auto"
+            className="cta-glow inline-flex h-12 w-full items-center justify-center rounded-full bg-cream px-6 font-display text-sm font-semibold tracking-wide text-bg transition-colors duration-200 hover:bg-coral hover:text-on-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cream disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
           >
             {t.brief.start}
+          </button>
+          <button
+            type="button"
+            onClick={startExample}
+            className="inline-flex h-10 items-center justify-center rounded-full border border-border px-5 text-[12px] text-ink-2 transition-colors hover:border-border-strong hover:text-ink"
+          >
+            {t.brief.loadExample}
           </button>
         </div>
       </MenuPanel>

@@ -29,11 +29,11 @@ export function SimulateScreen() {
   const autoStarted = useRef(false)
 
   useEffect(() => {
-    if (!autoStarted.current && !simulation) {
+    if (!autoStarted.current && !simulation && config) {
       autoStarted.current = true
       simulate()
     }
-  }, [simulation, simulate])
+  }, [simulation, simulate, config])
 
   useEffect(() => {
     if (!simulation || selectedEventId) {
@@ -63,6 +63,20 @@ export function SimulateScreen() {
     simulate()
     setSelectedEventId(null)
     setSelectedDay(1)
+  }
+
+  if (!config) {
+    return (
+      <div className="mx-auto max-w-3xl space-y-5">
+        <h1 className="font-display text-3xl font-semibold text-ink">{t.ops.simulate.title}</h1>
+        <Panel className="space-y-4 p-6">
+          <p className="text-[13px] text-ink-2">{t.ops.simulate.completeDesign}</p>
+          <Button variant="primary" onClick={() => (window.location.hash = '#/design')}>
+            {t.game.design.title}
+          </Button>
+        </Panel>
+      </div>
+    )
   }
 
   if (!simulation) {

@@ -14,6 +14,7 @@ export const opsEn = {
     report: 'View report',
     back: 'Back to review',
     noSimulation: 'Run the mission to see the timeline.',
+    completeDesign: 'Complete the design before simulating.',
     critical: 'Critical',
     warning: 'Warning',
     info: 'Info',

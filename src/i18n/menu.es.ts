@@ -34,6 +34,7 @@ export const menuEs = {
     selected: 'Seleccionada',
     start: 'Iniciar misión',
     requirementsHint: 'Elegirás 3 requisitos en la siguiente pantalla.',
+    loadExample: 'Cargar misión de ejemplo',
   },
   home: {
     eyebrow: 'NASA Space Apps Challenge 2026 · Neiva',

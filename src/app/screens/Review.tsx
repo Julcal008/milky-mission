@@ -1,7 +1,7 @@
 /**
  * Review screen — Owner: Track A (@Julcal008).
- * Shows budgets, chosen requirements and every validation issue. Running the
- * simulation is explicit so the player can still fly with warnings.
+ * Budgets, chosen requirements and validation issues. If the draft is incomplete,
+ * it shows exactly what is missing instead of pretending to validate.
  */
 import { scenarioContent } from '@/content/scenarios'
 import { scenarioFixtures } from '@/engine/__fixtures__/scenario-fixture'
@@ -16,7 +16,34 @@ export function ReviewScreen() {
   const { t, lang } = useI18n()
   const config = useMissionStore((state) => state.config)
   const validation = useMissionStore((state) => state.validation)
+  const missing = useMissionStore((state) => state.missing)
   const simulate = useMissionStore((state) => state.simulate)
+
+  if (!config || !validation) {
+    return (
+      <div className="mx-auto max-w-3xl space-y-5">
+        <header className="space-y-2">
+          <p className="label-caps text-ink-3">{t.game.design.incomplete}</p>
+          <h1 className="font-display text-3xl font-semibold text-ink">{t.game.review.title}</h1>
+          <p className="text-[13px] text-ink-2">{t.game.design.validateAfter}</p>
+        </header>
+        <Panel className="space-y-3 border-warning/30 p-5">
+          <h2 className="label-caps text-warning">{t.game.design.missingTitle}</h2>
+          <ul className="space-y-1.5">
+            {missing.map((key) => (
+              <li key={key} className="flex items-start gap-2 text-[12px] text-ink-2">
+                <span aria-hidden="true" className="mt-1.5 size-1.5 rounded-full bg-warning" />
+                {t.game.design.missing[key]}
+              </li>
+            ))}
+          </ul>
+        </Panel>
+        <Button variant="primary" onClick={() => (window.location.hash = '#/design')}>
+          {t.game.review.back}
+        </Button>
+      </div>
+    )
+  }
 
   const scenario = scenarioFixtures[config.scenarioId]
   const copy = scenarioContent[lang][config.scenarioId]
@@ -33,8 +60,10 @@ export function ReviewScreen() {
       : 100
 
   const runSimulation = () => {
-    simulate()
-    window.location.hash = '#/simulate'
+    const result = simulate()
+    if (result) {
+      window.location.hash = '#/simulate'
+    }
   }
 
   return (

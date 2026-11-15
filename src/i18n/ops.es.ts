@@ -13,6 +13,7 @@ export const opsEs = {
     report: 'Ver informe',
     back: 'Volver a la revisión',
     noSimulation: 'Ejecuta la misión para ver la línea de tiempo.',
+    completeDesign: 'Completa el diseño antes de simular.',
     critical: 'Crítico',
     warning: 'Advertencia',
     info: 'Info',
