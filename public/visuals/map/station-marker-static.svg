@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+  <style>
+    .radar-wave { animation: waveExpand 3s ease-out 0s; transform-origin: 24px 24px; }
+    @keyframes waveExpand {
+      0% { transform: scale(0.7); opacity: 0.85; }
+      100% { transform: scale(1.45); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .radar-wave { animation: none; opacity: 0.35; }
+    }
+  </style>
+  <circle class="radar-wave" cx="24" cy="24" r="15" stroke="#2dd4bf" stroke-width="2"/>
+  <circle cx="24" cy="24" r="12" fill="#0d1320" stroke="#2dd4bf" stroke-width="2"/>
+  <polygon points="24,15 32,29 16,29" fill="#131b2c" stroke="#ffd79a" stroke-width="1.75" stroke-linejoin="round"/>
+  <circle cx="24" cy="24" r="2.5" fill="#ffd79a"/>
+</svg>

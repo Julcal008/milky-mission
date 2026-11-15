@@ -10,6 +10,7 @@ import { Brief } from '@/app/Brief'
 import { Home } from '@/app/Home'
 import { routeFromHash } from '@/app/routes'
 import { DesignScreen } from '@/app/screens/Design'
+import { MapScreen } from '@/app/screens/Map'
 import { ReportScreen } from '@/app/screens/Report'
 import { ReviewScreen } from '@/app/screens/Review'
 import { SimulateScreen } from '@/app/screens/Simulate'
@@ -128,6 +129,8 @@ export function App() {
           <SimulateScreen />
         ) : route === 'report' ? (
           <ReportScreen />
+        ) : route === 'map' ? (
+          <MapScreen />
         ) : route === 'styleguide' ? (
           <Styleguide />
         ) : (

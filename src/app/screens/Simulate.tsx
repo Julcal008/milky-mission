@@ -6,6 +6,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { decisionOptionsFor } from '@/engine/decisions'
 import type { GameEvent } from '@/engine/types'
+import { MaskIcon } from '@/app/visuals/MaskIcon'
 import { useMissionStore } from '@/store/mission'
 import { useI18n } from '@/store/ui'
 import { Badge } from '@/ui/Badge'
@@ -15,6 +16,21 @@ import { Panel } from '@/ui/Panel'
 
 function severityTone(severity: GameEvent['severity']) {
   return severity === 'critical' ? 'danger' : severity === 'warning' ? 'warning' : 'info'
+}
+
+const EVENT_ICON: Record<string, string> = {
+  cme_hit: 'icons/events/cme.svg',
+  flare_x: 'icons/events/flare.svg',
+  inst_fail: 'icons/events/inst-fail.svg',
+  bus_fail: 'icons/events/bus-fail.svg',
+  gs_outage: 'icons/events/gs-outage.svg',
+  power_deficit: 'icons/events/power-deficit.svg',
+  buffer_full: 'icons/events/buffer-full.svg',
+  budget_cut: 'icons/events/budget-cut.svg',
+  launch_delay: 'icons/events/launch-delay.svg',
+  wheel_fail: 'icons/events/wheel-fail.svg',
+  thermal: 'icons/events/thermal.svg',
+  debris: 'icons/events/debris.svg',
 }
 
 export function SimulateScreen() {
@@ -109,6 +125,9 @@ export function SimulateScreen() {
   const duration = simulation.days.length
   const dayIndex = Math.min(Math.max(selectedDay, 1), duration)
   const day = simulation.days[dayIndex - 1]
+  const stormActive = events.some(
+    (event) => event.type === 'cme_hit' && dayIndex >= event.day && dayIndex <= event.day + 2,
+  )
 
   const applyDecision = (event: GameEvent, optionId: string) => {
     setDecision(event.id, optionId)
@@ -123,7 +142,13 @@ export function SimulateScreen() {
           <h1 className="font-display text-3xl font-semibold text-ink">{t.ops.simulate.title}</h1>
           <p className="text-[13px] text-ink-2">{t.ops.simulate.lead}</p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
+          {stormActive ? (
+            <Badge tone="warning">
+              <MaskIcon file="icons/simulate/storm-intensity.svg" className="size-3.5" />
+              {t.ops.simulate.storm}
+            </Badge>
+          ) : null}
           <Badge
             tone={
               simulation.verdict === 'success'
@@ -237,8 +262,14 @@ export function SimulateScreen() {
                     ].join(' ')}
                   >
                     <span className="space-y-1">
-                      <span className="block text-[12px] text-ink">
-                        {t.ops.simulate.day} {event.day} · {eventTitle(event)}
+                      <span className="flex items-center gap-2 text-[12px] text-ink">
+                        <MaskIcon
+                          file={EVENT_ICON[event.type] ?? 'icons/simulate/anomaly.svg'}
+                          className="size-4 text-ion"
+                        />
+                        <span>
+                          {t.ops.simulate.day} {event.day} · {eventTitle(event)}
+                        </span>
                       </span>
                       <span className="block text-[11px] text-ink-3">
                         {roleCopy[event.role] ?? event.role}

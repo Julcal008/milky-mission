@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 900" width="800" height="900" fill="none">
+  <style>
+    .track-line {
+      stroke-dasharray: 14 8;
+      stroke-dashoffset: 440;
+      animation: dashFlow 6s linear 0s;
+    }
+    @keyframes dashFlow {
+      to { stroke-dashoffset: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .track-line { animation: none; stroke-dashoffset: 0; }
+    }
+  </style>
+  <path d="M120,860 C240,610 365,410 560,40" stroke="#223049" stroke-width="4" fill="none"/>
+  <path class="track-line" d="M120,860 C240,610 365,410 560,40" stroke="#ffd79a" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <circle cx="332" cy="482" r="7" fill="#0d1320" stroke="#ffd79a" stroke-width="2.5"/>
+</svg>
