@@ -15,8 +15,9 @@ export const instruments: InstrumentSpec[] = [
     scienceValue: 30,
     trl: 9,
     supports: ['flare'],
-    source: 'GOES-R XRS class',
+    source: 'Representative smallsat X-ray monitor (GOES-R EXIS: 30 kg, 40 W)',
     confidence: 'estimate',
+    note: 'Standalone sensor class; not the full EXIS assembly.',
   },
   {
     id: 'suvi',
@@ -28,8 +29,9 @@ export const instruments: InstrumentSpec[] = [
     scienceValue: 30,
     trl: 7,
     supports: ['aurora'],
-    source: 'GOES-R SUVI class',
+    source: 'Representative smallsat EUV imager (GOES-R SUVI: 72 kg, 225 W peak)',
     confidence: 'estimate',
+    note: 'Game-scale imager, not the full SUVI telescope.',
   },
   {
     id: 'mag',
@@ -41,7 +43,7 @@ export const instruments: InstrumentSpec[] = [
     scienceValue: 15,
     trl: 9,
     supports: ['storm'],
-    source: 'GOES-R magnetometer class',
+    source: 'Representative smallsat fluxgate magnetometer (GOES-R MAG is boom-mounted)',
     confidence: 'estimate',
   },
   {
@@ -54,7 +56,7 @@ export const instruments: InstrumentSpec[] = [
     scienceValue: 20,
     trl: 8,
     supports: ['storm'],
-    source: 'GOES-R energetic particle sensor class',
+    source: 'Representative smallsat particle detector (GOES-R SEISS is a five-sensor suite)',
     confidence: 'estimate',
   },
   {

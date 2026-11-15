@@ -33,7 +33,7 @@ import type {
   ScenarioSpec,
   SimulationResult,
 } from './types'
-import { DAYS_PER_YEAR } from './units'
+import { DAYS_PER_YEAR, clamp } from './units'
 
 /** Space-weather event days, derived from the cached DONKI window (May 2024). */
 
@@ -221,11 +221,25 @@ export function simulateMission(
       applyDecision(event)
     }
 
+    // POWER climatology for this mission month: cloud cover for optical data and
+    // a seasonal insolation factor normalized to the annual mean.
+    const monthIndex = Math.floor((((day - 1) / scenario.durationDays) * 12 + 4) % 12)
+    const powerSiteId = scenario.id === 'andes-flood-watch' ? 'magdalena' : 'neiva'
+    const site = POWER_SITES[powerSiteId]
+    const cloudPct = site.cloudAmountPct[CLIMATOLOGY_MONTHS[monthIndex]]
+    const cloudFactor = cloudUsableFraction(cloudPct)
+    const seasonalPowerFactor = clamp(
+      site.surfaceKwhPerM2Day[CLIMATOLOGY_MONTHS[monthIndex]] / site.annual.surfaceKwhPerM2Day,
+      0.9,
+      1.15,
+    )
+
     // Power: seasonal variation, noise, CME degradation, battery integration.
     const seasonal = 1 + 0.05 * Math.sin((2 * Math.PI * (day - 80)) / DAYS_PER_YEAR)
     const noise = rng.range(0.95, 1.05)
     const cmeFactor = cmeActive ? 0.85 : 1
-    const powerGeneratedW = power.orbitAverageGenerationW * seasonal * noise * cmeFactor
+    const powerGeneratedW =
+      power.orbitAverageGenerationW * seasonal * seasonalPowerFactor * noise * cmeFactor
     const loadW = Math.max(0, power.totalLoadW - powerBonusW)
 
     const netWh = (powerGeneratedW - loadW) * 24
@@ -250,14 +264,8 @@ export function simulateMission(
       }
     }
 
-    // Data generation and delivery. Optical Earth imagers lose data to cloud,
-    // using NASA POWER monthly climatology for the scenario site. Mission day 1
-    // is mapped to May, the month of the DONKI reference window.
+    // Data generation and delivery. Optical Earth imagers lose data to cloud.
     const aliveInstruments = instruments.filter((instrument) => !failedOn.has(instrument.id))
-    const monthIndex = Math.floor((((day - 1) / scenario.durationDays) * 12 + 4) % 12)
-    const powerSiteId = scenario.id === 'andes-flood-watch' ? 'magdalena' : 'neiva'
-    const cloudPct = POWER_SITES[powerSiteId].cloudAmountPct[CLIMATOLOGY_MONTHS[monthIndex]]
-    const cloudFactor = cloudUsableFraction(cloudPct)
     const baseGenerated = aliveInstruments.reduce((sum, instrument) => {
       const cloudSensitive = instrument.id === 'msi' || instrument.id === 'hri'
       return sum + instrument.dataGbPerDay * (cloudSensitive ? cloudFactor : 1)
@@ -392,6 +400,7 @@ export function simulateMission(
     assumptions: [
       'Event dates are derived from the cached NASA DONKI window (May 2024).',
       'Optical data is reduced by NASA POWER monthly cloud climatology.',
+      'POWER monthly insolation modulates generation seasonally, normalized to the annual mean.',
       'Battery, data and cost are integrated at daily resolution.',
       'Link capacity assumes a 10 deg elevation pass at maximum slant range.',
       'Instruments generate data at their nominal rate while alive.',

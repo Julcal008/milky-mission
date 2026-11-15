@@ -20,12 +20,13 @@ temporary fixture has been removed.
 |---|---|---|---|---|
 | DONKI `FLR`, `CME`, `GST` (May 2024) | Scenario timeline, storm events, radiation risk | `https://ccmc.gsfc.nasa.gov/DONKI-API/get/` | 2026-11-14 | O |
 | DONKI event selection + window scaling | Mission event days (3 GST + strongest X flare) | `src/data/nasa/donki.ts`, derived from the cache above | 2026-11-14 | D |
-| POWER `ALLSKY_SFC_SW_DWN` | Ground context; not array sizing | `https://power.larc.nasa.gov/api/temporal/climatology/point` | 2026-11-14 | O |
+| POWER `ALLSKY_SFC_SW_DWN` | Seasonal generation factor (normalized to annual mean; not an instantaneous flux) | `https://power.larc.nasa.gov/api/temporal/climatology/point` | 2026-11-14 | O |
 | POWER `TOA_SW_DWN` | Seasonal validation of the solar model | same | 2026-11-14 | O |
 | POWER `CLOUD_AMT` | Optical vs. SAR trade-off | same | 2026-11-14 | O |
 | Cloud usable fraction | `1 − CLOUD_AMT/100`, clamped to [0, 1] | `src/data/nasa/power.ts` | 2026-11-14 | D |
-| GIBS / Blue Marble imagery | Map base, scenario cards | NASA EOSDIS GIBS / Visible Earth | 2026-11-14 | O |
-| JPL CNEOS close approaches | Reserved, not used in v0.1 | `https://ssd-api.jpl.nasa.gov/cad.api` | 2026-11-14 | O |
+| GIBS / Blue Marble imagery | Not used in v1.1; evaluated and excluded | NASA EOSDIS GIBS / Visible Earth | 2026-11-14 | — |
+| JPL CNEOS close approaches | Reserved, not used in v1.1 | `https://ssd-api.jpl.nasa.gov/cad.api` | 2026-11-14 | O |
+| GOES-R Series Data Book, Rev A (2019) | Reference values for EXIS/SUVI/MAG/SEISS; the game uses representative smallsat classes, not these full instruments | `https://ospo.noaa.gov/resources/documents/GOES-RSeriesDataBook.pdf` | 2026-11-14 | O |
 
 Attribution is textual. No NASA logo, insignia or flag is used.
 
@@ -75,10 +76,10 @@ science values are game values.
 
 | Instrument | Real analogue | Mass / power source | Conf. |
 |---|---|---|---|
-| `xrs` | GOES-R XRS | NOAA/NASA GOES-R Series Data Book | E |
-| `suvi` | GOES-R SUVI | NOAA/NASA GOES-R Series Data Book | E |
-| `mag` | GOES-R magnetometer / smallsat fluxgate | Data Book / vendor specs | E |
-| `proton` | GOES-R energetic particle sensor | Data Book / vendor specs | E |
+| `xrs` | GOES-R EXIS (30 kg, 40 W) | NOAA/NASA GOES-R Series Data Book, Rev A (2019) | E |
+| `suvi` | GOES-R SUVI (72 kg, 225 W peak) | NOAA/NASA GOES-R Series Data Book, Rev A (2019) | E |
+| `mag` | GOES-R MAG (boom-mounted) / smallsat fluxgate | Data Book / vendor specs | E |
+| `proton` | GOES-R SEISS (five-sensor suite) | Data Book / vendor specs | E |
 | `gnssro` | Spire/CICERO-class GNSS-RO | Public mission specs | E |
 | `msi` | SmallSat multispectral imager | Vendor specs | E |
 | `hri` | 2 m-class smallsat optical | Vendor specs | E |

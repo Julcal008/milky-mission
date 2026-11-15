@@ -50,7 +50,7 @@ Fields used: `flrID`, `beginTime`, `peakTime`, `endTime`, `classType`, `note`;
 | Source | NASA LaRC POWER Project |
 | Base URL | `https://power.larc.nasa.gov/api/temporal/climatology/point` |
 | Parameters | `ALLSKY_SFC_SW_DWN` (surface), `TOA_SW_DWN` (top of atmosphere), `CLOUD_AMT` (cloud amount) |
-| Drives | Optical vs. SAR trade-off via cloud cover; TOA climatology for seasonal validation; surface irradiance as ground context |
+| Drives | Optical vs. SAR trade-off via cloud cover; monthly surface insolation as a seasonal generation factor normalized to the annual mean; TOA kept for validation only |
 | Cache | `src/data/nasa/power_neiva.json`, `src/data/nasa/power_magdalena.json` |
 | Confidence | **O** (monthly climatology, 20+ year baseline) |
 
@@ -61,22 +61,17 @@ insolation to a 24-hour mean flux with `× 1000 / 24` (`kwhPerM2DayToWPerM2` in
 `src/data/nasa/power.ts`).
 
 > **Model note.** The array is sized from cell W/m² at 1 AU and the engine already applies
-> eclipse (`sunlightFraction`) and mean incidence. Do **not** pass the daily mean into
-> `PowerOptions.irradianceFactor`: it double-counts night and understates the array by
-> roughly 3×. The gameplay hook is `cloudUsableFraction(...)` for optical instruments;
-> TOA is kept for seasonal validation.
+> eclipse (`sunlightFraction`) and mean incidence. The simulator uses
+> `surface / annual surface` (clamped to 0.9–1.15) as a **seasonal modulation**, never the
+> absolute daily mean as an instantaneous flux. `cloudUsableFraction(...)` handles optical
+> instruments; TOA is kept for validation.
 
-### 1.3 NASA GIBS / Blue Marble — imagery
+### 1.3 NASA GIBS / Blue Marble — not used in v1.1
 
-| | |
-|---|---|
-| Source | NASA EOSDIS GIBS, NASA Visible Earth |
-| Usage | Bundled base map and scenario cards |
-| Cache | `public/maps/earth-blue-marble.jpg` (target ≤ 1.5 MB) |
-| Confidence | **O** (public-domain NASA imagery) |
-
-No live tile requests: the demo must work without network. GIBS is credited as the source
-of the imagery used, and the specific product/date is recorded in the provenance file.
+GIBS was evaluated for a map layer but is **not used** by the current build: the
+interface draws its own vector/CSS scene and does not bundle NASA imagery. It is therefore
+excluded from the submission's NASA-resources section. If a real map is added later, the
+image and its product/date must be recorded here and in the provenance file.
 
 ### 1.4 NASA/JPL CNEOS — reserved
 
@@ -136,8 +131,7 @@ of the imagery used, and the specific product/date is recorded in the provenance
 | If we removed the dataset | What would break |
 |---|---|
 | DONKI | The scenario loses its historical storm timeline; events would be arbitrary |
-| POWER | The optical/SAR trade-off and the Colombia climatology would be invented constants |
-| GIBS | The map loses its real Earth context; ground tracks would float on a blank grid |
+| POWER | The optical/SAR trade-off and the seasonal generation profile would be invented constants |
 
 This is the test for "significant use": the mechanics depend on the data, not the other
 way around.
