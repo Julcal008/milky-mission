@@ -3,13 +3,7 @@
  * Screens are added once; other contributors only fill the screen files.
  */
 export type Route =
-  | 'home'
-  | 'brief'
-  | 'styleguide'
-  | 'design'
-  | 'review'
-  | 'simulate'
-  | 'report'
+  'home' | 'brief' | 'styleguide' | 'design' | 'review' | 'simulate' | 'report' | 'map'
 
 export function routeFromHash(hash: string): Route {
   if (hash.startsWith('#/brief')) return 'brief'
@@ -17,6 +11,7 @@ export function routeFromHash(hash: string): Route {
   if (hash.startsWith('#/review')) return 'review'
   if (hash.startsWith('#/simulate')) return 'simulate'
   if (hash.startsWith('#/report')) return 'report'
+  if (hash.startsWith('#/map')) return 'map'
   if (hash.startsWith('#/styleguide')) return 'styleguide'
   return 'home'
 }

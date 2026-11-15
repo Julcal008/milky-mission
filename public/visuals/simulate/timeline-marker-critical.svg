@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" width="36" height="36" fill="none">
+  <style>
+    .critical-pulse { animation: pulseRing 2.4s ease-out infinite; transform-origin: 18px 18px; }
+    @keyframes pulseRing {
+      0% { transform: scale(0.85); opacity: 0.9; }
+      70% { transform: scale(1.45); opacity: 0; }
+      100% { transform: scale(1.45); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .critical-pulse { animation: none; opacity: 0.4; }
+    }
+  </style>
+  <circle class="critical-pulse" cx="18" cy="18" r="11" stroke="#ff6b6b" stroke-width="2"/>
+  <polygon points="18,4 30,11 30,25 18,32 6,25 6,11" fill="#0d1320" stroke="#ff6b6b" stroke-width="2" stroke-linejoin="round"/>
+  <polygon points="18,10 24,22 12,22" fill="#ff6b6b"/>
+</svg>

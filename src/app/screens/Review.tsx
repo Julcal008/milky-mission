@@ -5,6 +5,7 @@
  */
 import { scenarioContent } from '@/content/scenarios'
 import { scenarioFixtures } from '@/engine/__fixtures__/scenario-fixture'
+import { MaskIcon } from '@/app/visuals/MaskIcon'
 import { useMissionStore } from '@/store/mission'
 import { useI18n } from '@/store/ui'
 import { Badge } from '@/ui/Badge'
@@ -182,6 +183,16 @@ export function ReviewScreen() {
                           : 'info'
                     }
                   >
+                    <MaskIcon
+                      file={
+                        issue.severity === 'error'
+                          ? 'icons/review/nogo.svg'
+                          : issue.severity === 'warning'
+                            ? 'icons/review/conditional.svg'
+                            : 'icons/simulate/anomaly.svg'
+                      }
+                      className="size-3.5"
+                    />
                     {t.common.severity[issue.severity]}
                   </Badge>
                   <div>

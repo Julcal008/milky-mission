@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 900" width="800" height="900" fill="none">
+  <style>
+    .swath-corridor {
+      opacity: 0.55;
+      transition: opacity 160ms ease-out;
+    }
+    .swath-corridor:hover {
+      opacity: 0.92;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .swath-corridor { transition: none; }
+    }
+  </style>
+  <defs>
+    <linearGradient id="swathFill" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.05"/>
+      <stop offset="50%" stop-color="#6ea8ff" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#2dd4bf" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+  <g class="swath-corridor">
+    <path d="M40,860 C160,610 285,410 480,40 L640,40 C445,410 320,610 200,860 Z" fill="url(#swathFill)" stroke="#2dd4bf" stroke-width="1.5" stroke-dasharray="6 4"/>
+  </g>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180" fill="none">
+  <style>
+    .sat-orbit { animation: orbitSpin 6s linear infinite; transform-origin: 90px 90px; }
+    @keyframes orbitSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .sat-orbit { animation: none; }
+    }
+  </style>
+  <circle cx="90" cy="90" r="74" stroke="#223049" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <circle cx="90" cy="90" r="56" stroke="#6ea8ff" stroke-width="1.75" stroke-opacity="0.7"/>
+  <circle cx="90" cy="90" r="24" fill="#131b2c" stroke="#f4e3c1" stroke-width="1.75"/>
+  <path d="M74 84C82 78 98 78 106 84" stroke="#2dd4bf" stroke-width="1.5" stroke-linecap="round"/>
+  <g class="sat-orbit">
+    <circle cx="90" cy="34" r="5" fill="#ffd79a"/>
+    <circle cx="90" cy="34" r="9" stroke="#ffd79a" stroke-opacity="0.45" stroke-width="1.5"/>
+  </g>
+</svg>

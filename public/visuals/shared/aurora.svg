@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" fill="none">
+  <style>
+    .aurora-band-1 { animation: drift1 18s ease-in-out infinite alternate; transform-origin: center; }
+    .aurora-band-2 { animation: drift2 20s ease-in-out infinite alternate; transform-origin: center; }
+    .aurora-band-3 { animation: drift1 16s ease-in-out infinite alternate-reverse; transform-origin: center; }
+    @keyframes drift1 {
+      0% { transform: translate3d(-35px, -15px, 0) scale(1); opacity: 0.55; }
+      100% { transform: translate3d(35px, 20px, 0) scale(1.06); opacity: 0.85; }
+    }
+    @keyframes drift2 {
+      0% { transform: translate3d(30px, 15px, 0) scale(1.04); opacity: 0.45; }
+      100% { transform: translate3d(-30px, -20px, 0) scale(0.96); opacity: 0.75; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .aurora-band-1, .aurora-band-2, .aurora-band-3 { animation: none !important; }
+    }
+  </style>
+  <defs>
+    <filter id="aurora-blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="65" />
+    </filter>
+    <linearGradient id="grad-ion" x1="0%" y1="0%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#6ea8ff" stop-opacity="0" />
+      <stop offset="50%" stop-color="#6ea8ff" stop-opacity="0.42" />
+      <stop offset="100%" stop-color="#2dd4bf" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="grad-science" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc" stop-opacity="0" />
+      <stop offset="50%" stop-color="#c084fc" stop-opacity="0.32" />
+      <stop offset="100%" stop-color="#f4e3c1" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="grad-milk" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#ffd79a" stop-opacity="0" />
+      <stop offset="50%" stop-color="#f4e3c1" stop-opacity="0.28" />
+      <stop offset="100%" stop-color="#6ea8ff" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+  <g filter="url(#aurora-blur)">
+    <path class="aurora-band-1" d="M-100,260 C320,80 780,440 1700,180 L1700,520 C980,680 420,340 -100,540 Z" fill="url(#grad-ion)" />
+    <path class="aurora-band-2" d="M-100,420 C480,220 960,580 1700,320 L1700,660 C1040,780 520,460 -100,680 Z" fill="url(#grad-science)" />
+    <path class="aurora-band-3" d="M120,120 C560,280 1020,60 1520,240 L1520,420 C1020,290 560,480 120,310 Z" fill="url(#grad-milk)" />
+  </g>
+</svg>

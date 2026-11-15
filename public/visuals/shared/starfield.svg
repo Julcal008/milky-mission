@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" fill="none">
+  <style>
+    .star-group-1 { animation: twinkle 4s ease-in-out infinite alternate; }
+    .star-group-2 { animation: twinkle 4s ease-in-out 1.3s infinite alternate; }
+    .star-group-3 { animation: twinkle 4s ease-in-out 2.6s infinite alternate; }
+    @keyframes twinkle {
+      0% { opacity: 0.35; }
+      100% { opacity: 0.95; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .star-group-1, .star-group-2, .star-group-3 { animation: none !important; opacity: 0.8; }
+    }
+  </style>
+  <g>
+    <circle class="star-group-1" cx="1329" cy="134" r="1" fill="#6ea8ff" />
+    <circle class="star-group-2" cx="521" cy="248" r="1.2" fill="#e9eef8" />
+    <circle class="star-group-3" cx="1405" cy="778" r="1" fill="#a7b3c9" />
+    <circle class="star-group-1" cx="85" cy="50" r="1" fill="#f4e3c1" />
+    <circle class="star-group-2" cx="496" cy="537" r="1" fill="#f4e3c1" />
+    <circle class="star-group-3" cx="1486" cy="685" r="2.2" fill="#f4e3c1" />
+    <circle class="star-group-1" cx="939" cy="623" r="1.6" fill="#e9eef8" />
+    <circle class="star-group-2" cx="1574" cy="845" r="1.2" fill="#a7b3c9" />
+    <circle class="star-group-3" cx="716" cy="304" r="1.2" fill="#f4e3c1" />
+    <circle class="star-group-1" cx="709" cy="124" r="1" fill="#a7b3c9" />
+    <circle class="star-group-2" cx="218" cy="387" r="1.6" fill="#6ea8ff" />
+    <circle class="star-group-3" cx="108" cy="767" r="2.2" fill="#e9eef8" />
+    <circle class="star-group-1" cx="795" cy="100" r="1.6" fill="#6ea8ff" />
+    <circle class="star-group-2" cx="1202" cy="216" r="1" fill="#e9eef8" />
+    <circle class="star-group-3" cx="1374" cy="253" r="1.6" fill="#e9eef8" />
+    <circle class="star-group-1" cx="496" cy="123" r="2.2" fill="#6ea8ff" />
+    <circle class="star-group-2" cx="948" cy="670" r="1.6" fill="#f4e3c1" />
+    <circle class="star-group-3" cx="778" cy="383" r="1.2" fill="#6ea8ff" />
+    <circle class="star-group-1" cx="1457" cy="719" r="1" fill="#f4e3c1" />
+    <circle class="star-group-2" cx="1113" cy="766" r="1.2" fill="#f4e3c1" />
+    <circle class="star-group-3" cx="966" cy="408" r="1.6" fill="#f4e3c1" />
+    <circle class="star-group-1" cx="1422" cy="352" r="1" fill="#f4e3c1" />
+    <circle class="star-group-2" cx="85" cy="844" r="1.6" fill="#a7b3c9" />
+    <circle class="star-group-3" cx="568" cy="87" r="1.2" fill="#6ea8ff" />
+    <circle class="star-group-1" cx="455" cy="691" r="2.2" fill="#a7b3c9" />
+    <circle class="star-group-2" cx="1336" cy="489" r="1.2" fill="#6ea8ff" />
+    <circle class="star-group-3" cx="305" cy="272" r="1.6" fill="#a7b3c9" />
+    <circle class="star-group-1" cx="1215" cy="428" r="1.6" fill="#f4e3c1" />
+    <circle class="star-group-2" cx="303" cy="541" r="2.2" fill="#e9eef8" />
+    <circle class="star-group-3" cx="1567" cy="68" r="1" fill="#f4e3c1" />
+    <circle class="star-group-1" cx="1305" cy="183" r="2.2" fill="#e9eef8" />
+    <circle class="star-group-2" cx="808" cy="410" r="2.2" fill="#6ea8ff" />
+    <circle class="star-group-3" cx="1153" cy="31" r="1" fill="#6ea8ff" />
+    <circle class="star-group-1" cx="1332" cy="368" r="1" fill="#6ea8ff" />
+    <circle class="star-group-2" cx="910" cy="181" r="2.2" fill="#e9eef8" />
+    <circle class="star-group-3" cx="1498" cy="756" r="1.6" fill="#f4e3c1" />
+    <circle class="star-group-1" cx="1059" cy="128" r="1.6" fill="#f4e3c1" />
+    <circle class="star-group-2" cx="333" cy="402" r="1.2" fill="#e9eef8" />
+    <circle class="star-group-3" cx="1246" cy="351" r="2.2" fill="#e9eef8" />
+    <circle class="star-group-1" cx="249" cy="391" r="1.6" fill="#f4e3c1" />
+    <circle class="star-group-2" cx="138" cy="266" r="1" fill="#e9eef8" />
+    <circle class="star-group-3" cx="1518" cy="517" r="1" fill="#f4e3c1" />
+    <circle class="star-group-1" cx="282" cy="695" r="2.2" fill="#f4e3c1" />
+    <circle class="star-group-2" cx="562" cy="560" r="2.2" fill="#f4e3c1" />
+    <circle class="star-group-3" cx="1124" cy="793" r="1.2" fill="#6ea8ff" />
+    <circle class="star-group-1" cx="837" cy="707" r="1.6" fill="#a7b3c9" />
+    <circle class="star-group-2" cx="1079" cy="482" r="1" fill="#f4e3c1" />
+    <circle class="star-group-3" cx="480" cy="85" r="1.6" fill="#e9eef8" />
+    <circle class="star-group-1" cx="1224" cy="587" r="1.2" fill="#f4e3c1" />
+    <circle class="star-group-2" cx="34" cy="92" r="1" fill="#f4e3c1" />
+    <circle class="star-group-3" cx="158" cy="52" r="1.6" fill="#e9eef8" />
+    <circle class="star-group-1" cx="1072" cy="263" r="1.6" fill="#a7b3c9" />
+    <circle class="star-group-2" cx="458" cy="572" r="1.2" fill="#a7b3c9" />
+    <circle class="star-group-3" cx="517" cy="823" r="2.2" fill="#a7b3c9" />
+    <circle class="star-group-1" cx="409" cy="116" r="1" fill="#a7b3c9" />
+    <circle class="star-group-2" cx="745" cy="453" r="2.2" fill="#a7b3c9" />
+    <circle class="star-group-3" cx="1513" cy="75" r="1" fill="#e9eef8" />
+    <circle class="star-group-1" cx="844" cy="765" r="1.6" fill="#e9eef8" />
+    <circle class="star-group-2" cx="529" cy="216" r="1.2" fill="#a7b3c9" />
+    <circle class="star-group-3" cx="307" cy="452" r="1.2" fill="#6ea8ff" />
+    <circle class="star-group-1" cx="967" cy="275" r="1" fill="#a7b3c9" />
+    <circle class="star-group-2" cx="1147" cy="120" r="1" fill="#e9eef8" />
+    <circle class="star-group-3" cx="211" cy="791" r="1.2" fill="#f4e3c1" />
+    <circle class="star-group-1" cx="852" cy="517" r="2.2" fill="#f4e3c1" />
+    <circle class="star-group-2" cx="841" cy="80" r="1.2" fill="#a7b3c9" />
+    <circle class="star-group-3" cx="24" cy="419" r="1.6" fill="#a7b3c9" />
+    <circle class="star-group-1" cx="604" cy="453" r="2.2" fill="#f4e3c1" />
+    <circle class="star-group-2" cx="408" cy="323" r="1.2" fill="#e9eef8" />
+    <circle class="star-group-3" cx="1206" cy="773" r="1" fill="#6ea8ff" />
+    <circle class="star-group-1" cx="137" cy="71" r="2.2" fill="#f4e3c1" />
+    <circle class="star-group-2" cx="136" cy="540" r="1" fill="#f4e3c1" />
+    <circle class="star-group-3" cx="160" cy="629" r="1" fill="#f4e3c1" />
+    <circle class="star-group-1" cx="846" cy="142" r="1.2" fill="#e9eef8" />
+    <circle class="star-group-2" cx="1288" cy="103" r="2.2" fill="#6ea8ff" />
+    <circle class="star-group-3" cx="554" cy="229" r="1.6" fill="#f4e3c1" />
+    <circle class="star-group-1" cx="563" cy="425" r="1.2" fill="#6ea8ff" />
+    <circle class="star-group-2" cx="956" cy="343" r="1" fill="#e9eef8" />
+    <circle class="star-group-3" cx="958" cy="656" r="1" fill="#e9eef8" />
+    <circle class="star-group-1" cx="1121" cy="238" r="1.6" fill="#f4e3c1" />
+    <circle class="star-group-2" cx="734" cy="90" r="1.2" fill="#6ea8ff" />
+    <circle class="star-group-3" cx="603" cy="181" r="2.2" fill="#6ea8ff" />
+    <circle class="star-group-1" cx="1272" cy="846" r="1" fill="#6ea8ff" />
+    <circle class="star-group-2" cx="1378" cy="126" r="1.2" fill="#6ea8ff" />
+    <circle class="star-group-3" cx="256" cy="129" r="1.2" fill="#6ea8ff" />
+    <circle class="star-group-1" cx="597" cy="639" r="1.2" fill="#6ea8ff" />
+    <circle class="star-group-2" cx="436" cy="723" r="1.6" fill="#a7b3c9" />
+    <circle class="star-group-3" cx="534" cy="72" r="1" fill="#a7b3c9" />
+    <circle class="star-group-1" cx="586" cy="65" r="1" fill="#6ea8ff" />
+    <circle class="star-group-2" cx="287" cy="672" r="1.6" fill="#f4e3c1" />
+    <circle class="star-group-3" cx="1538" cy="472" r="2.2" fill="#e9eef8" />
+  </g>
+</svg>

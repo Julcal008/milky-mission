@@ -19,6 +19,7 @@ import type {
   StorageId,
 } from '@/engine/types'
 import { MAX_INSTRUMENTS } from '@/engine/types'
+import { MaskIcon } from '@/app/visuals/MaskIcon'
 import { useMissionStore } from '@/store/mission'
 import { useI18n } from '@/store/ui'
 import { Badge } from '@/ui/Badge'
@@ -127,7 +128,10 @@ export function DesignScreen() {
         <div className="space-y-6">
           <div className="grid gap-5 md:grid-cols-2">
             <Panel className="space-y-4 border-l-2 border-l-ion/50 p-5">
-              <h2 className="label-caps text-ink-2">{t.game.design.orbit}</h2>
+              <h2 className="flex items-center gap-2 label-caps text-ink-2">
+                <MaskIcon file="icons/subsystems/orbit.svg" className="size-3.5 text-ion" />
+                {t.game.design.orbit}
+              </h2>
               <Select
                 label={t.game.design.orbit}
                 value={draft.orbitId ?? ''}
@@ -165,7 +169,10 @@ export function DesignScreen() {
             </Panel>
 
             <Panel className="space-y-4 border-l-2 border-l-cream/50 p-5">
-              <h2 className="label-caps text-ink-2">{t.game.design.bus}</h2>
+              <h2 className="flex items-center gap-2 label-caps text-ink-2">
+                <MaskIcon file="icons/subsystems/bus.svg" className="size-3.5 text-cream" />
+                {t.game.design.bus}
+              </h2>
               <Select
                 label={t.game.design.bus}
                 value={draft.busId ?? ''}
@@ -203,7 +210,10 @@ export function DesignScreen() {
             </Panel>
 
             <Panel className="space-y-4 border-l-2 border-l-res-power/50 p-5">
-              <h2 className="label-caps text-ink-2">{t.game.design.power}</h2>
+              <h2 className="flex items-center gap-2 label-caps text-ink-2">
+                <MaskIcon file="icons/subsystems/array.svg" className="size-3.5 text-res-power" />
+                {t.game.design.power}
+              </h2>
               <Select
                 label={t.game.design.array}
                 value={draft.arrayId ?? ''}
@@ -257,7 +267,10 @@ export function DesignScreen() {
             </Panel>
 
             <Panel className="space-y-4 border-l-2 border-l-role-comms/50 p-5">
-              <h2 className="label-caps text-ink-2">{t.game.design.comms}</h2>
+              <h2 className="flex items-center gap-2 label-caps text-ink-2">
+                <MaskIcon file="icons/subsystems/comms.svg" className="size-3.5 text-role-comms" />
+                {t.game.design.comms}
+              </h2>
               <Select
                 label={t.game.design.band}
                 value={draft.commsId ?? ''}
@@ -315,7 +328,13 @@ export function DesignScreen() {
 
           <Panel className="space-y-4 border-l-2 border-l-role-science/50 p-5">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h2 className="label-caps text-ink-2">{t.game.design.instruments}</h2>
+              <h2 className="flex items-center gap-2 label-caps text-ink-2">
+                <MaskIcon
+                  file="icons/subsystems/instrument.svg"
+                  className="size-3.5 text-role-science"
+                />
+                {t.game.design.instruments}
+              </h2>
               <span className="text-[11px] text-ink-3">
                 {draft.instrumentIds.length}/{MAX_INSTRUMENTS} · {t.game.design.slots}
               </span>
@@ -371,7 +390,10 @@ export function DesignScreen() {
 
           <Panel className="space-y-4 border-l-2 border-l-cream/50 p-5">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h2 className="label-caps text-ink-2">{t.game.design.requirements}</h2>
+              <h2 className="flex items-center gap-2 label-caps text-ink-2">
+                <MaskIcon file="icons/requirements/storm.svg" className="size-3.5 text-milk" />
+                {t.game.design.requirements}
+              </h2>
               <span className="text-[11px] text-ink-3">
                 {draft.requirements.length}/3 {t.game.design.selectedCount} ·{' '}
                 {t.game.design.chooseThree}
