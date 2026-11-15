@@ -76,7 +76,7 @@ export function ReviewScreen() {
 
       <Panel className="grid gap-5 p-5 sm:grid-cols-2 lg:grid-cols-3">
         <ResourceBar
-          label="Mass"
+          label={t.game.design.gauges.mass}
           value={budgets.massKg}
           max={budgets.massCapacityKg || 1}
           unit="kg"
@@ -85,7 +85,7 @@ export function ReviewScreen() {
           statusTone={massMarginPct < 0 ? 'danger' : massMarginPct < 20 ? 'warning' : 'success'}
         />
         <ResourceBar
-          label="Power"
+          label={t.game.design.gauges.power}
           value={Math.max(0, budgets.powerMarginW)}
           max={100}
           unit="W"
@@ -96,7 +96,7 @@ export function ReviewScreen() {
           }
         />
         <ResourceBar
-          label="Budget"
+          label={t.game.design.gauges.budget}
           value={budgets.costUsdM}
           max={budgets.budgetUsdM}
           unit="$M"
@@ -105,7 +105,7 @@ export function ReviewScreen() {
           statusTone={budgets.costUsdM > budgets.budgetUsdM ? 'danger' : 'success'}
         />
         <ResourceBar
-          label="Data"
+          label={t.game.design.gauges.data}
           value={budgets.downlinkGbPerDay}
           max={Math.max(budgets.dataGbPerDay, 0.001)}
           unit="Gb/day"
@@ -114,7 +114,7 @@ export function ReviewScreen() {
           statusTone={deliveredPct < 70 ? 'warning' : 'success'}
         />
         <ResourceBar
-          label="Mission time"
+          label={t.game.design.gauges.time}
           value={budgets.lifetimeDays}
           max={scenario.durationDays}
           unit="days"
@@ -123,11 +123,11 @@ export function ReviewScreen() {
           statusTone={budgets.lifetimeDays < scenario.durationDays ? 'warning' : 'success'}
         />
         <div className="flex flex-col justify-center gap-1">
-          <span className="label-caps text-ink-3">Reliability</span>
+          <span className="label-caps text-ink-3">{t.game.review.reliability}</span>
           <span className="num text-[15px] text-ink">
             {(budgets.reliability * 100).toFixed(0)} %
           </span>
-          <span className="text-[11px] text-ink-3">Series estimate over the mission</span>
+          <span className="text-[11px] text-ink-3">{t.game.review.reliabilityHint}</span>
         </div>
       </Panel>
 
@@ -164,7 +164,7 @@ export function ReviewScreen() {
           <div className="flex items-center justify-between gap-2">
             <h2 className="label-caps text-ink-2">{t.game.review.issues}</h2>
             <Badge tone={validation.ok ? 'success' : 'danger'}>
-              {validation.ok ? 'OK' : 'Blocking'}
+              {validation.ok ? t.game.review.ok : t.game.review.blocking}
             </Badge>
           </div>
           {validation.issues.length === 0 ? (
@@ -182,7 +182,7 @@ export function ReviewScreen() {
                           : 'info'
                     }
                   >
-                    {issue.severity}
+                    {t.common.severity[issue.severity]}
                   </Badge>
                   <div>
                     <p className="text-[12px] leading-relaxed text-ink-2">

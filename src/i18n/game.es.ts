@@ -46,6 +46,13 @@ export const gameEs = {
     },
     reset: 'Empezar de nuevo',
     validateAfter: 'Completa el diseño para validarlo.',
+    gauges: {
+      mass: 'Masa',
+      power: 'Potencia',
+      budget: 'Presupuesto',
+      data: 'Datos',
+      time: 'Tiempo de misión',
+    },
   },
   review: {
     title: 'Revisa tu misión',
@@ -56,6 +63,10 @@ export const gameEs = {
     requirements: 'Requisitos',
     simulate: 'Simular misión',
     back: 'Volver al diseño',
+    reliability: 'Confiabilidad',
+    reliabilityHint: 'Estimación en serie durante la misión',
+    ok: 'OK',
+    blocking: 'Bloqueante',
   },
   meta: {
     tags: {
@@ -86,6 +97,12 @@ export const gameEs = {
     storage: '{capacity} GB, {mass} kg.',
     instrument: '{mass} kg, {power} W, {data} Gb/día, ciencia {science}, TRL {trl}.',
     source: 'Fuente: {source} · {confidence}',
+    confidence: {
+      official: 'oficial',
+      derived: 'derivado',
+      estimate: 'estimado',
+      game: 'de juego',
+    },
   },
   model: {
     title: 'Modelo, datos y supuestos',

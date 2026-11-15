@@ -47,6 +47,13 @@ export const gameEn = {
     },
     reset: 'Start over',
     validateAfter: 'Complete the design to validate it.',
+    gauges: {
+      mass: 'Mass',
+      power: 'Power',
+      budget: 'Budget',
+      data: 'Data',
+      time: 'Mission time',
+    },
   },
   review: {
     title: 'Review your mission',
@@ -57,6 +64,10 @@ export const gameEn = {
     requirements: 'Requirements',
     simulate: 'Simulate mission',
     back: 'Back to design',
+    reliability: 'Reliability',
+    reliabilityHint: 'Series estimate over the mission',
+    ok: 'OK',
+    blocking: 'Blocking',
   },
   meta: {
     tags: {
@@ -87,6 +98,12 @@ export const gameEn = {
     storage: '{capacity} GB, {mass} kg.',
     instrument: '{mass} kg, {power} W, {data} Gb/day, science {science}, TRL {trl}.',
     source: 'Source: {source} · {confidence}',
+    confidence: {
+      official: 'official',
+      derived: 'derived',
+      estimate: 'estimate',
+      game: 'game',
+    },
   },
   model: {
     title: 'Model, data and assumptions',

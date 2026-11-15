@@ -13,6 +13,12 @@ export const en = {
     badgePrototype: 'Prototype',
     comingSoon: 'In progress',
     readDocs: 'Read the docs',
+    severity: {
+      error: 'Error',
+      warning: 'Warning',
+      info: 'Info',
+      critical: 'Critical',
+    },
   },
   styleguide: {
     title: 'Design system',
