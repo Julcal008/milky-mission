@@ -12,7 +12,7 @@ import { scenarioFixtures } from '@/engine/__fixtures__/scenario-fixture'
 import { syncShareUrl } from '@/app/share-url'
 import type { ScenarioId } from '@/engine/types'
 import { useMissionStore } from '@/store/mission'
-import { useI18n } from '@/store/ui'
+import { useGuideStore, useI18n } from '@/store/ui'
 import { cx } from '@/ui/cx'
 import { MenuPanel } from '@/ui/menu/MenuPanel'
 
@@ -25,6 +25,7 @@ export function Brief() {
   const startScenario = useMissionStore((state) => state.startScenario)
   const setPlayers = useMissionStore((state) => state.setPlayers)
   const loadExample = useMissionStore((state) => state.loadExample)
+  const openGuide = useGuideStore((state) => state.openGuide)
   const [scenarioId, setScenarioId] = useState<ScenarioId | null>(draft.scenarioId ?? null)
 
   function startMission() {
@@ -180,6 +181,22 @@ export function Brief() {
             {t.brief.loadExample}
           </button>
         </div>
+      </MenuPanel>
+
+      <MenuPanel className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="label-caps text-ink-3">{t.learn.briefCard.title}</p>
+          <p className="mt-1 max-w-xl text-[12px] leading-relaxed text-ink-2">
+            {t.learn.briefCard.body}
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => openGuide('basics')}
+          className="inline-flex h-10 shrink-0 items-center justify-center rounded-full border border-border px-5 text-[12px] text-ink-2 transition-colors hover:border-border-strong hover:text-ink"
+        >
+          {t.learn.briefCard.button}
+        </button>
       </MenuPanel>
     </div>
   )

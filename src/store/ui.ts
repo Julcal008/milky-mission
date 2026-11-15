@@ -38,3 +38,26 @@ export function useI18n() {
   const toggleLang = useUiStore((state) => state.toggleLang)
   return { lang, setLang, toggleLang, t: dictionaries[lang] }
 }
+
+export type GuideTab = 'basics' | 'components' | 'risks' | 'glossary' | 'model'
+
+interface GuideState {
+  open: boolean
+  tab: GuideTab
+  query: string
+  openGuide: (tab?: GuideTab) => void
+  closeGuide: () => void
+  setGuideTab: (tab: GuideTab) => void
+  setGuideQuery: (query: string) => void
+}
+
+/** Field-guide drawer state. Not persisted: the guide always opens closed. */
+export const useGuideStore = create<GuideState>((set) => ({
+  open: false,
+  tab: 'basics',
+  query: '',
+  openGuide: (tab = 'basics') => set({ open: true, tab, query: '' }),
+  closeGuide: () => set({ open: false }),
+  setGuideTab: (tab) => set({ tab, query: '' }),
+  setGuideQuery: (query) => set({ query }),
+}))

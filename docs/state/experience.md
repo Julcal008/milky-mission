@@ -1,7 +1,7 @@
 # Track B — Experience & Visual · status
 
 **Owner:** @AngelicaHueje707-glitch
-**Updated:** 2026-11-14 20:05 (America/Bogota)
+**Updated:** 2026-11-15 11:55 (America/Bogota)
 
 ## Now
 
@@ -16,8 +16,10 @@
   badge, and a 40 px circular player selector (`MenuPanel` in `src/ui/menu/`).
 - Palette tokens added additively (`jade`, `indigo`, `plum`, `mauve`, `coral`, `cream`);
   existing semantic tokens are unchanged.
-- **Menu polish:** event eyebrow above the wordmark, viewport-height hero, equal-height
-  Brief cards, check + “Selected” state, and a larger full-width CTA on mobile.
+- **Field guide:** global drawer opened from the header “?” and the Brief card. Tabs:
+  Basics, Components, Risks, Glossary, Model. Search, focus trap, Esc, scroll lock.
+  Component cards use `ComponentMeta`; risk cards map validation codes to what/fix.
+  Copy lives in `src/i18n/menu.*`; stats/provenance from `src/data/catalogs`.
 - **Brief screen at `#/brief`** with the two real scenarios (Storm Watch, Andes Flood
   Watch), real budget/duration/requirement counts and a 1–4 player selector.
 - “Start” / “Inicio” opens the Brief; “Start mission” writes `scenarioId` and the player
@@ -28,24 +30,27 @@
 
 ## Next (in order)
 
-1. Contract screen: choose exactly 3 requirements from the selected scenario.
-2. Design board: orbit, bus, power, comms, science panels with live gauges.
-3. Build against `useMissionStore` and `src/data/catalogs`; never compute physics.
-4. Review · Simulate · Report.
-5. Map component with a static ground track and swath.
+1. Contextual “Learn more” links in Design/Review/Simulate (owners add them; the guide
+   exposes `openGuide(tab)`).
+2. Guided tour with spotlight in Design if time allows.
+3. Move per-item component prose to `src/content` (Track C) if there is time before freeze.
+4. Final QA at 1024/1440 and feature freeze.
 
 ## Blockers
 
+- `docs/UI_TASKS.md` froze the scope without a glossary; the Field Guide extends it. The
+  integrator must accept this in the PR.
 - Scenario specs (budget, duration, requirements) still live in Track A fixtures; the
   Brief reads them read-only until they move to `src/data` or the store.
 
 ## Editing now (lock)
 
-- `src/app/Home.tsx`, `src/ui/menu/*`, `src/styles/{global.css,fonts/*}`,
-  `docs/DESIGN_SYSTEM.md`.
+- `src/ui/menu/{FieldGuide,GuideButton}.tsx`, `src/store/ui.ts`,
+  `src/app/{App,Brief}.tsx`, `src/i18n/menu.*`, `docs/DESIGN_SYSTEM.md`.
 
 ## Notes
 
 - One primary action per screen. Status never color-only.
 - Domain copy lives in `src/content` (Track C); interface strings live in `src/i18n`.
 - No parallel static game: the menu and the design board share the same store.
+- Field-guide copy is UI copy for now; per-item prose can move to Track C later.
