@@ -1,7 +1,7 @@
 # UI tasks — three machines, one demo
 
-Frozen scope: Home, Brief, Design, Review, Simulate, Report. No roles/tokens,
-difficulty levels, orbital map, analogues or glossary. Those are roadmap.
+Frozen scope: Home, Brief, Design, Review, Simulate, Report. Role handoff is implemented;
+role tokens, analogues and leaderboards remain roadmap.
 
 ## Ownership
 
@@ -36,8 +36,8 @@ Select the `experience` agent in OpenCode while editing UI.
   requirement copy from `scenarioContent[lang][scenarioId]`; specs from
   `scenarioFixtures`.
 - Review: `validation`, `simulate()`, then navigate to `#/simulate`.
-- Simulate: `simulation`, `decisionOptionsFor(event.type)`, `setDecision`,
-  `simulate()`, then navigate to `#/report`.
+- Simulate: `simulation`, `decisionOptionsFor(event.challengeId)`, `applyDecision`,
+  then navigate to `#/report`. Role dock and handoff are Track A UI state.
 - Report: `report`, `simulation`, `shareCode`.
 - Units are explicit. No number without a unit. No physics in any screen.
 

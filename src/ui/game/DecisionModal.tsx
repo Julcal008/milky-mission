@@ -30,6 +30,13 @@ export interface DecisionModalProps {
   tone: 'danger' | 'warning' | 'info'
   options: DecisionModalOption[]
   appliedOptionId?: string
+  turn?: {
+    label: string
+    waiting?: string
+    passLabel?: string
+    locked: boolean
+    onPass?: () => void
+  }
   labels: {
     title: string
     paused: string
@@ -49,6 +56,7 @@ export function DecisionModal({
   tone,
   options,
   appliedOptionId,
+  turn,
   labels,
   onChoose,
   onContinue,
@@ -100,6 +108,13 @@ export function DecisionModal({
     }
   }, [])
 
+  useEffect(() => {
+    if (turn?.locked) {
+      return
+    }
+    cardRef.current?.querySelector<HTMLElement>('button:not([disabled])')?.focus()
+  }, [turn?.locked])
+
   return createPortal(
     <div className="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-bg/80 p-4 backdrop-blur-sm">
       <div
@@ -143,8 +158,27 @@ export function DecisionModal({
             <p className="text-[12px] leading-relaxed text-ink-2">{description}</p>
           ) : null}
 
+          {turn ? (
+            <div className="space-y-2 rounded-lg border border-border bg-surface-2/50 p-3">
+              <p className="text-[11px] font-medium text-ink">{turn.label}</p>
+              {turn.locked && turn.waiting ? (
+                <p className="text-[11px] text-warning">{turn.waiting}</p>
+              ) : null}
+              {turn.locked && turn.passLabel && turn.onPass ? (
+                <Button variant="primary" onClick={turn.onPass} className="w-full">
+                  {turn.passLabel}
+                </Button>
+              ) : null}
+            </div>
+          ) : null}
+
           {isAlert ? (
-            <Button variant="primary" onClick={onContinue} className="w-full">
+            <Button
+              variant="primary"
+              onClick={onContinue}
+              disabled={turn?.locked}
+              className="w-full"
+            >
               {labels.continueLabel}
             </Button>
           ) : (
@@ -155,9 +189,11 @@ export function DecisionModal({
                   <button
                     key={option.id}
                     type="button"
+                    disabled={turn?.locked}
                     onClick={() => onChoose(option.id)}
                     className={[
                       'w-full rounded-lg border p-3 text-left transition-colors',
+                      turn?.locked ? 'cursor-not-allowed opacity-50' : '',
                       applied
                         ? 'border-jade/60 bg-jade/10'
                         : 'border-border bg-surface-2/70 hover:border-border-strong hover:bg-surface-2',
