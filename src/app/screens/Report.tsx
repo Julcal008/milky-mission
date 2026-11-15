@@ -7,7 +7,6 @@ import { useEffect, useRef, useState } from 'react'
 import { MissionCard } from '@/app/visuals/generated/MissionCard'
 import { ReportFrame } from '@/app/visuals/ReportFrame'
 import { ScoreRing } from '@/app/visuals/ScoreRing'
-import { visualUrl } from '@/app/visuals/assets'
 import { scenarioContent } from '@/content/scenarios'
 import { catalogs } from '@/data/catalogs'
 import { decisionOptionsFor } from '@/engine/decisions'
@@ -424,7 +423,6 @@ export function ReportScreen() {
             grade={report.grade}
             max={1000}
             telemetryLabel={t.ops.report.missionCardTelemetry}
-            backgroundSrc={visualUrl('share/mission-card-bg.webp')}
           />
         </section>
 

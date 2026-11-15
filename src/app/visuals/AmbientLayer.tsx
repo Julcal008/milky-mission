@@ -46,8 +46,8 @@ export function AmbientLayer() {
     }
   }, [parallaxEnabled])
 
-  const aurora = reduced || compact ? 'shared/aurora.webp' : 'shared/aurora.svg'
-  const starfield = reduced || compact ? 'shared/starfield.webp' : 'shared/starfield.svg'
+  const aurora = 'shared/aurora.svg'
+  const starfield = 'shared/starfield.svg'
 
   return (
     <div
@@ -84,13 +84,7 @@ export function AmbientLayer() {
         <div className="h-96 w-96 rounded-full border border-border/50" />
         <div className="absolute h-64 w-64 rounded-full border border-dashed border-ion/30" />
       </div>
-      <div
-        className="absolute inset-0 opacity-[0.08] mix-blend-overlay"
-        style={{
-          backgroundImage: `url(${visualUrl('shared/grain.png')})`,
-          backgroundRepeat: 'repeat',
-        }}
-      />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,transparent,var(--color-bg)_78%)]" />
       <div className="absolute inset-0 bg-gradient-to-b from-bg/20 via-transparent to-bg" />
     </div>
   )
